@@ -1,0 +1,77 @@
+{
+  "times": [
+    0.0,
+    0.1,
+    1.0,
+    3.0,
+    6.0,
+    9.0
+  ],
+  "input_sha256": {
+    "geometry.npz": "8a53e224b3ffaeedb6e5d4f6fc75562f4966c42e66586ca97ec28a4212e24aea",
+    "merfish_population.npy": "959eef868648a816f0b202d684bfe7e39ce9310bd1124d46ccf752209f499958",
+    "fitting_initial_fine.npy": "c14d4ff3742c3a705ff58e5dbb3cf6ed709bbc45eba0843eff12f07c756be667",
+    "raw_source_factors.npz": "d6ad1e20fb6bc10d72ad84e8bb04e34ab927730bf00f1170a1964b3fd9385e20",
+    "raw_target_factors.npz": "8d6acad928f0adf4c98ac13726aff2a9221038f7bdab48bf5a994e84bea38c65"
+  },
+  "cases": [
+    {
+      "rates": [
+        0.0,
+        0.45,
+        0.1
+      ],
+      "seed": 202611261,
+      "counts_sha256": "b6ed1955e7737cdb365da3b2ab9fb84b894a666410f21200bbc31ccd32474edd",
+      "attempts": 32253,
+      "changes": 31156,
+      "totals": [
+        1000,
+        1037,
+        1465,
+        2773,
+        7675,
+        20342
+      ]
+    },
+    {
+      "rates": [
+        0.45,
+        0.0,
+        0.1
+      ],
+      "seed": 202611262,
+      "counts_sha256": "62619a68dd54280b59047d6c0b646bfb3d89f59d514a8e910246f87f24f7f765",
+      "attempts": 71638,
+      "changes": 71545,
+      "totals": [
+        1000,
+        1070,
+        1805,
+        4469,
+        14921,
+        48721
+      ]
+    },
+    {
+      "rates": [
+        0.16,
+        0.22,
+        0.1
+      ],
+      "seed": 202611263,
+      "counts_sha256": "a7ec9caf0c91c4cacf16a245350bbf2d55a0b7db590b4dd7c3bcd0a5ca066ed9",
+      "attempts": 29196,
+      "changes": 29090,
+      "totals": [
+        1000,
+        1040,
+        1423,
+        2888,
+        7610,
+        18788
+      ]
+    }
+  ],
+  "kernel_ast_unchanged": true
+}

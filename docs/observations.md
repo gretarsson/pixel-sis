@@ -1,0 +1,38 @@
+# Observation model and next research step
+
+The implemented baseline uses a single immediate observation map:
+
+$$\widehat y_r=a\,10^6[O\,\mathbb E I(t_r)]_{g(r)}.$$
+
+`I` contains affected-cell counts. `O` averages over the corresponding anatomical
+window in µm³. `y` is positive cell-body profiles/mm². The global factor `a` has
+units of µm and is an empirical conversion, not measured section thickness.
+It is shared across regions and times. There is no hidden/visible subdivision,
+biological delay, or temporal filter.
+
+The current fitting objective is weighted regional squared error:
+
+$$J(\theta,a)=\frac{\sum_r w_r(\widehat y_r-y_r)^2}{\sum_r w_r y_r^2},
+\qquad\theta=(\beta_T,\beta_L,\gamma).$$
+
+For a candidate trajectory, the best nonnegative `a` is calculated analytically.
+During manual comparisons the earlier fitted value is fixed across settings.
+
+## Planned explicit measurement model
+
+The next task is to trace a measured mouse from tissue images or segmentation
+exports through to reported regional values:
+
+1. Establish whether each exported coordinate is a positive pixel, segmented
+   object, cell-body profile, or another quantity, including any subsampling.
+2. Recover actual section geometry and measured tissue boundaries, so unmeasured
+   tissue is distinguished from measured tissue with zero pathology.
+3. Reproduce the corresponding regional aggregation as a check.
+4. Project model predictions through the same sampling/counting procedure and
+   compare spatial patches at a resolution supported by registration accuracy.
+
+Cell-body profiles, positive area, and raw fluorescence are different observations.
+Section thickness, object geometry, and detection can affect the relationship to
+modeled cells. These are measurement questions; this roadmap does not silently
+introduce new spreading mechanisms. None of the four steps is claimed complete by
+the public package.
