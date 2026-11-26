@@ -23,6 +23,7 @@ def plot_slices(
     planes=(55, 72, 83),
     vmax=1300.0,
     regional=False,
+    title=None,
 ):
     """Model above data at every plane; gray means absent regional measurement."""
     if not np.isfinite(scale_um) or scale_um < 0 or not np.isfinite(vmax) or vmax <= 0:
@@ -119,10 +120,10 @@ def plot_slices(
         )
     beta_t, beta_l, gamma = result["rates"]
     suffix = " · regional means" if regional else ""
-    fig.suptitle(
-        rf"SIS{suffix}  ($\beta_T={beta_t:g},\ \beta_L={beta_l:g},\ \gamma={gamma:g}$ mo$^{{-1}}$)",
-        fontsize=11,
+    default_title = (
+        rf"SIS{suffix}  ($\beta_T={beta_t:g},\ \beta_L={beta_l:g},\ \gamma={gamma:g}$ mo$^{{-1}}$)"
     )
+    fig.suptitle(default_title if title is None else title, fontsize=11)
     ticks = [x for x in [0, 0.1, 1, 10, 100, 1000, 10000] if x <= vmax]
     cb = fig.colorbar(image, ax=axes, shrink=0.7, fraction=0.018, pad=0.012, ticks=ticks)
     cb.set_label("Profiles / mm² · fixed model scale")

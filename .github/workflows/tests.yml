@@ -21,7 +21,7 @@ jobs:
           cache: pip
           cache-dependency-path: pyproject.toml
       - run: python -m pip install '.[dev]'
-      - run: ruff check src tests
+      - run: ruff check src tests examples
       - run: pytest -q
       - run: pixel-sis demo --out /tmp/pixel-sis-demo --runs 16
       - run: python -m build

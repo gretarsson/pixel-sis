@@ -20,11 +20,12 @@ def fit_rates(
     max_evaluations=100,
     max_events=500000,
     upper_rate=2.0,
+    observation_scale_um=None,
     progress=None,
 ):
     """Bounded Nelder-Mead with fixed search seeds and fresh finalist ensembles.
 
-    Profiles the one global amplitude analytically at each evaluation. The
+    Profiles the global amplitude unless observation_scale_um fixes it. The
     returned searches include convergence flags; this is not a global guarantee.
     The historical fitted parameters remain separate from this portable fitter.
     """
@@ -38,7 +39,10 @@ def fit_rates(
         if tracer_only and s.beta_local != 0:
             raise ValueError("Tracer-only starts must have beta_local=0")
     # Validate the observation normalization before starting an expensive search.
-    observations.loss_and_scale(np.zeros((len(observations.times), observations.operator.shape[0])))
+    observations.loss_and_scale(
+        np.zeros((len(observations.times), observations.operator.shape[0])),
+        scale=observation_scale_um,
+    )
     finalists = []
     for start_index, start in enumerate(starts):
         best = [np.inf, None, None]
@@ -69,7 +73,9 @@ def fit_rates(
                     raise
                 capped[0] += 1
                 return 1e12
-            loss, scale = observations.loss_and_scale(e["density_samples"].mean(axis=0))
+            loss, scale = observations.loss_and_scale(
+                e["density_samples"].mean(axis=0), scale=observation_scale_um
+            )
             if loss < best[0]:
                 best[:] = [loss, rates, scale]
             if progress is not None:
@@ -84,8 +90,9 @@ def fit_rates(
 
         x0 = np.array(start.values())[active]
         simplex = np.tile(x0, (len(active) + 1, 1))
+        step = min(0.05, upper_rate / 2)
         for j in range(len(active)):
-            simplex[j + 1, j] = x0[j] + (0.05 if x0[j] + 0.05 <= upper_rate else -0.05)
+            simplex[j + 1, j] = x0[j] + (step if x0[j] + step <= upper_rate else -step)
         result = minimize(
             objective,
             x0,
@@ -110,7 +117,9 @@ def fit_rates(
             observation=observations.operator,
             maps=False,
         )
-        loss, scale = observations.loss_and_scale(e["density_samples"].mean(axis=0))
+        loss, scale = observations.loss_and_scale(
+            e["density_samples"].mean(axis=0), scale=observation_scale_um
+        )
         finalists.append(
             {
                 "start": start_index,
@@ -134,5 +143,6 @@ def fit_rates(
         "max_evaluations": max_evaluations,
         "upper_rate": upper_rate,
         "max_events": max_events,
+        "observation_scale_um": observation_scale_um,
         "scope": "In-sample fit; fresh finalist paths check simulation noise",
     }

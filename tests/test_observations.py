@@ -40,7 +40,8 @@ def test_missing_measurements_are_not_zeros():
     assert painted[0] == 0 and painted[1] == 5 and np.isnan(painted[2])
 
 
-def test_fit_reduces_error_on_an_independent_synthetic_target():
+@pytest.mark.parametrize("fixed_scale", [None, 2.0])
+def test_fit_reduces_error_on_an_independent_synthetic_target(fixed_scale):
     from scipy.linalg import expm
 
     N = np.array([4])
@@ -64,7 +65,7 @@ def test_fit_reduces_error_on_an_independent_synthetic_target():
     e = simulate_ensemble(
         model, times, start, runs=128, seed=1234, observation=obs.operator, maps=False
     )
-    initial_loss, _ = obs.loss_and_scale(e["density_samples"].mean(0))
+    initial_loss, _ = obs.loss_and_scale(e["density_samples"].mean(0), scale=fixed_scale)
     fit = fit_rates(
         model,
         obs,
@@ -74,7 +75,37 @@ def test_fit_reduces_error_on_an_independent_synthetic_target():
         selection_runs=256,
         seed=1234,
         max_evaluations=45,
+        observation_scale_um=fixed_scale,
     )
     assert fit["selected"]["relative_rms"] ** 2 < initial_loss
     assert fit["selected"]["rates"]["beta_local"] == 0
     assert "converged" in fit["selected"]
+    if fixed_scale is not None:
+        assert all(c["scale_um"] == fixed_scale for c in fit["candidates"])
+
+
+def test_fit_respects_small_rate_bounds():
+    model = from_contacts([4], [2], [[1.0]])
+    obs = RegionalObservations(
+        np.array([0.0, 1.0]),
+        sparse.eye(1),
+        np.array([2.0, 2.0]),
+        np.array([0, 1]),
+        np.zeros(2, dtype=int),
+        np.ones(2),
+        np.array(["a", "a"]),
+        np.array([0, 1]),
+        factor=1.0,
+    )
+    fit = fit_rates(
+        model,
+        obs,
+        [Rates(0.005, 0, 0.005)],
+        tracer_only=True,
+        upper_rate=0.01,
+        observation_scale_um=1.0,
+        runs=2,
+        selection_runs=2,
+        max_evaluations=4,
+    )
+    assert all(0 <= x <= 0.01 for x in fit["selected"]["rates"].values())

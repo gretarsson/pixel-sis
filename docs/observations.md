@@ -18,6 +18,15 @@ $$J(\theta,a)=\frac{\sum_r w_r(\widehat y_r-y_r)^2}{\sum_r w_r y_r^2},
 For a candidate trajectory, the best nonnegative `a` is calculated analytically.
 During manual comparisons the earlier fitted value is fixed across settings.
 
+The fitter also accepts `observation_scale_um` to hold this conversion fixed.
+The report's fixed-depth experiment uses `a = 6 µm`: an idealization in which
+each affected cell is detected if its center lies in a physical tissue slab.
+It assumes that the sampled tissue represents the modeled regional average.
+Actual profile counting depends on object extent and detection as well, so this
+choice is an explicit approximation, not a measured effective capture depth.
+Only spreading and clearance rates are fitted in that experiment. The actual
+registered-section operator below remains unimplemented for the full dataset.
+
 ## Planned explicit measurement model
 
 The next task is to trace a measured mouse from tissue images or segmentation

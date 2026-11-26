@@ -147,6 +147,7 @@ def _fit(args):
         "max_evaluations",
         "max_events",
         "upper_rate",
+        "observation_scale_um",
     }
     if set(cfg) - allowed:
         raise ValueError("Unknown fitting settings: " + ", ".join(sorted(set(cfg) - allowed)))
