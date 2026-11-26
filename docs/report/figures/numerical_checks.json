@@ -1,0 +1,23 @@
+{
+  "mixed": {
+    "population_unchanged": true,
+    "means_within_capacity": true,
+    "voxel_totals_match_sample_totals": true,
+    "independently_accumulated_regional_means_match": true,
+    "max_projection_difference": 1.8126505071242027e-19
+  },
+  "tracer_only": {
+    "population_unchanged": true,
+    "means_within_capacity": true,
+    "voxel_totals_match_sample_totals": true,
+    "independently_accumulated_regional_means_match": true,
+    "max_projection_difference": 8.999725064576941e-20
+  },
+  "previous": {
+    "population_unchanged": true,
+    "means_within_capacity": true,
+    "voxel_totals_match_sample_totals": true,
+    "independently_accumulated_regional_means_match": true,
+    "max_projection_difference": 5.421010862427522e-20
+  }
+}

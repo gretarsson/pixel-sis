@@ -163,9 +163,17 @@ def main():
         ylim=(0, 1.05),
     )
     for n, (e, h, label) in cases.items():
-        axes[1].plot(obs.times, metrics[n]["per_time_rms"], marker="o", ms=3, color=colors[n])
+        style = "--" if n == "previous" else "-"
+        axes[1].plot(
+            obs.times, metrics[n]["per_time_rms"], marker="o", ms=3, color=colors[n], ls=style
+        )
         axes[2].plot(
-            obs.times, metrics[n]["regional_rank_correlations"], marker="o", ms=3, color=colors[n]
+            obs.times,
+            metrics[n]["regional_rank_correlations"],
+            marker="o",
+            ms=3,
+            color=colors[n],
+            ls=style,
         )
     axes[1].set(xlabel="Months", ylabel="RMS (profiles / mm²)", ylim=(0, None))
     axes[2].set(xlabel="Months", ylabel="Regional Spearman ρ", ylim=(-0.05, 1))
@@ -236,6 +244,7 @@ def main():
             vmax=250,
             regional=True,
             title="Mixed connectivity" if name == "mixed" else "Tracer only",
+            font_scale=1.6,
         )
 
     # Parameter rows and verified numbers for the LaTeX report.

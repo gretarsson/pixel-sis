@@ -1,0 +1,14 @@
+{
+  "starts": [
+    {"beta_tracer": 0.25, "beta_local": 0.35, "gamma": 0.05},
+    {"beta_tracer": 0.35, "beta_local": 0.15, "gamma": 0.10}
+  ],
+  "observation_scale_um": 6.0,
+  "tracer_only": false,
+  "runs": 32,
+  "selection_runs": 256,
+  "seed": 112600101,
+  "max_evaluations": 80,
+  "max_events": 2000000,
+  "upper_rate": 1.0
+}

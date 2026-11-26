@@ -1,0 +1,247 @@
+{
+  "mixed": {
+    "rates": [
+      0.12316991212509235,
+      0.4749419041870935,
+      0.003479684441651868
+    ],
+    "scale_um": 6.0,
+    "runs": 512,
+    "relative_rms": 0.9178441664647046,
+    "relative_rms_mc_se": 7.613843416056165e-05,
+    "weighted_rmse": 4.86400255205537,
+    "weighted_r2": 0.12620271687084061,
+    "sse_reduction_vs_zero": 0.15756208608671163,
+    "final_affected_mean": 260251.408203125,
+    "final_affected_mc_se": 350.48890719857053,
+    "median_path_seconds": 0.1960978540000724,
+    "maximum_attempts": 305019,
+    "months": [
+      0.1,
+      0.2,
+      0.3,
+      0.5,
+      1.0,
+      3.0,
+      6.0,
+      9.0
+    ],
+    "per_time_rms": [
+      0.08671220933757366,
+      0.08385566290472106,
+      1.1308327815191699,
+      1.635965194189979,
+      4.099680068218789,
+      7.32662172076067,
+      6.92994531397676,
+      8.17236479727988
+    ],
+    "regional_rank_correlations": [
+      0.032849885041836314,
+      0.03127098389888998,
+      0.2621822668149152,
+      0.4095877060796118,
+      0.5442101164622468,
+      0.6609078954488746,
+      0.6638273131610966,
+      0.634183241012456
+    ],
+    "candidates": [
+      {
+        "start": 0,
+        "rates": {
+          "beta_tracer": 0.12316991212509235,
+          "beta_local": 0.4749419041870935,
+          "gamma": 0.003479684441651868
+        },
+        "scale_um": 6.0,
+        "relative_rms": 0.9176369243412313,
+        "search_relative_rms": 0.9173035092279342,
+        "converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 80,
+        "capped_evaluations": 0
+      },
+      {
+        "start": 1,
+        "rates": {
+          "beta_tracer": 0.13096731426530467,
+          "beta_local": 0.46707664692593875,
+          "gamma": 0.0
+        },
+        "scale_um": 6.0,
+        "relative_rms": 0.917851632222013,
+        "search_relative_rms": 0.9172211111442223,
+        "converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 80,
+        "capped_evaluations": 0
+      }
+    ]
+  },
+  "tracer_only": {
+    "rates": [
+      0.5046875000000001,
+      0.0,
+      0.0
+    ],
+    "scale_um": 6.0,
+    "runs": 512,
+    "relative_rms": 0.9610669191421363,
+    "relative_rms_mc_se": 5.7594896474146996e-05,
+    "weighted_rmse": 5.093056226972385,
+    "weighted_r2": 0.04196793867904047,
+    "sse_reduction_vs_zero": 0.0763503769306425,
+    "final_affected_mean": 208590.494140625,
+    "final_affected_mc_se": 329.7826495262681,
+    "median_path_seconds": 0.2521833749999587,
+    "maximum_attempts": 231459,
+    "months": [
+      0.1,
+      0.2,
+      0.3,
+      0.5,
+      1.0,
+      3.0,
+      6.0,
+      9.0
+    ],
+    "per_time_rms": [
+      0.0833139249487581,
+      0.07733017189367343,
+      1.1297275027512466,
+      1.6345177018247807,
+      4.095034587766996,
+      7.3203236725684135,
+      7.121064688980214,
+      9.082230512620592
+    ],
+    "regional_rank_correlations": [
+      0.020404139375258534,
+      0.006628048015020036,
+      0.2747392423606723,
+      0.39406853557249116,
+      0.5334664275821007,
+      0.6359459518316293,
+      0.6270491175161835,
+      0.5592623171583775
+    ],
+    "candidates": [
+      {
+        "start": 0,
+        "rates": {
+          "beta_tracer": 0.5088190827285872,
+          "beta_local": 0.0,
+          "gamma": 0.0020873859990388453
+        },
+        "scale_um": 6.0,
+        "relative_rms": 0.9611158583048494,
+        "search_relative_rms": 0.9608345067170013,
+        "converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 80,
+        "capped_evaluations": 0
+      },
+      {
+        "start": 1,
+        "rates": {
+          "beta_tracer": 0.5046875000000001,
+          "beta_local": 0.0,
+          "gamma": 0.0
+        },
+        "scale_um": 6.0,
+        "relative_rms": 0.9608688151278222,
+        "search_relative_rms": 0.9612698327967244,
+        "converged": true,
+        "message": "Optimization terminated successfully.",
+        "evaluations": 25,
+        "capped_evaluations": 0
+      }
+    ]
+  },
+  "previous": {
+    "rates": [
+      0.1476897754394962,
+      0.2137376597467978,
+      0.0011692637801967482
+    ],
+    "scale_um": 43.79362081586999,
+    "runs": 1024,
+    "relative_rms": 0.9056485419514486,
+    "relative_rms_mc_se": 7.591625428219154e-05,
+    "weighted_rmse": 4.799373336199621,
+    "weighted_r2": 0.14926917224804903,
+    "sse_reduction_vs_zero": 0.17980071846121526,
+    "final_affected_mean": 37128.982421875,
+    "final_affected_mc_se": 33.61883279938704,
+    "median_path_seconds": 0.06686860399999617,
+    "maximum_attempts": 40410,
+    "months": [
+      0.1,
+      0.2,
+      0.3,
+      0.5,
+      1.0,
+      3.0,
+      6.0,
+      9.0
+    ],
+    "per_time_rms": [
+      0.5942161639185375,
+      0.5694584284984201,
+      1.2580790402814819,
+      1.733733291524378,
+      4.1425936709444935,
+      7.226344705047541,
+      6.544910099985673,
+      8.172448670820339
+    ],
+    "regional_rank_correlations": [
+      0.0317318812543537,
+      0.03211893941253379,
+      0.2851571289097514,
+      0.39760386855572916,
+      0.5384938092183249,
+      0.6627393542148392,
+      0.6687761064829794,
+      0.6344930580848043
+    ]
+  },
+  "data": {
+    "records": 18292,
+    "mice": 55,
+    "times": [
+      0.1,
+      0.2,
+      0.3,
+      0.5,
+      1.0,
+      3.0,
+      6.0,
+      9.0
+    ],
+    "windows": 648,
+    "zero_prediction_rmse": 5.299377312371264,
+    "constant_prediction_relative_rms": 0.9818917408747964,
+    "mice_per_time": [
+      4,
+      4,
+      4,
+      8,
+      8,
+      12,
+      8,
+      7
+    ],
+    "free_window_time_mean_relative_rms": 0.5801452944527701
+  },
+  "fixed_dynamics_depth_sensitivity": {
+    "6": 0.9178441664647046,
+    "12": 0.9896964256573818,
+    "20": 1.2730082031259387
+  },
+  "mixed_posthoc_profiled_scale": {
+    "scale_um": 6.208751238222687,
+    "relative_rms": 0.9177470223302923
+  }
+}

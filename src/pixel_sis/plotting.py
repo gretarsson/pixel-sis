@@ -24,10 +24,13 @@ def plot_slices(
     vmax=1300.0,
     regional=False,
     title=None,
+    font_scale=1.0,
 ):
     """Model above data at every plane; gray means absent regional measurement."""
     if not np.isfinite(scale_um) or scale_um < 0 or not np.isfinite(vmax) or vmax <= 0:
         raise ValueError("Invalid display scale")
+    if not np.isfinite(font_scale) or font_scale <= 0:
+        raise ValueError("Font scale must be positive")
     folder = Path(data_dir)
     observations = RegionalObservations.load(folder)
     with np.load(folder / "geometry.npz", allow_pickle=False) as f:
@@ -60,7 +63,7 @@ def plot_slices(
         modeled = np.divide(sums, numbers, out=np.full_like(sums, np.nan), where=numbers > 0)
     if max(np.nanmax(modeled), np.nanmax(measured)) > vmax:
         raise ValueError("Display exceeds vmax; choose an explicit larger shared scale")
-    plt.rcParams.update({"font.size": 9, "pdf.fonttype": 42})
+    plt.rcParams.update({"font.size": 9 * font_scale, "pdf.fonttype": 42})
     fig, axes = plt.subplots(
         2 * len(planes),
         len(times),
@@ -109,21 +112,21 @@ def plot_slices(
                         transform=ax.transAxes,
                     )
             if j == 0:
-                axes[0, k].set_title(f"{t:g} mo", fontsize=10)
+                axes[0, k].set_title(f"{t:g} mo", fontsize=10 * font_scale)
         axes[2 * j, 0].text(
             0,
-            1.02,
+            1.23 if j == 0 else 1.02,
             {55: "CP plane", 72: "BLA plane", 83: "SNc plane"}.get(plane, f"AP index {plane}"),
             transform=axes[2 * j, 0].transAxes,
             color=".35",
-            fontsize=8,
+            fontsize=8 * font_scale,
         )
     beta_t, beta_l, gamma = result["rates"]
     suffix = " · regional means" if regional else ""
     default_title = (
         rf"SIS{suffix}  ($\beta_T={beta_t:g},\ \beta_L={beta_l:g},\ \gamma={gamma:g}$ mo$^{{-1}}$)"
     )
-    fig.suptitle(default_title if title is None else title, fontsize=11)
+    fig.suptitle(default_title if title is None else title, fontsize=11 * font_scale)
     ticks = [x for x in [0, 0.1, 1, 10, 100, 1000, 10000] if x <= vmax]
     cb = fig.colorbar(image, ax=axes, shrink=0.7, fraction=0.018, pad=0.012, ticks=ticks)
     cb.set_label("Profiles / mm² · fixed model scale")
@@ -131,7 +134,7 @@ def plot_slices(
         handles=[Patch(facecolor="#b8b8b8", label="No regional measurement")],
         loc="outside lower center",
         frameon=False,
-        fontsize=8,
+        fontsize=8 * font_scale,
     )
     out = Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)

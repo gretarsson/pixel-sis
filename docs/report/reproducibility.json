@@ -1,0 +1,61 @@
+{
+  "fit_settings": {
+    "observation_scale_um": 6.0,
+    "runs": 32,
+    "selection_runs": 256,
+    "seed": 112600101,
+    "max_evaluations": 80,
+    "max_events": 2000000,
+    "upper_rate": 1.0
+  },
+  "final_runs": 512,
+  "final_seed": 142600101,
+  "physical_assumption": "Ideal cell-center counting in a 6-um section; not calibrated profile stereology",
+  "inputs": {
+    "merfish_population.npy": "959eef868648a816f0b202d684bfe7e39ce9310bd1124d46ccf752209f499958",
+    "fitting_initial_fine.npy": "c14d4ff3742c3a705ff58e5dbb3cf6ed709bbc45eba0843eff12f07c756be667",
+    "geometry.npz": "8a53e224b3ffaeedb6e5d4f6fc75562f4966c42e66586ca97ec28a4212e24aea",
+    "raw_source_factors.npz": "d6ad1e20fb6bc10d72ad84e8bb04e34ab927730bf00f1170a1964b3fd9385e20",
+    "raw_target_factors.npz": "8d6acad928f0adf4c98ac13726aff2a9221038f7bdab48bf5a994e84bea38c65",
+    "observations.npz": "880089940711140fbe62fbc6e227b56be6c1fc075ecb4fc79b7dee5a645a40ab",
+    "cell_body_observations.npz": "9c21881df06f299d9b62cd195883912ad0068c59de2fd8ccceb5d3c7d97bb6ef",
+    "observation_density_fine.npz": "602ff5904ba605b0565be2533ba980f269b27d8f17cef48cb01c705ee0c38e40"
+  },
+  "cases": {
+    "mixed": [
+      [
+        0.25,
+        0.35,
+        0.05
+      ],
+      [
+        0.35,
+        0.15,
+        0.1
+      ]
+    ],
+    "tracer_only": [
+      [
+        0.55,
+        0.0,
+        0.1
+      ],
+      [
+        0.4,
+        0.0,
+        0.01
+      ]
+    ]
+  },
+  "scope": "Prepared inputs remain local; derived figures and numerical summaries only are included with the public report.",
+  "selection_seed": 212600101,
+  "seed_stride": 100003,
+  "pilot_seed": 152600101,
+  "simulation_code_commit": "c1b166545a3880878c265e926f9fa311644a823c",
+  "analysis_source_sha256": {
+    "examples/analyze_section_fits.py": "a6005527f287fdc160619a17713d6a8b36008d8193d672ee276a2d5543a90ab4",
+    "src/pixel_sis/plotting.py": "491fdc344976c513b00c6b8aa57036c035e1dfb020ec98395dbe82dcc6d003e3"
+  },
+  "report_sha256": "b6f48f1cac49d4d02ad26ebef21f05589176dc34a680e45e85d4e7b049b7a121",
+  "elapsed_seconds_excluding_model_load": 2607.219914625
+}

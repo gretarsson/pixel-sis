@@ -92,7 +92,9 @@ pixel-sis fit --data "$PIXEL_SIS_DATA" \
 ```
 
 The fitter uses bounded multistart Nelder–Mead and the existing weighted regional
-squared-error objective. It profiles one global observation scale analytically.
+squared-error objective. By default it profiles one global observation scale
+analytically. Set `observation_scale_um` in the fit configuration to hold the
+conversion fixed, for example for an explicit section-depth approximation.
 Searches share a fixed set of random seeds; fresh simulation ensembles compare
 the finalists. Convergence flags and evaluation limits are saved. This portable
 fitter does not reproduce the historical search's initial screening schedule,
@@ -101,6 +103,16 @@ and does not claim a global optimum.
 The global observation scale converts modeled affected-cell density into measured
 cell-body profiles per section area. It is an empirical conversion. A more explicit
 section sampling/detection model is planned; no biological delay has been added.
+
+The [self-contained model and fit report](docs/report/pixel_sis_report.pdf) explains
+the inputs, CTMC, measurement units, fitting procedure and limitations. Its new
+fixed-depth experiment assumes ideal cell-center counting in 6 µm sections. This
+is a first approximation to profile counting, not calibrated stereology.
+`examples/run_section_fits.py` reproduces those fits with the prepared mouse bundle;
+`examples/analyze_section_fits.py` generates the comparison figures and metrics.
+For just the fixed-depth mixed fit, use `pixel-sis fit` with
+`examples/fit_fixed_depth.json`. The full reference searches take tens of minutes
+on one CPU; the synthetic demo is the quick installation check.
 
 ## Python API
 
