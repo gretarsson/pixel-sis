@@ -22,6 +22,7 @@ def fit_rates(
     upper_rate=2.0,
     observation_scale_um=None,
     progress=None,
+    dynamics="sis",
 ):
     """Bounded Nelder-Mead with fixed search seeds and fresh finalist ensembles.
 
@@ -31,6 +32,8 @@ def fit_rates(
     """
     if not starts or max_evaluations < 1 or not np.isfinite(upper_rate) or upper_rate <= 0:
         raise ValueError("Provide starting rates, a positive budget and positive rate bound")
+    if dynamics not in ("sis", "sir"):
+        raise ValueError("Dynamics must be 'sis' or 'sir'")
     active = [0, 2] if tracer_only else [0, 1, 2]
     starts = [s if isinstance(s, Rates) else Rates(**s) for s in starts]
     for s in starts:
@@ -67,6 +70,7 @@ def fit_rates(
                     max_events=max_events,
                     observation=observations.operator,
                     maps=False,
+                    dynamics=dynamics,
                 )
             except RuntimeError as exc:
                 if "event limit" not in str(exc):
@@ -116,6 +120,7 @@ def fit_rates(
             max_events=max_events,
             observation=observations.operator,
             maps=False,
+            dynamics=dynamics,
         )
         loss, scale = observations.loss_and_scale(
             e["density_samples"].mean(axis=0), scale=observation_scale_um
@@ -144,5 +149,6 @@ def fit_rates(
         "upper_rate": upper_rate,
         "max_events": max_events,
         "observation_scale_um": observation_scale_um,
+        "dynamics": dynamics,
         "scope": "In-sample fit; fresh finalist paths check simulation noise",
     }

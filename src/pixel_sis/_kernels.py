@@ -1,4 +1,4 @@
-"""Exact count CTMC kernel, extracted unchanged from the research implementation.
+"""Exact SIS/SIR count CTMC kernel, extended from the research implementation.
 
 Source rows, destination columns. Null-event thinning preserves the specified
 finite-population process; the kernel does not use a mean-field closure.
@@ -159,6 +159,8 @@ def run_strength(
     gamma,
     seed,
     max_events=100000000,
+    sir=False,
+    removed_out=None,
 ):
     if min(betaT, betaL, gamma) < 0 or not np.isfinite(betaT + betaL + gamma):
         raise ValueError("Invalid rates")
@@ -170,10 +172,11 @@ def run_strength(
         raise ValueError("Invalid times")
     np.random.seed(seed)
     I = initial.copy()
+    S = N - I
     tree = fenwick_build(I)
     tracer_weights = strength * I
     tracer_tree = fenwick_build(tracer_weights)
-    susceptible_weights = (N - I) * potential
+    susceptible_weights = S * potential
     susceptible_tree = fenwick_build(susceptible_weights)
     total = I.sum()
     tracer_total = tracer_weights.sum()
@@ -191,10 +194,14 @@ def run_strength(
         if rate <= 0 or total == 0:
             for k in range(obs, len(times)):
                 out[k] = I
+                if removed_out is not None:
+                    removed_out[k] = N - I - S
             break
         t += np.random.exponential(1 / rate)
         while obs < len(times) and times[obs] < t:
             out[obs] = I
+            if removed_out is not None:
+                removed_out[obs] = N - I - S
             obs += 1
         if obs == len(times):
             break
@@ -215,11 +222,11 @@ def run_strength(
             if e < 0:
                 raise ValueError("Positive-strength source has no tracer route")
             b = draw_row(tp, ti, tc, e)
-            if b >= 0 and np.random.random() * N[b] >= I[b]:
+            if b >= 0 and np.random.random() * N[b] >= N[b] - S[b]:
                 change = 1
         elif reverse:
             b = tree_find(susceptible_tree, np.random.random() * bound)
-            if b >= len(N) or I[b] >= N[b]:
+            if b >= len(N) or S[b] <= 0:
                 continue
             if sparse_local:
                 a = draw_row(rp, ri, rc, b)
@@ -233,7 +240,7 @@ def run_strength(
                 b = draw_row(lp, li, lc, a)
             else:
                 b = sample_neighbor(a, coords, index, offsets, cdf, N, forward_max)
-            if b >= 0 and np.random.random() * N[b] >= I[b]:
+            if b >= 0 and np.random.random() * N[b] >= N[b] - S[b]:
                 change = 1
         if change:
             I[b] += change
@@ -243,7 +250,10 @@ def run_strength(
             delta = change * strength[b]
             tree_add(tracer_tree, b, delta)
             tracer_total += delta
-            delta = -change * potential[b]
+            # Infection consumes S. SIS clearance replenishes S; SIR removal does not.
+            susceptible_change = -change if change > 0 or not sir else 0
+            S[b] += susceptible_change
+            delta = susceptible_change * potential[b]
             tree_add(susceptible_tree, b, delta)
             bound += delta
     return out, events, changes

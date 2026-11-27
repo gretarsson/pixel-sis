@@ -84,7 +84,7 @@ def _demo(args):
 
 def _simulate(args):
     cfg = json.loads(Path(args.config).read_text())
-    allowed = {"rates", "times", "runs", "seed", "max_events", "observation_scale_um"}
+    allowed = {"rates", "times", "runs", "seed", "max_events", "observation_scale_um", "dynamics"}
     if set(cfg) - allowed:
         raise ValueError("Unknown simulation settings: " + ", ".join(sorted(set(cfg) - allowed)))
     rates = Rates(**cfg["rates"])
@@ -102,6 +102,7 @@ def _simulate(args):
         max_events=cfg.get("max_events", 2000000),
         observation=obs.operator if obs is not None else None,
         progress=_progress,
+        dynamics=cfg.get("dynamics", "sis"),
     )
     if "observation_scale_um" in cfg:
         a = cfg["observation_scale_um"]
@@ -148,6 +149,7 @@ def _fit(args):
         "max_events",
         "upper_rate",
         "observation_scale_um",
+        "dynamics",
     }
     if set(cfg) - allowed:
         raise ValueError("Unknown fitting settings: " + ", ".join(sorted(set(cfg) - allowed)))
@@ -168,7 +170,7 @@ def _fit(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Finite-population voxel SIS")
+    parser = argparse.ArgumentParser(description="Finite-population voxel SIS/SIR")
     parser.add_argument("--version", action="version", version=__version__)
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="Run a synthetic example without experimental data")

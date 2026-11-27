@@ -10,6 +10,12 @@ units of µm and is an empirical conversion, not measured section thickness.
 It is shared across regions and times. There is no hidden/visible subdivision,
 biological delay, or temporal filter.
 
+The SIR option uses the identical observation equation: removed cells `R` have
+zero contribution. This is an explicit assumption, including when `R` is
+interpreted as resistant rather than dead. Pathology measurements alone do not
+distinguish those interpretations. The denominator remains the fixed regional
+tissue volume, not the number of surviving cells.
+
 The current fitting objective is weighted regional squared error:
 
 $$J(\theta,a)=\frac{\sum_r w_r(\widehat y_r-y_r)^2}{\sum_r w_r y_r^2},

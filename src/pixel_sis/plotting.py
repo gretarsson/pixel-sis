@@ -123,9 +123,8 @@ def plot_slices(
         )
     beta_t, beta_l, gamma = result["rates"]
     suffix = " · regional means" if regional else ""
-    default_title = (
-        rf"SIS{suffix}  ($\beta_T={beta_t:g},\ \beta_L={beta_l:g},\ \gamma={gamma:g}$ mo$^{{-1}}$)"
-    )
+    dynamics = str(result.get("dynamics", "sis")).upper()
+    default_title = rf"{dynamics}{suffix}  ($\beta_T={beta_t:g},\ \beta_L={beta_l:g},\ \gamma={gamma:g}$ mo$^{{-1}}$)"
     fig.suptitle(default_title if title is None else title, fontsize=11 * font_scale)
     ticks = [x for x in [0, 0.1, 1, 10, 100, 1000, 10000] if x <= vmax]
     cb = fig.colorbar(image, ax=axes, shrink=0.7, fraction=0.018, pad=0.012, ticks=ticks)

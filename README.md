@@ -1,6 +1,6 @@
 # pixel-SIS
 
-Finite-population SIS simulations on voxel-level brain connectivity, with separate
+Finite-population SIS and SIR simulations on voxel-level brain connectivity, with separate
 code for the dynamics, measurements, parameter fitting, and scientific figures.
 
 The current mouse reference uses a 100 µm grid, an Allen tracer-derived connectivity
@@ -8,7 +8,7 @@ model, a MERFISH-derived population prior, and an optional local contact kernel.
 It simulates the count CTMC directly using event-based thinning. There is no
 mean-field closure or integration time step in the stochastic simulator.
 
-This public release packages the **homogeneous SIS model with an immediate
+This public release packages **homogeneous SIS and SIR models with an immediate
 pathology readout**. The section-level measurement model discussed in
 [the observation roadmap](docs/observations.md) is work to be done, not an
 implemented or validated result.
@@ -57,6 +57,13 @@ the modeled brain. See [the model definition](docs/model.md) for the exact choic
 The count process is exact for this specified compartment/contact model. The
 tracer-derived contacts and within-voxel homogeneity are modeling assumptions;
 they are not measured individual synapses.
+
+For SIR, set `dynamics="sir"` in the Python API or `"dynamics": "sir"` in a
+simulation or fit configuration. It replaces the susceptible fraction by
+`S_i/N_i`, with `S_i = N_i - I_i - R_i`, and sends cleared cells permanently to
+`R`. Removed cells neither spread nor contribute to the pathology readout.
+The initial removed count is zero. Original populations and contact weights stay
+fixed; there is no contact renormalization after removal. SIS remains the default.
 
 ## Run the mouse reference
 
@@ -113,6 +120,11 @@ is a first approximation to profile counting, not calibrated stereology.
 For just the fixed-depth mixed fit, use `pixel-sis fit` with
 `examples/fit_fixed_depth.json`. The full reference searches take tens of minutes
 on one CPU; the synthetic demo is the quick installation check.
+
+`examples/run_sir_fits.py` fits SIR with the same prepared inputs and fixed 6 µm
+readout. It checkpoints three starts per connectivity model, including a start
+with appreciable removal. `examples/analyze_sir_fits.py` compares the saved SIR
+and SIS ensembles. For the SIR mixed fit alone, use `examples/fit_sir.json`.
 
 ## Python API
 

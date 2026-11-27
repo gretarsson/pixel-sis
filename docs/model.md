@@ -57,11 +57,32 @@ prepared arrays; no coordinate shift is silently introduced during cleanup.
 
 ## Simulation and limitations
 
+The default dynamics are SIS. Selecting `dynamics="sir"` gives
+
+$$ (S_i,I_i,R_i)\longrightarrow(S_i-1,I_i+1,R_i)
+\quad\text{at rate}\quad
+\frac{S_i}{N_i}\sum_j(\beta_TQ_{ji}+\beta_LL_{ji})I_j,$$
+
+$$ (S_i,I_i,R_i)\longrightarrow(S_i,I_i-1,R_i+1)
+\quad\text{at rate}\quad\gamma I_i.$$
+
+Initially `R_i=0` and `S_i=N_i-I_i(0)`. `N_i` is the original population and
+`S_i+I_i+R_i=N_i` throughout. Removal is irreversible and does not change contact
+normalization or tissue volume. Death and permanent resistance are alternative
+interpretations of `R`, not separately estimated states. The observation map
+uses only `I`; `R` is assumed no longer detectable by the pathology measurement.
+
+Both variants use the same exact count-process kernel. SIR output adds removed
+voxel means and Monte Carlo SEs, and per-path totals for removed and susceptible
+cells. `count_mean`, `density_samples` and `total_samples` continue to refer to
+infected cells only. Finite-state master-equation tests cover both the explicit
+local-contact sampler and the geometric local sampler.
+
 Independent realizations use seed `seed_base + 100003*r`. Time is in months in the
 mouse experiments. A simulation reaching its attempt limit raises without returning
 an incomplete trajectory. Reported Monte Carlo standard errors quantify numerical
 uncertainty in ensemble means, not biological uncertainty between animals.
 
 Exact simulation of the specified count model does not imply that the inferred
-contacts, homogeneous rates, SIS mechanism, or observation mapping are biologically
+contacts, homogeneous rates, compartment mechanism, or observation mapping are biologically
 exact. Current fits capture only some broad propagation patterns.

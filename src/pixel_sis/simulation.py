@@ -40,13 +40,18 @@ def simulate_ensemble(
     observation=None,
     maps=True,
     progress=None,
+    dynamics="sis",
 ):
     """Simulate independent paths without retaining all voxel trajectories.
 
     A path reaching the attempt limit raises; incomplete paths are never scored.
-    If observation is supplied, its rows map counts to the desired readouts.
+    If observation is supplied, its rows map infected counts to the readouts.
+    SIR starts with R=0 and keeps removed cells out of both infection and readout.
     """
     times = np.asarray(times, dtype=np.float64)
+    if dynamics not in ("sis", "sir"):
+        raise ValueError("Dynamics must be 'sis' or 'sir'")
+    sir = dynamics == "sir"
     if (
         times.ndim != 1
         or not len(times)
@@ -66,17 +71,31 @@ def simulate_ensemble(
     if observation is not None and observation.shape[1] != len(model.population):
         raise ValueError("Observation operator does not match the model")
     # Compile before recording simulation timings.
-    run_strength(*model.arguments, np.array([0.0]), *rates.values(), seed, max_events)
+    removed_counts = np.zeros((len(times), len(model.population)), dtype=np.int32) if sir else None
+    run_strength(
+        *model.arguments, np.array([0.0]), *rates.values(), seed, max_events, sir, removed_counts
+    )
     mean = np.zeros((len(times), len(model.population))) if maps else None
     m2 = np.zeros_like(mean) if maps else None
+    removed_mean = np.zeros_like(mean) if maps and sir else None
+    removed_m2 = np.zeros_like(mean) if maps and sir else None
     totals, densities, seconds, events = [], [], [], []
+    removed_totals = []
     for r in range(runs):
         before = perf_counter()
         counts, attempts, changes = run_strength(
-            *model.arguments, times, *rates.values(), seed + SEED_STRIDE * r, max_events
+            *model.arguments,
+            times,
+            *rates.values(),
+            seed + SEED_STRIDE * r,
+            max_events,
+            sir,
+            removed_counts,
         )
         seconds.append(perf_counter() - before)
         totals.append(counts.sum(axis=1))
+        if sir:
+            removed_totals.append(removed_counts.sum(axis=1))
         events.append([attempts, changes])
         if observation is not None:
             densities.append((observation @ counts.T).T)
@@ -84,6 +103,10 @@ def simulate_ensemble(
             delta = counts - mean
             mean += delta / (r + 1)
             m2 += delta * (counts - mean)
+            if sir:
+                delta_r = removed_counts - removed_mean
+                removed_mean += delta_r / (r + 1)
+                removed_m2 += delta_r * (removed_counts - removed_mean)
         if progress is not None:
             progress(r + 1, runs)
     result = dict(
@@ -93,6 +116,7 @@ def simulate_ensemble(
         seconds=np.asarray(seconds),
         events=np.asarray(events),
         seed_base=np.array(seed),
+        dynamics=np.array(dynamics),
     )
     if maps:
         result.update(
@@ -102,4 +126,12 @@ def simulate_ensemble(
         )
     if observation is not None:
         result["density_samples"] = np.asarray(densities)
+    if sir:
+        result["removed_total_samples"] = np.asarray(removed_totals)
+        result["susceptible_total_samples"] = (
+            model.population.sum() - result["total_samples"] - result["removed_total_samples"]
+        )
+        if maps:
+            result["removed_mean"] = removed_mean
+            result["removed_mc_se"] = np.sqrt(np.maximum(removed_m2, 0) / (runs * (runs - 1)))
     return result
