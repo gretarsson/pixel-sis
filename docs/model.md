@@ -66,7 +66,7 @@ $$ (S_i,I_i,R_i)\longrightarrow(S_i-1,I_i+1,R_i)
 $$ (S_i,I_i,R_i)\longrightarrow(S_i,I_i-1,R_i+1)
 \quad\text{at rate}\quad\gamma I_i.$$
 
-Initially `R_i=0` and `S_i=N_i-I_i(0)`. `N_i` is the original population and
+By default `R_i=0` and `S_i=N_i-I_i(0)`. `N_i` is the original population and
 `S_i+I_i+R_i=N_i` throughout. Removal is irreversible and does not change contact
 normalization or tissue volume. Death and permanent resistance are alternative
 interpretations of `R`, not separately estimated states. The observation map
@@ -97,13 +97,28 @@ generator's stream. Omitting this option retains the original fixed counts.
 
 Optional `susceptibility=chi` and `clearance_multiplier=m` define fixed,
 nonnegative voxel fields. Infection hazards are multiplied by the target's
-`chi_i`; removal hazards become `gamma*m_i*I_i`. Rejection sampling with bounds
-`max(chi)` and `max(m)` gives the exact modified count CTMC, at a possible cost in
-rejected attempts. Contact normalization is unchanged. These fields are explicit
+`chi_i`; removal hazards become `gamma*m_i*I_i`. Removal uses an event tree weighted
+by `m_i*I_i`. Infection uses rejection with `max(chi)`, or a prepared sampler:
+`model = pixel_sis.model.with_susceptibility(model, chi)`. In the latter case,
+omit the `susceptibility` argument to avoid applying it twice. This sampler
+reweights target contacts and retains their resulting source strengths; it does
+not normalize the model's rates away. Both samplers give the same exact count
+CTMC. The original contact normalization is unchanged. These fields are explicit
 model changes, not numerical corrections to a homogeneous process.
+
+For SIR, `initial_removed_probabilities=pR` together with
+`initial_probabilities=pI` defines independent multinomial S/I/R counts in each
+voxel with probabilities `(1-pI-pR, pI, pR)`. This preserves the infected marginal
+`Binomial(N_i,pI_i)` while allowing pre-existing resistance. It requires
+`pI+pR <= 1`. Contacts, tissue volume and denominators retain the original `N`.
+Outputs distinguish initially resistant counts, total removed counts and newly
+removed counts. Initial resistance is not evidence of pre-experimental death.
 
 The [SIR diagnostic report](sir_report/sir_fit_report.pdf) tests a tracer-defined
 initial distribution and fields built from independent MERFISH composition.
 Every cell in a voxel still has the same rates in that experiment. It is not a
 simulation with individually labeled neuronal types. Both the original weighted
 error and an equal-region sensitivity score are reported.
+Later experiments add bilateral BLA/SNc rate overrides and, separately, initial
+resistance in those regions. They were selected after examining fit residuals;
+their improvement is exploratory and does not independently validate the mechanism.

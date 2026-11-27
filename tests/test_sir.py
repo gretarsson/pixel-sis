@@ -4,11 +4,19 @@ import itertools
 
 import numpy as np
 import pytest
+from scipy import sparse
 from scipy.linalg import expm
 
 from pixel_sis import Rates, from_contacts, simulate_ensemble
 from pixel_sis._kernels import run_strength
-from pixel_sis.model import local_offsets, local_tables
+from pixel_sis.model import (
+    SISModel,
+    conditional,
+    full_cdf,
+    local_offsets,
+    local_tables,
+    with_susceptibility,
+)
 
 
 def sir_generator(population, contact, gamma):
@@ -83,19 +91,55 @@ def test_sir_without_removal_is_identical_to_sis():
     assert not sir["removed_total_samples"].any()
 
 
-def test_nonuniform_rates_match_master_equation():
+@pytest.mark.parametrize("prepared", [False, True])
+@pytest.mark.parametrize("geometric_local", [False, True])
+@pytest.mark.parametrize("initial_removed", [np.zeros(3, dtype=int), np.array([1, 1, 0])])
+def test_nonuniform_rates_match_master_equation(prepared, geometric_local, initial_removed):
     N = np.array([2, 3, 2])
     initial = np.array([1, 0, 1])
-    Q = np.array([[0.05, 0.1, 0.05], [0, 0, 0], [0.9, 0.3, 1.8]])
+    # Use nontrivial source->component->target routes, as in the reference model.
+    A = np.array([[0.1, 0.2], [0, 0], [2.0, 0.1]])
+    B = np.array([[0.5, 0.3, 0.2], [0.1, 0.7, 0.2]])
+    Q = A @ B
     L = np.array([[0.8, 0.1, 0.1], [0.1, 0.7, 0.2], [0.2, 0.3, 0.5]])
-    chi = np.array([0.2, 3.0, 1.4])
+    chi = np.array([0.0, 3.0, 1.4])
     clearance = np.array([2.0, 0.3, 1.2])
     rates = Rates(1.1, 2.3, 0.7)
+    if geometric_local:
+        positions = np.arange(3)
+        L = np.exp(-((positions[:, None] - positions[None, :]) ** 2) / 2) * N[None, :]
+        L /= L.sum(axis=1)[:, None]
     model = from_contacts(N, initial, Q, L)
+    source, strength = conditional(A)
+    model = SISModel(
+        (
+            *model.arguments[:2],
+            strength,
+            *full_cdf(source),
+            *full_cdf(sparse.csr_matrix(B)),
+            *model.arguments[9:],
+        )
+    )
+    if geometric_local:
+        coords = np.array([[0, 0, 0], [1, 0, 0], [2, 0, 0]], dtype=np.int16)
+        grid = np.arange(3, dtype=np.int32).reshape(3, 1, 1)
+        offsets, cdf = local_offsets(sigma_um=100, voxel_um=100)
+        args = (
+            *model.arguments[:15],
+            *local_tables(N, coords, grid, offsets, cdf),
+            coords,
+            grid,
+            offsets,
+            cdf,
+            False,
+        )
+        model = SISModel(args)
+    if prepared:
+        model = with_susceptibility(model, chi)
     states, lookup, G = sir_generator(
         N, (rates.beta_tracer * Q + rates.beta_local * L) * chi[None, :], rates.gamma * clearance
     )
-    start = np.column_stack([initial, np.zeros(3, dtype=int)])
+    start = np.column_stack([initial, initial_removed])
     expected = expm(1.5 * G)[lookup[tuple(start.ravel())]] @ states.reshape(len(states), -1)
     removed = np.zeros((1, 3), dtype=np.int32)
     samples = []
@@ -108,8 +152,11 @@ def test_nonuniform_rates_match_master_equation():
             100000,
             True,
             removed,
-            chi,
+            None if prepared else chi,
             clearance,
+            model.local_source_strength,
+            model.local_target_weight,
+            initial_removed,
         )[0][-1]
         samples.append(np.column_stack([infected, removed[-1]]).ravel())
     samples = np.asarray(samples)

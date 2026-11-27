@@ -9,12 +9,13 @@ import numpy as np
 EXAMPLES = Path(__file__).resolve().parents[1] / "examples"
 spec = importlib.util.spec_from_file_location("screen_sir_rates", EXAMPLES / "screen_sir_rates.py")
 rates = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(rates)
 sys.modules["screen_sir_rates"] = rates
+spec.loader.exec_module(rates)
 spec = importlib.util.spec_from_file_location(
     "screen_sir_composition", EXAMPLES / "screen_sir_composition.py"
 )
 composition = importlib.util.module_from_spec(spec)
+sys.modules["screen_sir_composition"] = composition
 spec.loader.exec_module(composition)
 
 

@@ -128,6 +128,62 @@ def fenwick_build(weights):
 
 
 @njit(cache=True)
+def weighted_conditional_cdf(indptr, indices, cdf, weight):
+    """Reweight target probabilities and return their original row masses."""
+    output = np.zeros_like(cdf)
+    mass = np.zeros(len(indptr) - 1)
+    for row in range(len(mass)):
+        previous = 0.0
+        for k in range(indptr[row], indptr[row + 1]):
+            probability = cdf[k] - previous
+            previous = cdf[k]
+            mass[row] += probability * weight[indices[k]]
+            output[k] = mass[row]
+        if mass[row] > 0:
+            for k in range(indptr[row], indptr[row + 1]):
+                output[k] /= mass[row]
+    return output, mass
+
+
+@njit(cache=True)
+def local_weight_sums(N, weight, coords, index, offsets, cdf):
+    """Direct positive local sums avoid FFT roundoff at zero-weight supports."""
+    strength = np.zeros(len(N))
+    bounds = np.zeros(len(N))
+    probability = np.empty(len(cdf))
+    previous = 0.0
+    for k in range(len(cdf)):
+        probability[k] = cdf[k] - previous
+        previous = cdf[k]
+    for j in range(len(N)):
+        denominator = 0.0
+        total = 0.0
+        bound = 0.0
+        for k in range(len(offsets)):
+            x = coords[j, 0] + offsets[k, 0]
+            y = coords[j, 1] + offsets[k, 1]
+            z = coords[j, 2] + offsets[k, 2]
+            if (
+                x < 0
+                or y < 0
+                or z < 0
+                or x >= index.shape[0]
+                or y >= index.shape[1]
+                or z >= index.shape[2]
+            ):
+                continue
+            i = index[x, y, z]
+            if i < 0:
+                continue
+            denominator += probability[k] * N[i]
+            total += probability[k] * weight[i]
+            bound = max(bound, weight[i])
+        strength[j] = total / denominator
+        bounds[j] = bound
+    return strength, bounds
+
+
+@njit(cache=True)
 def run_strength(
     initial,
     N,
@@ -163,6 +219,9 @@ def run_strength(
     removed_out=None,
     susceptibility=None,
     clearance_multiplier=None,
+    local_source_strength=None,
+    local_sampling_weights=None,
+    initial_removed=None,
 ):
     if min(betaT, betaL, gamma) < 0 or not np.isfinite(betaT + betaL + gamma):
         raise ValueError("Invalid rates")
@@ -175,6 +234,10 @@ def run_strength(
     np.random.seed(seed)
     I = initial.copy()
     S = N - I
+    if initial_removed is not None:
+        if np.any(initial_removed < 0) or np.any(initial_removed + I > N):
+            raise ValueError("Invalid initially removed counts")
+        S -= initial_removed
     tree = fenwick_build(I)
     tracer_weights = strength * I
     tracer_tree = fenwick_build(tracer_weights)
@@ -189,13 +252,27 @@ def run_strength(
     events = 0
     changes = 0
     infection_bound = 1.0 if susceptibility is None else susceptibility.max()
-    clearance_bound = 1.0 if clearance_multiplier is None else clearance_multiplier.max()
-    maximum_gamma = gamma * clearance_bound
+    clearance_tree = np.zeros(1)
+    clearance_total = float(total)
+    if clearance_multiplier is not None:
+        clearance_weights = clearance_multiplier * I
+        clearance_tree = fenwick_build(clearance_weights)
+        clearance_total = clearance_weights.sum()
+    local_tree = np.zeros(1)
+    local_total = 0.0
+    if local_source_strength is not None:
+        local_weights = local_source_strength * I
+        local_tree = fenwick_build(local_weights)
+        local_total = local_weights.sum()
     while obs < len(times):
         reverse = bound < total
         localrate = infection_bound * betaL * max(0.0, min(float(total), bound))
+        if local_source_strength is not None:
+            reverse = False
+            localrate = infection_bound * betaL * max(0.0, local_total)
         tracer_rate = infection_bound * betaT * max(0.0, tracer_total)
-        rate = maximum_gamma * total + tracer_rate + localrate
+        removal_rate = gamma * max(0.0, clearance_total)
+        rate = removal_rate + tracer_rate + localrate
         if rate <= 0 or total == 0:
             for k in range(obs, len(times)):
                 out[k] = I
@@ -216,13 +293,15 @@ def run_strength(
         u = np.random.random() * rate
         b = -1
         change = 0
-        if u < maximum_gamma * total:
-            b = tree_find(tree, np.random.random() * total)
+        if u < removal_rate:
+            if clearance_multiplier is None:
+                b = tree_find(tree, np.random.random() * total)
+            else:
+                b = tree_find(clearance_tree, np.random.random() * clearance_total)
+                if b >= len(N) or I[b] == 0:
+                    continue
             change = -1
-            if clearance_multiplier is not None:
-                if np.random.random() * clearance_bound >= clearance_multiplier[b]:
-                    change = 0
-        elif u < maximum_gamma * total + tracer_rate:
+        elif u < removal_rate + tracer_rate:
             a = tree_find(tracer_tree, np.random.random() * tracer_total)
             if a >= len(N) or I[a] == 0 or strength[a] == 0:
                 continue
@@ -243,11 +322,21 @@ def run_strength(
             if a >= 0 and np.random.random() * N[a] < I[a]:
                 change = 1
         else:
-            a = tree_find(tree, np.random.random() * total)
+            if local_source_strength is None:
+                a = tree_find(tree, np.random.random() * total)
+            else:
+                a = tree_find(local_tree, np.random.random() * local_total)
+                if a >= len(N) or I[a] == 0 or local_source_strength[a] <= 0:
+                    continue
             if sparse_local:
                 b = draw_row(lp, li, lc, a)
             else:
-                b = sample_neighbor(a, coords, index, offsets, cdf, N, forward_max)
+                if local_sampling_weights is None:
+                    b = sample_neighbor(a, coords, index, offsets, cdf, N, forward_max)
+                else:
+                    b = sample_neighbor(
+                        a, coords, index, offsets, cdf, local_sampling_weights, forward_max
+                    )
             if b >= 0 and np.random.random() * N[b] >= N[b] - S[b]:
                 change = 1
         if change > 0 and susceptibility is not None:
@@ -257,6 +346,16 @@ def run_strength(
             I[b] += change
             tree_add(tree, b, change)
             total += change
+            if clearance_multiplier is None:
+                clearance_total = float(total)
+            else:
+                clearance_delta = change * clearance_multiplier[b]
+                tree_add(clearance_tree, b, clearance_delta)
+                clearance_total += clearance_delta
+            if local_source_strength is not None:
+                local_delta = change * local_source_strength[b]
+                tree_add(local_tree, b, local_delta)
+                local_total += local_delta
             changes += 1
             delta = change * strength[b]
             tree_add(tracer_tree, b, delta)

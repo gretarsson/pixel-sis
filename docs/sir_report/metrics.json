@@ -175,9 +175,118 @@
       "area_mc_se": 9.375362240525096e-05,
       "regions_rms": 0.910629581242297,
       "regions_mc_se": 0.0001195839941302408
+    },
+    {
+      "name": "Regional rates",
+      "source": "sir_regional_joint_reference_20261127/ensemble.npz",
+      "runs": 64,
+      "rates": [
+        0.33497351610345083,
+        0.23327692378594714,
+        0.04232436559708109
+      ],
+      "total_infected": [
+        22229.546875,
+        22996.265625,
+        23814.625,
+        25613.734375,
+        31149.90625,
+        69447.21875,
+        155518.25,
+        355728.53125
+      ],
+      "total_removed": [
+        182.234375,
+        407.671875,
+        673.234375,
+        1350.609375,
+        4181.734375,
+        42265.171875,
+        126563.03125,
+        195007.515625
+      ],
+      "parameters_represent": "rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
+      "parameters": [
+        0.33497351610345083,
+        0.23327692378594714,
+        0.04232436559708109,
+        0.3650035959063991,
+        0.010231416522960016,
+        0.05438789103444587,
+        7.811877859118966e-05,
+        18.331821104514056,
+        1.9353332526288456,
+        89.80559542335955,
+        1.2611140872051885
+      ],
+      "area_rms": 0.8195090714108223,
+      "area_mc_se": 0.00024236276600590016,
+      "regions_rms": 0.8592221406369802,
+      "regions_mc_se": 0.00020939812875319248
+    },
+    {
+      "name": "Regional rates + initial resistance",
+      "source": "sir_regional_atrisk_reference_20261127/ensemble.npz",
+      "runs": 64,
+      "rates": [
+        0.20797940635856174,
+        0.2982063496925045,
+        0.06288835114243582
+      ],
+      "total_infected": [
+        22306.546875,
+        23243.21875,
+        24304.171875,
+        26888.375,
+        35519.5625,
+        68803.234375,
+        151310.796875,
+        333625.375
+      ],
+      "total_removed": [
+        162096.625,
+        162406.78125,
+        162733.34375,
+        163427.15625,
+        165512.734375,
+        180576.046875,
+        224512.640625,
+        315579.171875
+      ],
+      "parameters_represent": "rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
+      "initial_resistant": 161798.15625,
+      "total_newly_removed": [
+        298.46875,
+        608.625,
+        935.1875,
+        1629.0,
+        3714.578125,
+        18777.890625,
+        62714.484375,
+        153781.015625
+      ],
+      "parameters": [
+        0.20797940635856174,
+        0.2982063496925045,
+        0.06288835114243582,
+        0.6672599633346041,
+        0.010304609073057212,
+        0.1699147442203013,
+        3.451494661505926e-05,
+        268.29028347113433,
+        0.09341139478298312,
+        77.48893031218888,
+        1.3196056520082098,
+        0.07525291873371338,
+        0.9971803214104502
+      ],
+      "area_rms": 0.816634408932311,
+      "area_mc_se": 0.00026429851938242465,
+      "regions_rms": 0.8585055554494674,
+      "regions_mc_se": 0.00026057306978492247
     }
   ],
-  "selected_for_figure": 3,
+  "selected_for_figure": 5,
   "figure_selection": "Lowest original area-weighted error among completed reference checks; not a global optimum",
   "interpretation": "Exploratory in-sample improvement. Important regional timing failures remain."
 }

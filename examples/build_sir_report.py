@@ -41,6 +41,11 @@ def main():
             "Composition rates, regional fit",
             "sir_composition_regions_reference_20261127/ensemble.npz",
         ),
+        ("Regional rates", "sir_regional_joint_reference_20261127/ensemble.npz"),
+        (
+            "Regional rates + initial resistance",
+            "sir_regional_atrisk_reference_20261127/ensemble.npz",
+        ),
     ]
     metrics = []
     for name, relative in cases:
@@ -60,6 +65,9 @@ def main():
                 total_removed=f["removed_total_samples"].mean(0).tolist(),
                 parameters_represent="rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
             )
+            if "initial_removed_total_samples" in f:
+                row["initial_resistant"] = float(f["initial_removed_total_samples"].mean())
+                row["total_newly_removed"] = f["newly_removed_total_samples"].mean(0).tolist()
         prediction = samples.mean(0)
         config_path = (a.outputs / relative).parent / "configuration.json"
         if config_path.exists() and "parameters" in json.loads(config_path.read_text()):
@@ -83,6 +91,20 @@ def main():
         interpretation="Exploratory in-sample improvement. Important regional timing failures remain.",
     )
     (a.report / "metrics.json").write_text(json.dumps(report, indent=2))
+    provenance = {}
+    for folder in [
+        "sir_regional_diagnostic_20261127",
+        "sir_regional_joint_20261127",
+        "sir_regional_atrisk_20261127",
+        "sir_regional_joint_reference_20261127",
+        "sir_regional_atrisk_reference_20261127",
+    ]:
+        provenance[folder] = {}
+        for filename in ["configuration.json", "summary.json", "starts.json"]:
+            source = a.outputs / folder / filename
+            if source.exists():
+                provenance[folder][filename] = json.loads(source.read_text())
+    (a.report / "regional_provenance.json").write_text(json.dumps(provenance, indent=2))
     table = [
         r"\begin{tabular}{lrrr}\toprule Model & Area-weighted RMS & Equal-region RMS & Paths\\\midrule"
     ]
@@ -95,21 +117,37 @@ def main():
     parameter_table = [
         r"\begin{tabular}{lrrrrrrr}\toprule Model & $\beta_T$ & $\beta_L$ & $\gamma_O$ & $q_G$ & $q_D$ & $\gamma_G$ & $\gamma_D$\\\midrule"
     ]
-    for name, row in zip(
-        ["Uniform", "New start", "Composition (area)", "Composition (regions)"], metrics
-    ):
+    short_names = [
+        "Uniform",
+        "New start",
+        "Composition (area)",
+        "Composition (regions)",
+        "Regional rates",
+        "Initial resistance",
+    ]
+    for name, row in zip(short_names, metrics):
         parameter_table.append(
-            name + " & " + " & ".join(f"{v:.3g}" for v in row["parameters"]) + r"\\"
+            name + " & " + " & ".join(f"{v:.3g}" for v in row["parameters"][:7]) + r"\\"
         )
     parameter_table.append(r"\bottomrule\end{tabular}")
     (figures / "parameters_table.tex").write_text("\n".join(parameter_table))
+    regional_table = [
+        r"\begin{tabular}{lrrrrrr}\toprule Model & $\chi_{\rm BLA}$ & $\gamma_{\rm BLA}$ & $\chi_{\rm SNc}$ & $\gamma_{\rm SNc}$ & $a_{\rm BLA}$ & $a_{\rm SNc}$\\\midrule"
+    ]
+    for name, row in zip(short_names[4:], metrics[4:]):
+        parameters = row["parameters"][7:]
+        if len(parameters) == 4:
+            parameters += [1.0, 1.0]
+        regional_table.append(name + " & " + " & ".join(f"{v:.3g}" for v in parameters) + r"\\")
+    regional_table.append(r"\bottomrule\end{tabular}")
+    (figures / "regional_parameters_table.tex").write_text("\n".join(regional_table))
     initial = json.loads((a.outputs / "sir_initial_screen_20261127/summary.json").read_text())
     chosen = metrics[selected]
     difference = 1 - (chosen["area_rms"] / metrics[0]["area_rms"]) ** 2
     (a.report / "results.tex").write_text(
         f"The best completed reference check reduces the original relative RMS error from {metrics[0]['area_rms']:.4f} to {chosen['area_rms']:.4f}, a {100 * difference:.1f}\\% reduction in weighted squared error. "
         f"Its Monte Carlo standard error is {chosen['area_mc_se']:.5f}; this quantifies simulation noise only. "
-        "The trajectories still miss important regional peaks. This is an improved fit, not a successful explanation of the whole dataset.\n\n"
+        "Regional extensions now reproduce a rise and fall in amygdala and substantia nigra pathology, but timing, amplitudes and other regions remain imperfect. This is an improved fit, not an established explanation of the whole dataset.\n\n"
         f"The revised initial state has expected burden $B={initial['initial_total']:.1f}$ and tracer-footprint fraction $f={initial['projection_fraction']:.4f}$. "
         "These are fitted assumptions about an unobserved starting state, not measured counts of initially affected cells.\n"
     )
@@ -132,11 +170,38 @@ def main():
         ],
         check=True,
     )
+    tail_figures = figures / "regional_comparison"
+    subprocess.run(
+        [
+            sys.executable,
+            str(Path(__file__).with_name("plot_sir_diagnostics.py")),
+            "--data",
+            str(a.data),
+            "--baseline",
+            str(a.outputs / cases[4][1]),
+            "--revised",
+            str(a.outputs / cases[5][1]),
+            "--out",
+            str(tail_figures),
+            "--baseline-label",
+            "Regional rates",
+            "--revised-label",
+            "Initial resistance",
+        ],
+        check=True,
+    )
     for ext in ["pdf", "png"]:
         shutil.copy2(a.outputs / "sir_diagnostics_20261127" / ("error_diagnosis." + ext), figures)
-    fig, ax = plt.subplots(figsize=(6, 3), layout="constrained")
-    names = ["Uniform", "New start", "Composition\narea fit", "Composition\nregional fit"]
-    x = np.arange(4)
+    fig, ax = plt.subplots(figsize=(7.8, 3), layout="constrained")
+    names = [
+        "Uniform",
+        "New start",
+        "Composition\narea fit",
+        "Composition\nregional fit",
+        "Regional\nrates",
+        "Initial\nresistance",
+    ]
+    x = np.arange(len(metrics))
     ax.bar(
         x - 0.17,
         [r["area_rms"] for r in metrics],

@@ -17,14 +17,19 @@ from scipy.optimize import differential_evolution, minimize
 from pixel_sis.observations import RegionalObservations
 
 
-def integrate_sir(force, population, initial, times, gamma, rtol=2e-5, atol=1e-7):
+def integrate_sir(
+    force, population, initial, times, gamma, rtol=2e-5, atol=1e-7, initial_removed=None
+):
     """Positive exponential midpoint with step doubling and frozen hazard.
 
     Each step solves S->I->R exactly for a frozen per-susceptible hazard.
     The hazard is evaluated at a midpoint predictor. R=N-S-I throughout.
     """
     N = np.asarray(population, dtype=float)
-    S, I = N - initial, np.array(initial, dtype=float)
+    R0 = np.zeros_like(N) if initial_removed is None else np.asarray(initial_removed, dtype=float)
+    S, I = N - initial - R0, np.array(initial, dtype=float)
+    if R0.shape != N.shape or np.any(R0 < 0) or np.any(S < 0):
+        raise ValueError("Invalid initially removed population")
 
     def frozen(S, I, hazard, dt):
         source = np.maximum(hazard, 0)
@@ -54,7 +59,9 @@ def integrate_sir(force, population, initial, times, gamma, rtol=2e-5, atol=1e-7
             sh, ih = step(S, I, dt / 2)
             s2, i2 = step(sh, ih, dt / 2)
             error_i = (i2 - i1) / (3 * (atol + rtol * np.maximum(I, i2)))
-            error_r = (s1 + i1 - s2 - i2) / (3 * (atol + rtol * np.maximum(N - S - I, N - s2 - i2)))
+            error_r = (s1 + i1 - s2 - i2) / (
+                3 * (atol + rtol * np.maximum(N - S - I - R0, N - s2 - i2 - R0))
+            )
             error = np.sqrt(np.mean(error_i**2 + error_r**2) / 2)
             if not np.isfinite(error):
                 raise RuntimeError("Nonfinite SIR integration error")

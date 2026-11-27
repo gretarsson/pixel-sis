@@ -22,7 +22,7 @@ At reference voxel $i$, $S_i+I_i+R_i=N_i$. The exact count CTMC has transitions
 (S_i,I_i,R_i)&\longrightarrow(S_i,I_i-1,R_i+1), &
 \mu_i&=\gamma_i I_i.
 \end{align*}
-The uniform baseline has $\chi_i=1$ and $\gamma_i=\gamma$. $Q$ and $L$ have sources in rows. Rates have units month$^{-1}$; $\chi_i$ is dimensionless. $N_i$, tissue volume and contacts remain fixed after removal. Initial $R_i=0$.
+The uniform baseline has $\chi_i=1$ and $\gamma_i=\gamma$. $Q$ and $L$ have sources in rows. Rates have units month$^{-1}$; $\chi_i$ is dimensionless. $N_i$, tissue volume and contacts remain fixed after removal. Initial $R_i=0$ except in the explicitly identified initial-resistance experiment below.
 
 The reference is unchanged: 448,962 voxels of side $100\,\mu$m and 39,476,440 estimated neurons. $Q$ is the cell-reversed Allen tracer-derived operator, $D^{-1}W^TD/c$ with $D=\operatorname{diag}(N)$ and $c=24.3813178615$. $W$ is the released, interpolated voxel connectivity model, not independently measured probabilities for every voxel pair. The local channel has $L_{ji}\propto N_i\exp[-d_{ji}^2/(2\sigma^2)]$, $\sigma=200\,\mu$m and cutoff $600\,\mu$m. Its rows sum to one and include $i=j$.
 
@@ -44,7 +44,7 @@ and report $\sqrt J$. Zero prediction scores one. The original weights normalize
 \section*{Completed reference checks}
 \input{results.tex}
 \begin{center}\small\input{figures/results_table.tex}\end{center}
-These are in-sample comparisons on the same mouse observations. Fresh CTMC paths assess simulation noise, not validation on new animals. The composition candidates are finite-budget search results, not established global optima. The figure uses the completed candidate with the lowest original area-weighted error.
+These are in-sample comparisons on the same mouse observations. CTMC paths assess simulation noise, not validation on new animals. Candidates are finite-budget search results, not established global optima. The figure uses the completed candidate with the lowest original area-weighted error.
 
 \begin{figure}[h]
 \centering\includegraphics[width=\linewidth]{sir_initial_comparison.pdf}
@@ -75,6 +75,23 @@ These are voxel environment-dependent rates: every cell in a voxel still shares 
 \textbf{Data and construction audit.} The local voxel ordering and hemisphere split agree with the published Allen mask implementation. One observation exceeds the maximum density permitted by the 6-$\mu$m rule; the error forced by that ceiling is only 0.0087 in relative RMS, so it cannot explain the poor overall fit. Giving each anatomical window its own fitted amplitude still leaves relative RMS 0.8052 for the original SIR trajectory. This is a diagnostic overfit, not a proposed observation model. Timing and regional distribution remain problems.
 
 \newpage
+\section*{Can SIR reproduce a peak and decline?}
+\textbf{Regional rates.} The shared composition field missed the basolateral amygdala (BLA) and substantia nigra pars compacta (SNc) peaks. We therefore allowed each of these regions its own $\chi$ and $\gamma$, shared between hemispheres: four additional parameters. Fitting only those two trajectories worsened whole-brain error. We then fitted all 11 parameters jointly to the whole cohort with equal-region weights. The full voxel CTMC now gives a rise and fall in both regions, although the amygdala decline is too steep. These regions were selected after inspecting residuals; this is exploratory fitting.
+
+\textbf{Initial resistance.} A separate extension lets only a fraction $a$ of cells start eligible for infection in each of these two regions, giving 13 parameters. With the previous infected probability $p_i$ held fixed,
+\[
+(S_i(0),I_i(0),R_i(0))\sim\operatorname{Multinomial}
+\bigl(N_i;\ a_i-p_i,\ p_i,\ 1-a_i\bigr).
+\]
+Outside BLA and SNc, $a_i=1$. Invalid probabilities are rejected. Initial $R$ means pre-existing resistance, not prior cell death. The original $N_i$ remains in the contact and infection denominators. Only $I$ is observed. The fitted susceptible fractions are hypotheses, not measured cell-type fractions.
+
+\begin{center}\scriptsize\input{figures/regional_parameters_table.tex}\end{center}
+\begin{figure}[h]
+\centering\includegraphics[width=.94\linewidth]{regional_comparison/sir_initial_comparison.pdf}
+\caption{Regional-rate SIR compared with the additional initial-resistance hypothesis. Both are full voxel CTMC ensembles; dots and shading follow the earlier figure. Added flexibility helps some trajectories but does not establish the mechanism.}
+\end{figure}
+
+\newpage
 \section*{Error and limitations}
 \begin{figure}[h]
 \centering\includegraphics[width=.85\linewidth]{fit_errors.pdf}
@@ -85,18 +102,18 @@ These are voxel environment-dependent rates: every cell in a voxel still shares 
 \caption{Where the original uniform SIR fit fails. Left: the largest regional contributions to its original weighted squared error. Right: contributions by time, separated into underprediction and overprediction. The prefix ``i'' denotes the ipsilateral/right side.}
 \end{figure}
 
-The changes produce measurable improvement but do not establish a satisfactory model of the observed propagation. In particular, a global error can improve while early amygdala and substantia nigra peaks remain poorly described. More simulation precision cannot remove that discrepancy. Large or poorly constrained fitted rate differences should not be interpreted as measured biological susceptibilities or lifetimes.
+The changes produce measurable improvement and recover regional declines, but do not establish a satisfactory model of all observed propagation. A global error can improve while particular trajectories remain poor. More simulation precision cannot remove structural discrepancies. Large or poorly constrained fitted rate differences should not be interpreted as measured biological susceptibilities or lifetimes. In particular, a fitted initial susceptible fraction can trade off against susceptibility and clearance.
 
 The sampled tissue operator, initial exposure and correspondence between tracer signal and cell-to-cell transfer remain assumptions. Registered section masks and raw count/area checkpoints would allow a more faithful measurement comparison. The current positive-coordinate exports alone do not establish sampled tissue with zero pathology. No missing tissue masks or calibrated detection model were invented for this report.
 
 \section*{Reproduction and validation}
 The checked parameter sets are below. Rates are in month$^{-1}$; $q_G$ and $q_D$ are dimensionless. Uniform models repeat the same removal rate in the three columns. These are conditional fitted coefficients, not independently measured biological constants.
 \begin{center}\scriptsize\input{figures/parameters_table.tex}\end{center}
-The last row's small susceptibility and removal coefficients in dopamine/serotonin-rich voxels do not explain the observed substantia nigra peak. This is one reason the best global score must not be treated as biological validation.
+The composition-only fit's small susceptibility and removal coefficients in dopamine/serotonin-rich voxels do not explain the substantia nigra peak. The later fits override those rates in SNc and BLA; their four additional coefficients and two optional susceptible fractions appear above. This is one reason the best global score must not be treated as biological validation.
 
-The adjacent README lists commands and output folders. \texttt{metrics.json} contains both scores and Monte Carlo standard errors. Each simulation saves rates, seeds, event counts, infected and removed means, and the explicit initial/rate fields when used. The full-reference input hashes are fixed by the existing model report and baseline configuration. The extension implementation is recorded in commit \texttt{21c7789}.
+The adjacent README lists commands, budgets and output folders. \texttt{metrics.json} contains both scores and Monte Carlo standard errors. Each simulation saves rates, seeds, event counts, infected and removed means, and explicit initial/rate fields. Initial resistance and newly removed cells are stored separately. The full-reference input hashes are fixed by the existing model report and baseline configuration. The report and scripts are versioned together on the research branch.
 
-The stochastic transitions were checked against an independently assembled finite-state SIR generator, including nonuniform susceptibility and removal. The positive ODE integrator was checked against an independent high-accuracy solver. The local composition aggregation was checked by explicit enumeration. The original reference SIS trajectories remain bitwise unchanged when the new options are omitted. These validate implementation of the stated model, not its biological adequacy.
+The stochastic transitions were checked against an independently assembled finite-state SIR generator, including nonuniform rates and initially resistant cells. Prepared target-weighted contact sampling and weighted removal event trees preserve that generator without a costly global rate envelope. The positive ODE integrator was checked against an independent high-accuracy solver, including initial resistance. Joint initial-state moments and count conservation were checked. The local composition aggregation was checked by explicit enumeration. All 60 tests, including the original reference SIS trajectory regression, pass. These validate implementation of the stated model, not its biological adequacy.
 
 \small
 Sources: \href{https://doi.org/10.1101/2024.10.22.619411}{pathology study}; \href{https://doi.org/10.1162/netn_a_00066}{Knox et al. voxel connectivity model}; \href{https://github.com/AllenInstitute/mouse_connectivity_models/blob/7637e405d7d97bea4b82758c18e825651f4a7815/mcmodels/core/masks.py}{pinned Allen mask code}. Full data provenance and earlier assumptions are in the \href{https://github.com/gretarsson/pixel-sis/blob/main/docs/report/pixel_sis_report.pdf}{original model report}.

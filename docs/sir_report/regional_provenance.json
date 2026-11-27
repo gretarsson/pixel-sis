@@ -1,0 +1,581 @@
+{
+  "sir_regional_diagnostic_20261127": {
+    "configuration.json": {
+      "regions": [
+        "BLA",
+        "SNc"
+      ],
+      "parameter_order": [
+        "susceptibility",
+        "removal_per_month"
+      ],
+      "bilateral": true,
+      "readout_um": 6,
+      "base_parameters": [
+        0.6177532425358532,
+        0.5697369051662196,
+        0.3428276589753537,
+        0.12957070803375922,
+        0.026813791769194465,
+        0.03594538825616534,
+        3.658584273651025e-05
+      ],
+      "base_model": "outputs/sir_composition_regions_20261127",
+      "basis": "outputs/sir_composition_screen_20261127",
+      "objective": "Equal target-region/time/mouse squared error; right BLA and SNc only",
+      "bounds": [
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ]
+      ],
+      "seed": 112708101,
+      "iterations": 35,
+      "interpretation": "Outcome-selected diagnostic; other-region error is reported separately"
+    },
+    "summary.json": {
+      "target_rms": 0.6343522940897053,
+      "original_area_rms": 1.1524880455110995,
+      "regional_parameters": [
+        [
+          6.516789451043393,
+          1.3917958769241765
+        ],
+        [
+          51.113550926009644,
+          0.7880935762280536
+        ]
+      ],
+      "evaluations": 954,
+      "elapsed_seconds": 48.692218333,
+      "full_reference_validated": false,
+      "scope": "Outcome-selected diagnostic; other-region error is reported separately"
+    }
+  },
+  "sir_regional_joint_20261127": {
+    "configuration.json": {
+      "starts": [
+        [
+          0.6177532425358532,
+          0.5697369051662196,
+          0.3428276589753537,
+          0.12957070803375922,
+          0.026813791769194465,
+          0.03594538825616534,
+          3.658584273651025e-05,
+          6.516789451043393,
+          1.3917958769241765,
+          51.113550926009644,
+          0.7880935762280536
+        ],
+        [
+          0.06177532425358532,
+          0.5697369051662196,
+          0.3428276589753537,
+          0.5,
+          0.026813791769194465,
+          0.03594538825616534,
+          3.658584273651025e-05,
+          6.516789451043393,
+          1.3917958769241765,
+          51.113550926009644,
+          0.7880935762280536
+        ],
+        [
+          0.01,
+          0.4,
+          0.05,
+          1.0,
+          0.026813791769194465,
+          0.15,
+          3.658584273651025e-05,
+          6.516789451043393,
+          1.3917958769241765,
+          51.113550926009644,
+          0.7880935762280536
+        ]
+      ],
+      "bounds": [
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ]
+      ],
+      "parameter_order": [
+        "beta_T",
+        "beta_L",
+        "gamma_O",
+        "q_G",
+        "q_D",
+        "gamma_G",
+        "gamma_D",
+        "chi_BLA",
+        "gamma_BLA",
+        "chi_SNc",
+        "gamma_SNc"
+      ],
+      "objective": "Equal time, mouse and regional record weights across the whole cohort",
+      "bilateral_overrides": true,
+      "region_selection": "Outcome-selected diagnostic; exploratory",
+      "max_evaluations_per_start": 700,
+      "full_reference_validated": false,
+      "initial_state": "Same fixed binomial law from the previous initial-state fit",
+      "readout_um": 6
+    },
+    "summary.json": {
+      "parameters": [
+        0.33497351610345083,
+        0.23327692378594714,
+        0.04232436559708109,
+        0.3650035959063991,
+        0.010231416522960016,
+        0.05438789103444587,
+        7.811877859118966e-05,
+        18.331821104514056,
+        1.9353332526288456,
+        89.80559542335955,
+        1.2611140872051885
+      ],
+      "relative_rms": 0.8552526008810835,
+      "original_area_rms": 0.8173632081714197,
+      "completed_starts": 3,
+      "evaluations": 2100,
+      "elapsed_seconds": 98.55979925,
+      "full_reference_validated": false
+    },
+    "starts.json": [
+      {
+        "start": 0,
+        "parameters": [
+          0.5774921125771719,
+          0.07144967690169504,
+          0.022497482367132213,
+          0.18809585709439017,
+          0.4648322832760788,
+          3.1801013380804646e-05,
+          28.627517584916063,
+          30.11959735738681,
+          1.9376520596663633,
+          190.43853749588297,
+          1.160587993974762
+        ],
+        "relative_rms": 0.8568237596758318,
+        "optimizer_success": false
+      },
+      {
+        "start": 1,
+        "parameters": [
+          0.33497351610345083,
+          0.23327692378594714,
+          0.04232436559708109,
+          0.3650035959063991,
+          0.010231416522960016,
+          0.05438789103444587,
+          7.811877859118966e-05,
+          18.331821104514056,
+          1.9353332526288456,
+          89.80559542335955,
+          1.2611140872051885
+        ],
+        "relative_rms": 0.8552477624406138,
+        "optimizer_success": false
+      },
+      {
+        "start": 2,
+        "parameters": [
+          0.1491863735763473,
+          0.3384606508778624,
+          0.05049968208281132,
+          0.7898276211518428,
+          0.2918000175941942,
+          0.19293081838863652,
+          6.864654832980029e-05,
+          17.682903215212097,
+          2.3562302397510635,
+          69.58132438349212,
+          1.3270699028807047
+        ],
+        "relative_rms": 0.8581033362410745,
+        "optimizer_success": false
+      }
+    ]
+  },
+  "sir_regional_atrisk_20261127": {
+    "configuration.json": {
+      "starts": [
+        [
+          0.33497351610345083,
+          0.23327692378594714,
+          0.04232436559708109,
+          0.3650035959063991,
+          0.010231416522960016,
+          0.05438789103444587,
+          7.811877859118966e-05,
+          18.331821104514056,
+          1.9353332526288456,
+          89.80559542335955,
+          1.2611140872051885,
+          1.0,
+          1.0
+        ],
+        [
+          0.33497351610345083,
+          0.23327692378594714,
+          0.04232436559708109,
+          0.3650035959063991,
+          0.010231416522960016,
+          0.05438789103444587,
+          7.811877859118966e-05,
+          122.21214069676037,
+          0.1,
+          179.6111908467191,
+          0.35,
+          0.15,
+          0.5
+        ],
+        [
+          0.33497351610345083,
+          0.23327692378594714,
+          0.04232436559708109,
+          0.3650035959063991,
+          0.010231416522960016,
+          0.05438789103444587,
+          7.811877859118966e-05,
+          61.106070348380186,
+          0.3,
+          224.51398855839886,
+          0.5,
+          0.3,
+          0.4
+        ]
+      ],
+      "bounds": [
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -4.605170185988091,
+          0.0
+        ],
+        [
+          -4.605170185988091,
+          0.0
+        ]
+      ],
+      "parameter_order": [
+        "beta_T",
+        "beta_L",
+        "gamma_O",
+        "q_G",
+        "q_D",
+        "gamma_G",
+        "gamma_D",
+        "chi_BLA",
+        "gamma_BLA",
+        "chi_SNc",
+        "gamma_SNc",
+        "eligible_fraction_BLA",
+        "eligible_fraction_SNc"
+      ],
+      "objective": "Equal time, mouse and regional record weights across the whole cohort",
+      "bilateral_overrides": true,
+      "region_selection": "Outcome-selected diagnostic; exploratory",
+      "max_evaluations_per_start": 900,
+      "full_reference_validated": false,
+      "initial_state": "Fixed infected marginal; joint multinomial S/I/R with fitted initial resistance in bilateral BLA and SNc",
+      "readout_um": 6,
+      "initially_susceptible_fraction_fitted": true,
+      "continue_from": "outputs/sir_regional_joint_20261127",
+      "metadata_correction": "Parameter order and initial-state text corrected after the run; numerical fit unchanged."
+    },
+    "summary.json": {
+      "parameters": [
+        0.20797940635856174,
+        0.2982063496925045,
+        0.06288835114243582,
+        0.6672599633346041,
+        0.010304609073057212,
+        0.1699147442203013,
+        3.451494661505926e-05,
+        268.29028347113433,
+        0.09341139478298312,
+        77.48893031218888,
+        1.3196056520082098,
+        0.07525291873371338,
+        0.9971803214104502
+      ],
+      "relative_rms": 0.853730442072016,
+      "original_area_rms": 0.8144281417523664,
+      "completed_starts": 3,
+      "evaluations": 2700,
+      "elapsed_seconds": 110.435808292,
+      "full_reference_validated": false
+    },
+    "starts.json": [
+      {
+        "start": 0,
+        "parameters": [
+          0.3012709845358628,
+          0.2132267018380269,
+          0.0017991222822121172,
+          0.48378903315474997,
+          0.07018805038318822,
+          0.10294075886078953,
+          0.00016124309873336284,
+          20.072933576699118,
+          1.9094949131410308,
+          99.57388594420124,
+          1.2855078129723951,
+          0.9976150225628054,
+          0.9964006485193806
+        ],
+        "relative_rms": 0.8549669920622885,
+        "optimizer_success": false
+      },
+      {
+        "start": 1,
+        "parameters": [
+          0.31750754909776896,
+          0.3399583683285345,
+          0.15057807912178556,
+          0.3179213294639498,
+          0.014611889037756834,
+          0.049596363255812424,
+          1.162077578928075e-05,
+          177.17499345776287,
+          0.12092137277156861,
+          65.63311867904123,
+          1.312955142240358,
+          0.08546119971939387,
+          0.9803842943400621
+        ],
+        "relative_rms": 0.8551951489749148,
+        "optimizer_success": false
+      },
+      {
+        "start": 2,
+        "parameters": [
+          0.20797940635856174,
+          0.2982063496925045,
+          0.06288835114243582,
+          0.6672599633346041,
+          0.010304609073057212,
+          0.1699147442203013,
+          3.451494661505926e-05,
+          268.29028347113433,
+          0.09341139478298312,
+          77.48893031218888,
+          1.3196056520082098,
+          0.07525291873371338,
+          0.9971803214104502
+        ],
+        "relative_rms": 0.8537201445584767,
+        "optimizer_success": false
+      }
+    ]
+  },
+  "sir_regional_joint_reference_20261127": {
+    "configuration.json": {
+      "parameters": [
+        0.33497351610345083,
+        0.23327692378594714,
+        0.04232436559708109,
+        0.3650035959063991,
+        0.010231416522960016,
+        0.05438789103444587,
+        7.811877859118966e-05,
+        18.331821104514056,
+        1.9353332526288456,
+        89.80559542335955,
+        1.2611140872051885
+      ],
+      "source_screen": "outputs/sir_regional_joint_20261127",
+      "selected_start": null,
+      "runs": 64,
+      "seed_base": 212706101,
+      "max_events": 20000000,
+      "voxel_um": 100,
+      "readout_um": 6,
+      "initial_law": "Independent binomial with screened mean",
+      "generator": "Target susceptibility multiplies infection hazards; clearance multiplies gamma_other. Exact count CTMC.",
+      "susceptibility_sampler": "prepared weighted contacts",
+      "clearance_sampler": "weighted event tree",
+      "regional_source": "outputs/sir_regional_joint_20261127"
+    },
+    "summary.json": {
+      "relative_rms": 0.8195090714108223,
+      "mc_se_rms": 0.00024236276600590016,
+      "parameters": [
+        0.33497351610345083,
+        0.23327692378594714,
+        0.04232436559708109,
+        0.3650035959063991,
+        0.010231416522960016,
+        0.05438789103444587,
+        7.811877859118966e-05,
+        18.331821104514056,
+        1.9353332526288456,
+        89.80559542335955,
+        1.2611140872051885
+      ],
+      "runs": 64,
+      "final_infected": 355728.53125,
+      "final_removed": 195007.515625,
+      "median_seconds": 0.8983071664999986,
+      "maximum_attempts": 925091,
+      "scope": "Fresh full-reference CTMC at fixed candidate; the measurement approximation and composition-rate law remain assumptions."
+    }
+  },
+  "sir_regional_atrisk_reference_20261127": {
+    "configuration.json": {
+      "parameters": [
+        0.20797940635856174,
+        0.2982063496925045,
+        0.06288835114243582,
+        0.6672599633346041,
+        0.010304609073057212,
+        0.1699147442203013,
+        3.451494661505926e-05,
+        268.29028347113433,
+        0.09341139478298312,
+        77.48893031218888,
+        1.3196056520082098,
+        0.07525291873371338,
+        0.9971803214104502
+      ],
+      "source_screen": "outputs/sir_regional_atrisk_20261127",
+      "selected_start": null,
+      "runs": 64,
+      "seed_base": 212706101,
+      "max_events": 20000000,
+      "voxel_um": 100,
+      "readout_um": 6,
+      "initial_law": "Joint multinomial S/I/R; fixed infected marginal and fitted resistant fraction",
+      "generator": "Target susceptibility multiplies infection hazards; clearance multiplies gamma_other. Exact count CTMC.",
+      "susceptibility_sampler": "prepared weighted contacts",
+      "clearance_sampler": "weighted event tree",
+      "regional_source": "outputs/sir_regional_atrisk_20261127",
+      "initial_resistance": true
+    },
+    "summary.json": {
+      "relative_rms": 0.816634408932311,
+      "mc_se_rms": 0.00026429851938242465,
+      "parameters": [
+        0.20797940635856174,
+        0.2982063496925045,
+        0.06288835114243582,
+        0.6672599633346041,
+        0.010304609073057212,
+        0.1699147442203013,
+        3.451494661505926e-05,
+        268.29028347113433,
+        0.09341139478298312,
+        77.48893031218888,
+        1.3196056520082098,
+        0.07525291873371338,
+        0.9971803214104502
+      ],
+      "runs": 64,
+      "final_infected": 333625.375,
+      "final_removed": 315579.171875,
+      "median_seconds": 3.8228885834999993,
+      "maximum_attempts": 5744097,
+      "scope": "Fresh full-reference CTMC at fixed candidate; the measurement approximation and composition-rate law remain assumptions.",
+      "initial_resistant": 161798.15625,
+      "final_newly_removed": 153781.015625
+    }
+  }
+}

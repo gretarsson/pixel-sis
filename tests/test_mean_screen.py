@@ -17,7 +17,8 @@ spec.loader.exec_module(module)
 @pytest.mark.parametrize(
     "beta,gamma", [(0.0, 0.5), (0.5, 0.0), (0.5, 0.5), (3.0, 5.0), (10.0, 0.3)]
 )
-def test_sir_surrogate_matches_independent_integrator(beta, gamma):
+@pytest.mark.parametrize("initial_removed", [np.zeros(5), np.array([70, 100, 790, 20, 0])])
+def test_sir_surrogate_matches_independent_integrator(beta, gamma, initial_removed):
     rng = np.random.default_rng(27)
     Q = rng.random((5, 5))
     Q /= Q.sum(axis=1)[:, None]
@@ -28,7 +29,9 @@ def test_sir_surrogate_matches_independent_integrator(beta, gamma):
     def force(I):
         return beta * (Q.T @ I)
 
-    I, R, _ = module.integrate_sir(force, N, initial, times, gamma, rtol=1e-7)
+    I, R, _ = module.integrate_sir(
+        force, N, initial, times, gamma, rtol=1e-7, initial_removed=initial_removed
+    )
 
     def rhs(t, state):
         infected, removed = state[:5], state[5:]
@@ -38,7 +41,7 @@ def test_sir_surrogate_matches_independent_integrator(beta, gamma):
     reference = solve_ivp(
         rhs,
         [0, 9],
-        np.r_[initial, np.zeros(5)],
+        np.r_[initial, initial_removed],
         t_eval=times,
         rtol=1e-11,
         atol=1e-11,

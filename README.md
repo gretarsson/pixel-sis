@@ -166,8 +166,10 @@ its complete raw-data preparation pipeline.
 
 The [SIR fit and diagnostic report](docs/sir_report/sir_fit_report.pdf) compares
 permanent removal, an uncertain initial infection, and composition-dependent
-voxel rates against the same mouse observations. The extensions improve the
-numerical fit, but important regional timing discrepancies remain. See the
+voxel rates against the same mouse observations. Further regional-rate and
+initial-resistance experiments recover a rise and fall in amygdala and substantia
+nigra pathology. The numerical fit improves, but discrepancies and parameter
+uncertainty remain; the regions were selected after examining residuals. See the
 [reproduction instructions](docs/sir_report/README.md) and
 [machine-readable comparison](docs/sir_report/metrics.json).
 

@@ -17,6 +17,8 @@ class SISModel:
 
     arguments: tuple
     metadata: dict = field(default_factory=dict)
+    local_source_strength: object = field(default=None, repr=False)
+    local_target_weight: object = field(default=None, repr=False)
 
     @property
     def population(self):
@@ -25,6 +27,44 @@ class SISModel:
     @property
     def initial(self):
         return self.arguments[0]
+
+
+def with_susceptibility(model, susceptibility):
+    """Prepare the identical target-weighted generator without a global bound.
+
+    Q_ji and L_ji are multiplied by chi_i. Their resulting source strengths
+    are retained, not normalized away. The capacity N_i remains unchanged.
+    """
+    from ._kernels import local_weight_sums, weighted_conditional_cdf
+
+    if model.local_source_strength is not None:
+        raise ValueError("Susceptibility has already been prepared for this model")
+    chi = np.asarray(susceptibility, dtype=float)
+    if chi.shape != model.population.shape or not np.isfinite(chi).all() or np.any(chi < 0):
+        raise ValueError("Susceptibility must be a finite nonnegative population-shaped field")
+    args = list(model.arguments)
+    target_cdf, component_mass = weighted_conditional_cdf(args[6], args[7], args[8], chi)
+    source_cdf, source_mass = weighted_conditional_cdf(args[3], args[4], args[5], component_mass)
+    args[2] = args[2] * source_mass
+    args[5] = source_cdf
+    args[8] = target_cdf
+    if args[23]:
+        args[11], local_strength = weighted_conditional_cdf(args[9], args[10], args[11], chi)
+        local_target = None
+    else:
+        local_target = args[1] * chi
+        local_strength, forward_max = local_weight_sums(
+            args[1], local_target, args[19], args[20], args[21], args[22]
+        )
+        args[17] = forward_max
+    if not np.isfinite(args[2]).all() or not np.isfinite(local_strength).all():
+        raise ValueError("Nonfinite susceptibility-weighted source intensity")
+    metadata = dict(
+        model.metadata,
+        target_susceptibility_prepared=True,
+        weighted_local_sampler="forward; source strengths retained",
+    )
+    return SISModel(tuple(args), metadata, local_strength, local_target)
 
 
 def _counts(population, initial):
