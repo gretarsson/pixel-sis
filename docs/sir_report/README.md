@@ -152,3 +152,17 @@ used here. The final comparison uses 64 full-reference paths.
 `regional_provenance.json` records the new search configurations, candidate
 locations, parameters and simulation summaries. The decomposition figure and
 its exact numerical contributions are in `figures/decomposition/`.
+
+The paired-channel audit matches all 18,292 fitted cell-body values back to the
+original tables and compares reported positivity with neuritic area. It changes
+no values and fits no additional observation model. At 0.2 months, 433 of 1,341
+records have positive neuritic area, versus one with positive cell-body density.
+The study uses a cell classifier for counts and a separate subcellular spot
+measure for inclusion area; these outputs are not interchangeable. Neurites can
+also originate in somata outside the measured region. See `channel_audit.json`.
+Reproduce with:
+
+```sh
+python examples/audit_sir_pathology_channels.py --data tracer_sis/data \
+  --out outputs/sir_paired_channel_audit_20261127
+```

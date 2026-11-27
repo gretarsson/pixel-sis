@@ -1,0 +1,171 @@
+{
+  "measurements_matched_exactly": 18292,
+  "missing_area_records": 0,
+  "maximum_area_sum_discrepancy": 0.00043923199999998093,
+  "area_sum_discrepancies_over_1e_minus_7": 53,
+  "area_sum_excess_over_total": 29,
+  "discrepancies_beyond_written_decimal_precision": 109,
+  "large_discrepancies_beyond_written_precision": 0,
+  "positive_count_zero_inclusion_area": 182,
+  "positive_inclusion_area_zero_count": 149,
+  "maximum_count_density_with_zero_inclusion_area": 74.70657323,
+  "maximum_inclusion_area_with_zero_count": 0.572258161,
+  "largest_area_discrepancies": [
+    {
+      "label": "cRH",
+      "month": 3.0,
+      "total_area": 0.178,
+      "inclusion_area": 0.177024324,
+      "neurite_area": 0.000536444,
+      "signed_difference": 0.00043923199999998093
+    },
+    {
+      "label": "iACAd",
+      "month": 3.0,
+      "total_area": 0.24,
+      "inclusion_area": 0.065039847,
+      "neurite_area": 0.175264335,
+      "signed_difference": -0.0003041819999999862
+    },
+    {
+      "label": "iPERI",
+      "month": 3.0,
+      "total_area": 0.172,
+      "inclusion_area": 0.019080953,
+      "neurite_area": 0.152647591,
+      "signed_difference": 0.0002714559999999755
+    },
+    {
+      "label": "iVISC",
+      "month": 3.0,
+      "total_area": 0.18,
+      "inclusion_area": 0.04208937,
+      "neurite_area": 0.137664947,
+      "signed_difference": 0.0002456829999999688
+    },
+    {
+      "label": "iVISal",
+      "month": 3.0,
+      "total_area": 0.173,
+      "inclusion_area": 0.056263448,
+      "neurite_area": 0.116863891,
+      "signed_difference": -0.0001273390000000041
+    },
+    {
+      "label": "iDR",
+      "month": 3.0,
+      "total_area": 0.184,
+      "inclusion_area": 0.135237122,
+      "neurite_area": 0.048826705,
+      "signed_difference": -6.382699999998853e-05
+    },
+    {
+      "label": "cSSp-ll",
+      "month": 3.0,
+      "total_area": 0.0127,
+      "inclusion_area": 0.0,
+      "neurite_area": 0.012746544,
+      "signed_difference": -4.654400000000079e-05
+    },
+    {
+      "label": "iVISpl",
+      "month": 3.0,
+      "total_area": 0.0379,
+      "inclusion_area": 0.006699677,
+      "neurite_area": 0.031246395,
+      "signed_difference": -4.60719999999977e-05
+    },
+    {
+      "label": "cGU",
+      "month": 3.0,
+      "total_area": 0.0407,
+      "inclusion_area": 0.0,
+      "neurite_area": 0.040745292,
+      "signed_difference": -4.529200000000233e-05
+    },
+    {
+      "label": "cGU",
+      "month": 3.0,
+      "total_area": 0.0787,
+      "inclusion_area": 0.0,
+      "neurite_area": 0.078744324,
+      "signed_difference": -4.4323999999998365e-05
+    }
+  ],
+  "by_time": [
+    {
+      "month": 0.1,
+      "records": 1329,
+      "body_positive": 1,
+      "neurite_positive": 145,
+      "neurite_positive_body_zero": 144,
+      "body_positive_neurite_zero": 0,
+      "both_positive": 1
+    },
+    {
+      "month": 0.2,
+      "records": 1341,
+      "body_positive": 1,
+      "neurite_positive": 433,
+      "neurite_positive_body_zero": 432,
+      "body_positive_neurite_zero": 0,
+      "both_positive": 1
+    },
+    {
+      "month": 0.3,
+      "records": 1394,
+      "body_positive": 41,
+      "neurite_positive": 832,
+      "neurite_positive_body_zero": 791,
+      "body_positive_neurite_zero": 0,
+      "both_positive": 41
+    },
+    {
+      "month": 0.5,
+      "records": 2615,
+      "body_positive": 128,
+      "neurite_positive": 1580,
+      "neurite_positive_body_zero": 1453,
+      "body_positive_neurite_zero": 1,
+      "both_positive": 127
+    },
+    {
+      "month": 1.0,
+      "records": 2732,
+      "body_positive": 364,
+      "neurite_positive": 1605,
+      "neurite_positive_body_zero": 1244,
+      "body_positive_neurite_zero": 3,
+      "both_positive": 361
+    },
+    {
+      "month": 3.0,
+      "records": 4035,
+      "body_positive": 925,
+      "neurite_positive": 2513,
+      "neurite_positive_body_zero": 1603,
+      "body_positive_neurite_zero": 15,
+      "both_positive": 910
+    },
+    {
+      "month": 6.0,
+      "records": 2720,
+      "body_positive": 757,
+      "neurite_positive": 1724,
+      "neurite_positive_body_zero": 990,
+      "body_positive_neurite_zero": 23,
+      "both_positive": 734
+    },
+    {
+      "month": 9.0,
+      "records": 2126,
+      "body_positive": 562,
+      "neurite_positive": 1111,
+      "neurite_positive_body_zero": 609,
+      "body_positive_neurite_zero": 60,
+      "both_positive": 502
+    }
+  ],
+  "interpretation": "Descriptive paired observations with reported value >0; no new threshold or readout fitted. Neuritic area and cell-body profile density are different quantities, and neurites can originate from somata outside the observed region. Positivity is not a calibrated biological detection probability.",
+  "state_assumption": "Current immediate SIR readout treats all I cells as cell-body positive. This audit does not establish a unique alternative observation model."
+}
