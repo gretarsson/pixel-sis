@@ -83,6 +83,56 @@ def test_sir_without_removal_is_identical_to_sis():
     assert not sir["removed_total_samples"].any()
 
 
+def test_nonuniform_rates_match_master_equation():
+    N = np.array([2, 3, 2])
+    initial = np.array([1, 0, 1])
+    Q = np.array([[0.05, 0.1, 0.05], [0, 0, 0], [0.9, 0.3, 1.8]])
+    L = np.array([[0.8, 0.1, 0.1], [0.1, 0.7, 0.2], [0.2, 0.3, 0.5]])
+    chi = np.array([0.2, 3.0, 1.4])
+    clearance = np.array([2.0, 0.3, 1.2])
+    rates = Rates(1.1, 2.3, 0.7)
+    model = from_contacts(N, initial, Q, L)
+    states, lookup, G = sir_generator(
+        N, (rates.beta_tracer * Q + rates.beta_local * L) * chi[None, :], rates.gamma * clearance
+    )
+    start = np.column_stack([initial, np.zeros(3, dtype=int)])
+    expected = expm(1.5 * G)[lookup[tuple(start.ravel())]] @ states.reshape(len(states), -1)
+    removed = np.zeros((1, 3), dtype=np.int32)
+    samples = []
+    for r in range(8000):
+        infected = run_strength(
+            *model.arguments,
+            np.array([1.5]),
+            *rates.values(),
+            21271101 + 7919 * r,
+            100000,
+            True,
+            removed,
+            chi,
+            clearance,
+        )[0][-1]
+        samples.append(np.column_stack([infected, removed[-1]]).ravel())
+    samples = np.asarray(samples)
+    se = samples.std(axis=0, ddof=1) / np.sqrt(len(samples))
+    assert np.all(abs(samples.mean(axis=0) - expected) < 5 * se + 1e-12)
+
+
+def test_zero_rate_fields_disable_transitions():
+    model = from_contacts([10, 20], [3, 8], np.ones((2, 2)))
+    e = simulate_ensemble(
+        model,
+        [0, 1, 4],
+        Rates(5, 10, 3),
+        runs=4,
+        dynamics="sir",
+        susceptibility=np.zeros(2),
+        clearance_multiplier=np.zeros(2),
+    )
+    np.testing.assert_array_equal(e["count_mean"], np.tile([3, 8], (3, 1)))
+    np.testing.assert_array_equal(e["removed_mean"], 0)
+    assert not e["events"].any()
+
+
 def test_removed_cells_neither_reinfect_nor_contribute_to_readout():
     N = np.array([5, 7])
     model = from_contacts(N, N, [[1.0, 1.0], [1.0, 1.0]])

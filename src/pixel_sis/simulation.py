@@ -41,12 +41,19 @@ def simulate_ensemble(
     maps=True,
     progress=None,
     dynamics="sis",
+    initial_probabilities=None,
+    susceptibility=None,
+    clearance_multiplier=None,
 ):
     """Simulate independent paths without retaining all voxel trajectories.
 
     A path reaching the attempt limit raises; incomplete paths are never scored.
     If observation is supplied, its rows map infected counts to the readouts.
     SIR starts with R=0 and keeps removed cells out of both infection and readout.
+    Optional initial probabilities define independent Binomial(N_i,p_i) counts
+    for each path. Omitting them preserves the fixed initial count vector.
+    Optional nonnegative voxel fields multiply target infection and removal
+    intensities. Event thinning samples these modified rates exactly.
     """
     times = np.asarray(times, dtype=np.float64)
     if dynamics not in ("sis", "sir"):
@@ -68,12 +75,45 @@ def simulate_ensemble(
         raise ValueError("The complete seed sequence must fit uint32")
     if not isinstance(rates, Rates):
         raise TypeError("Pass a Rates instance")
+    if initial_probabilities is not None:
+        initial_probabilities = np.asarray(initial_probabilities, dtype=float)
+        if (
+            initial_probabilities.shape != model.population.shape
+            or not np.isfinite(initial_probabilities).all()
+            or np.any(initial_probabilities < 0)
+            or np.any(initial_probabilities > 1)
+        ):
+            raise ValueError("Initial probabilities must match population and lie in [0,1]")
     if observation is not None and observation.shape[1] != len(model.population):
         raise ValueError("Observation operator does not match the model")
+    for name, field in (
+        ("susceptibility", susceptibility),
+        ("clearance_multiplier", clearance_multiplier),
+    ):
+        if field is not None:
+            field = np.asarray(field, dtype=float)
+            if (
+                field.shape != model.population.shape
+                or not np.isfinite(field).all()
+                or np.any(field < 0)
+            ):
+                raise ValueError(name + " must be a finite nonnegative population-shaped field")
+            if name == "susceptibility":
+                susceptibility = field
+            else:
+                clearance_multiplier = field
     # Compile before recording simulation timings.
     removed_counts = np.zeros((len(times), len(model.population)), dtype=np.int32) if sir else None
     run_strength(
-        *model.arguments, np.array([0.0]), *rates.values(), seed, max_events, sir, removed_counts
+        *model.arguments,
+        np.array([0.0]),
+        *rates.values(),
+        seed,
+        max_events,
+        sir,
+        removed_counts,
+        susceptibility,
+        clearance_multiplier,
     )
     mean = np.zeros((len(times), len(model.population))) if maps else None
     m2 = np.zeros_like(mean) if maps else None
@@ -81,16 +121,26 @@ def simulate_ensemble(
     removed_m2 = np.zeros_like(mean) if maps and sir else None
     totals, densities, seconds, events = [], [], [], []
     removed_totals = []
+    initial_totals = []
     for r in range(runs):
         before = perf_counter()
+        arguments = model.arguments
+        if initial_probabilities is not None:
+            # Separate reproducible stream from the CTMC event generator.
+            rng = np.random.default_rng(np.random.SeedSequence([seed, r, 731901]))
+            initial = rng.binomial(model.population, initial_probabilities)
+            arguments = (initial, *model.arguments[1:])
+        initial_totals.append(int(arguments[0].sum()))
         counts, attempts, changes = run_strength(
-            *model.arguments,
+            *arguments,
             times,
             *rates.values(),
             seed + SEED_STRIDE * r,
             max_events,
             sir,
             removed_counts,
+            susceptibility,
+            clearance_multiplier,
         )
         seconds.append(perf_counter() - before)
         totals.append(counts.sum(axis=1))
@@ -124,6 +174,13 @@ def simulate_ensemble(
             count_mc_se=np.sqrt(np.maximum(m2, 0) / (runs * (runs - 1))),
             population=model.population,
         )
+    if initial_probabilities is not None:
+        result["initial_total_samples"] = np.array(initial_totals)
+        result["initial_probabilities"] = initial_probabilities.copy()
+    if susceptibility is not None:
+        result["susceptibility"] = susceptibility.copy()
+    if clearance_multiplier is not None:
+        result["clearance_multiplier"] = clearance_multiplier.copy()
     if observation is not None:
         result["density_samples"] = np.asarray(densities)
     if sir:

@@ -161,6 +161,8 @@ def run_strength(
     max_events=100000000,
     sir=False,
     removed_out=None,
+    susceptibility=None,
+    clearance_multiplier=None,
 ):
     if min(betaT, betaL, gamma) < 0 or not np.isfinite(betaT + betaL + gamma):
         raise ValueError("Invalid rates")
@@ -186,11 +188,14 @@ def run_strength(
     obs = 0
     events = 0
     changes = 0
+    infection_bound = 1.0 if susceptibility is None else susceptibility.max()
+    clearance_bound = 1.0 if clearance_multiplier is None else clearance_multiplier.max()
+    maximum_gamma = gamma * clearance_bound
     while obs < len(times):
         reverse = bound < total
-        localrate = betaL * max(0.0, min(float(total), bound))
-        tracer_rate = betaT * max(0.0, tracer_total)
-        rate = gamma * total + tracer_rate + localrate
+        localrate = infection_bound * betaL * max(0.0, min(float(total), bound))
+        tracer_rate = infection_bound * betaT * max(0.0, tracer_total)
+        rate = maximum_gamma * total + tracer_rate + localrate
         if rate <= 0 or total == 0:
             for k in range(obs, len(times)):
                 out[k] = I
@@ -211,10 +216,13 @@ def run_strength(
         u = np.random.random() * rate
         b = -1
         change = 0
-        if u < gamma * total:
+        if u < maximum_gamma * total:
             b = tree_find(tree, np.random.random() * total)
             change = -1
-        elif u < gamma * total + tracer_rate:
+            if clearance_multiplier is not None:
+                if np.random.random() * clearance_bound >= clearance_multiplier[b]:
+                    change = 0
+        elif u < maximum_gamma * total + tracer_rate:
             a = tree_find(tracer_tree, np.random.random() * tracer_total)
             if a >= len(N) or I[a] == 0 or strength[a] == 0:
                 continue
@@ -242,6 +250,9 @@ def run_strength(
                 b = sample_neighbor(a, coords, index, offsets, cdf, N, forward_max)
             if b >= 0 and np.random.random() * N[b] >= N[b] - S[b]:
                 change = 1
+        if change > 0 and susceptibility is not None:
+            if np.random.random() * infection_bound >= susceptibility[b]:
+                change = 0
         if change:
             I[b] += change
             tree_add(tree, b, change)
