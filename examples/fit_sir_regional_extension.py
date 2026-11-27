@@ -27,7 +27,16 @@ def main():
     p.add_argument("--max-evaluations", type=int, default=700)
     p.add_argument("--at-risk", action="store_true")
     p.add_argument("--continue-from", type=Path)
+    p.add_argument(
+        "--fit-initial",
+        type=Path,
+        help="Initial local/projected basis and summary to refit jointly",
+    )
     a = p.parse_args()
+    if a.fit_initial is not None and a.at_risk:
+        p.error(
+            "Joint initial-burden fitting and initial-resistance fitting are separate experiments"
+        )
     a.out.mkdir(parents=True, exist_ok=True)
     obs = RegionalObservations.load(a.data)
     original_weights = obs.weights.copy()
@@ -73,6 +82,27 @@ def main():
                 start[11 + k] = fractions[k]
                 start[7 + 2 * k] /= fractions[k]
                 start[8 + 2 * k] = removals[k]
+    fine_initial_basis = None
+    if a.fit_initial is not None:
+        if any(len(s) != 11 for s in starts):
+            raise ValueError(
+                "Joint initial fitting starts from the eleven-parameter regional model"
+            )
+        with np.load(a.fit_initial / "initial_basis.npz") as f:
+            fine_initial_basis = np.stack([f["local"], f["projected"]])
+            fine_population = f["population"]
+        np.testing.assert_array_equal(fine_population, np.load(a.data / "merfish_population.npy"))
+        fine_probability_basis = fine_initial_basis / fine_population[None, :]
+        coarse_initial_basis = np.stack(
+            [np.bincount(labels, weights=v, minlength=len(N)) for v in fine_initial_basis]
+        )
+        state = json.loads((a.fit_initial / "summary.json").read_text())
+        burden, fraction = state["initial_total"], state["projection_fraction"]
+        initial_counts = [burden * (1 - fraction), burden * fraction]
+        if a.continue_from is not None:
+            previous_state = json.loads((a.continue_from / "summary.json").read_text())
+            initial_counts = previous_state.get("initial_component_counts", initial_counts)
+        starts = [np.r_[s[:11], initial_counts] for s in starts]
     total_Q = QT.sum(0)
     total_L = LT.sum(0)
     norm = float(w @ (obs.values**2))
@@ -83,6 +113,15 @@ def main():
     begun = time.perf_counter()
 
     def predict(parameters, rtol=2e-5):
+        state_initial = initial
+        if a.fit_initial is not None:
+            component_counts = parameters[11:]
+            if (
+                component_counts.sum() > 100000
+                or np.max(component_counts @ fine_probability_basis) > 1
+            ):
+                return 100.0, 100.0, None, None, None
+            state_initial = component_counts @ coarse_initial_basis
         bt, bl, go, qg, qd, gg, gd = parameters[:7]
         q = np.array([1, qg, qd])
         K = bt * np.einsum("c,cij->ij", q, QT) + bl * np.einsum("c,cij->ij", q, LT)
@@ -93,10 +132,10 @@ def main():
             gamma[mask] = removal
             if a.at_risk:
                 R0[mask] = (1 - parameters[11 + j]) * N[mask]
-        if np.any(initial + R0 > N):
+        if np.any(state_initial + R0 > N):
             return 100.0, 100.0, None, None, None
         I, R, _ = integrate_sir(
-            lambda I: K @ I, N, initial, obs.times, gamma, rtol=rtol, initial_removed=R0
+            lambda I: K @ I, N, state_initial, obs.times, gamma, rtol=rtol, initial_removed=R0
         )
         density = (O @ I.T).T
         prediction = 6 * obs.predictions(density)
@@ -104,18 +143,30 @@ def main():
         area = float(original_weights @ ((prediction - obs.values) ** 2) / old_norm)
         return loss, area, I, R, density
 
+    def record_parameters(parameters):
+        if a.fit_initial is None:
+            return dict(parameters=parameters.tolist())
+        counts = parameters[11:]
+        return dict(
+            parameters=parameters[:11].tolist(),
+            initial_component_counts=counts.tolist(),
+            initial_total=float(counts.sum()),
+            projection_fraction=float(counts[1] / counts.sum()),
+        )
+
     def objective(x):
         parameters = np.exp(x)
-        loss, area, *_ = predict(parameters)
+        loss, area, predicted_counts, *_ = predict(parameters)
         row = dict(
-            parameters=parameters.tolist(),
+            **record_parameters(parameters),
             relative_rms=float(np.sqrt(loss)),
             original_area_rms=float(np.sqrt(area)),
             evaluation=len(rows) + 1,
             seconds=time.perf_counter() - begun,
+            feasible_initial_state=predicted_counts is not None,
         )
         rows.append(row)
-        if loss < best[0]:
+        if predicted_counts is not None and loss < best[0]:
             best[:] = [loss, x.copy()]
             (a.out / "best.json").write_text(json.dumps(row, indent=2))
         if len(rows) % 50 == 0:
@@ -130,6 +181,8 @@ def main():
     bounds += [(np.log(0.01), np.log(1000)), (np.log(0.001), np.log(10))] * 2
     if a.at_risk:
         bounds += [(np.log(0.01), 0.0)] * 2
+    if a.fit_initial is not None:
+        bounds += [(np.log(0.001), np.log(100000))] * 2
     configuration = dict(
         starts=[s.tolist() for s in starts],
         bounds=bounds,
@@ -160,6 +213,13 @@ def main():
     )
     if a.at_risk:
         configuration["parameter_order"] += ["eligible_fraction_BLA", "eligible_fraction_SNc"]
+    if a.fit_initial is not None:
+        configuration["parameter_order"] += ["initial_local_count", "initial_projected_count"]
+        configuration["initial_state"] = (
+            "Jointly fitted local/projected expected counts; independent binomial initial law"
+        )
+        configuration["initial_basis_source"] = str(a.fit_initial)
+        configuration["initial_total_upper_bound"] = 100000
     (a.out / "configuration.json").write_text(json.dumps(configuration, indent=2))
     for j, start in enumerate(starts):
         x = np.log(start)
@@ -177,29 +237,35 @@ def main():
         )
         row = dict(
             start=j,
-            parameters=np.exp(result.x).tolist(),
+            **record_parameters(np.exp(result.x)),
             relative_rms=float(np.sqrt(result.fun)),
             optimizer_success=bool(result.success),
         )
         completed.append(row)
         (a.out / "starts.json").write_text(json.dumps(completed, indent=2))
         (a.out / "trace.json").write_text(json.dumps(rows, indent=2))
+        if best[1] is None:
+            raise ValueError("No feasible initial state evaluated")
         parameters = np.exp(best[1])
         loss, area, I, R, density = predict(parameters, rtol=2e-8)
+        extra_arrays = {}
+        if a.fit_initial is not None:
+            extra_arrays["initial_fine_mean"] = parameters[11:] @ fine_initial_basis
         np.savez_compressed(
             a.out / "surrogate.npz",
-            parameters=parameters,
+            parameters=parameters if a.fit_initial is None else parameters[:11],
             density=density,
             counts=I,
             removed=R,
             times=obs.times,
             population=N,
             fine_region_masks=fine_masks,
+            **extra_arrays,
         )
         (a.out / "summary.json").write_text(
             json.dumps(
                 dict(
-                    parameters=parameters.tolist(),
+                    **record_parameters(parameters),
                     relative_rms=float(np.sqrt(loss)),
                     original_area_rms=float(np.sqrt(area)),
                     completed_starts=j + 1,

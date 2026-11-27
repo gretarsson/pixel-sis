@@ -49,17 +49,29 @@ def local_basis(N, population, labels, fields, coords, index, offsets, probabili
     return matrices
 
 
-def prepare(data, out, initial_source):
+def prepare(data, out, initial_source, cp_width_um=None):
     N = np.load(data / "merfish_population.npy")
     with np.load(data / "geometry.npz") as f:
         coords, index, left = f["coords"], f["index"], f["left"]
         ids = f["annotation"][tuple(coords.T)]
     initial = np.load(data / "fitting_initial_fine.npy")
     keys = np.stack([ids, left.astype(int)], axis=1)
+    if cp_width_um is not None:
+        if cp_width_um < 100 or cp_width_um % 100:
+            raise ValueError("CP grid width must be a positive multiple of 100 um")
+        obs = RegionalObservations.load(data)
+        cp_groups = np.unique(obs.group[obs.labels == "iCP"])
+        cp = np.asarray(obs.operator[cp_groups].sum(axis=0)).ravel() > 0
+        # A uniform source grid treats every candidate injection position alike.
+        # In this option the original seed gets no special fine compartments.
+        block = coords // (cp_width_um // 100)
+        block[~cp] = -1
+        keys = np.column_stack([keys, block])
     _, labels = np.unique(keys, axis=0, return_inverse=True)
     # Retain each originally seeded voxel rather than homogenizing the local seed.
-    seed_ids = np.flatnonzero(initial)
-    labels[seed_ids] = labels.max() + 1 + np.arange(len(seed_ids))
+    if cp_width_um is None:
+        seed_ids = np.flatnonzero(initial)
+        labels[seed_ids] = labels.max() + 1 + np.arange(len(seed_ids))
     _, labels = np.unique(labels, return_inverse=True)
     n = labels.max() + 1
     G = sparse.csr_matrix((np.ones(len(N)), (np.arange(len(N)), labels)), shape=(len(N), n))
@@ -120,6 +132,18 @@ def prepare(data, out, initial_source):
         initial_fine_mean=initial_mean,
     )
     sparse.save_npz(out / "observation.npz", O)
+    (out / "basis_configuration.json").write_text(
+        json.dumps(
+            dict(
+                compartments=int(n),
+                cp_width_um=cp_width_um,
+                seed_voxels_retained_separately=cp_width_um is None,
+                initial_source=str(initial_source),
+                aggregation="Population-weighted source counts, with fine target susceptibility before aggregation",
+            ),
+            indent=2,
+        )
+    )
     print("Prepared anatomical surrogate", n, "parcels", flush=True)
 
 
@@ -133,13 +157,23 @@ def main():
     p.add_argument("--basis-source", type=Path)
     p.add_argument("--weighting", choices=["area", "regions"], default="area")
     p.add_argument("--starts-from", type=Path)
+    p.add_argument("--cp-width-um", type=int)
     a = p.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     basis_folder = a.out if a.basis_source is None else a.basis_source
     if not (basis_folder / "basis.npz").exists():
         if a.basis_source is not None:
             raise FileNotFoundError("Specified basis has not been prepared")
-        prepare(a.data, a.out, a.initial_source)
+        prepare(a.data, a.out, a.initial_source, cp_width_um=a.cp_width_um)
+    elif a.cp_width_um is not None:
+        metadata = basis_folder / "basis_configuration.json"
+        if (
+            not metadata.exists()
+            or json.loads(metadata.read_text())["cp_width_um"] != a.cp_width_um
+        ):
+            raise ValueError(
+                "Existing basis does not document the requested CP grid; use a new output directory"
+            )
     if a.prepare_only:
         return
     with np.load(basis_folder / "basis.npz") as f:

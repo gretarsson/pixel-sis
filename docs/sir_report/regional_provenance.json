@@ -577,5 +577,860 @@
       "initial_resistant": 161798.15625,
       "final_newly_removed": 153781.015625
     }
+  },
+  "sir_seed_positions_20261127": {
+    "configuration.json": {
+      "parameters": [
+        0.33497351610345083,
+        0.23327692378594714,
+        0.04232436559708109,
+        0.3650035959063991,
+        0.010231416522960016,
+        0.05438789103444587,
+        7.811877859118966e-05,
+        18.331821104514056,
+        1.9353332526288456,
+        89.80559542335955,
+        1.2611140872051885
+      ],
+      "rates_source": "outputs/sir_regional_joint_20261127",
+      "basis": "outputs/sir_seed_basis_200um_20261127",
+      "initial_source": "outputs/sir_initial_screen_20261127",
+      "initial_total": 21511.08905838558,
+      "projection_fraction": 0.8385268136102644,
+      "centers_ccf_mm": [
+        [
+          5.550000000000001,
+          3.25,
+          7.95
+        ],
+        [
+          5.25,
+          4.25,
+          8.05
+        ],
+        [
+          7.3500000000000005,
+          4.3500000000000005,
+          9.35
+        ],
+        [
+          6.45,
+          3.0500000000000003,
+          8.450000000000001
+        ],
+        [
+          4.15,
+          4.65,
+          6.8500000000000005
+        ],
+        [
+          6.050000000000001,
+          5.45,
+          8.75
+        ],
+        [
+          4.8500000000000005,
+          3.25,
+          6.95
+        ],
+        [
+          4.65,
+          5.65,
+          7.95
+        ],
+        [
+          6.050000000000001,
+          4.15,
+          9.15
+        ],
+        [
+          5.65,
+          2.85,
+          7.65
+        ],
+        [
+          4.25,
+          3.75,
+          7.75
+        ],
+        [
+          5.25,
+          5.050000000000001,
+          7.3500000000000005
+        ],
+        [
+          5.15,
+          5.050000000000001,
+          8.65
+        ],
+        [
+          4.3500000000000005,
+          4.75,
+          7.8500000000000005
+        ],
+        [
+          5.550000000000001,
+          3.35,
+          8.450000000000001
+        ],
+        [
+          5.050000000000001,
+          4.15,
+          7.050000000000001
+        ],
+        [
+          6.65,
+          4.8500000000000005,
+          9.05
+        ],
+        [
+          5.050000000000001,
+          3.45,
+          7.75
+        ],
+        [
+          5.8500000000000005,
+          4.65,
+          8.450000000000001
+        ],
+        [
+          4.15,
+          3.85,
+          6.95
+        ],
+        [
+          5.25,
+          4.25,
+          8.85
+        ],
+        [
+          6.75,
+          3.85,
+          9.15
+        ],
+        [
+          5.3500000000000005,
+          5.45,
+          8.05
+        ],
+        [
+          6.15,
+          3.75,
+          8.55
+        ],
+        [
+          5.550000000000001,
+          3.5500000000000003,
+          7.25
+        ]
+      ],
+      "seed_sigma_mm": 0.15,
+      "seed_cutoff_mm": 0.3,
+      "coverage": "24 farthest-point positions in right CP at least 0.3 mm from its boundary, plus the original provisional center",
+      "selection": "Equal-region whole-cohort error; original area score also reported",
+      "changed": "Initial position and its tracer-defined projected footprint only",
+      "unchanged": "Rates, total expected initial burden, footprint mixture, population, connectivity and 6-um immediate observation rule",
+      "full_reference_validated": false
+    },
+    "summary.json": {
+      "parameters": [
+        0.33497351610345083,
+        0.23327692378594714,
+        0.04232436559708109,
+        0.3650035959063991,
+        0.010231416522960016,
+        0.05438789103444587,
+        7.811877859118966e-05,
+        18.331821104514056,
+        1.9353332526288456,
+        89.80559542335955,
+        1.2611140872051885
+      ],
+      "selected_candidate": {
+        "candidate": 15,
+        "center_ccf_mm": [
+          5.050000000000001,
+          4.15,
+          7.050000000000001
+        ],
+        "initial_fraction_max": 0.6948775806141414,
+        "status": "screened",
+        "relative_rms": 0.8424042810386375,
+        "original_area_rms": 0.8170993741284981
+      },
+      "relative_rms": 0.8424937002800283,
+      "original_area_rms": 0.8172200038954515,
+      "candidates": 25,
+      "elapsed_seconds": 14.353887375000001,
+      "full_reference_validated": false,
+      "initial_total": 21511.08905838558,
+      "projection_fraction": 0.8385268136102644
+    },
+    "candidates.json": [
+      {
+        "candidate": 0,
+        "center_ccf_mm": [
+          5.550000000000001,
+          3.25,
+          7.95
+        ],
+        "initial_fraction_max": 0.9934219762810249,
+        "status": "screened",
+        "relative_rms": 0.8574308448491459,
+        "original_area_rms": 0.8182946319316255
+      },
+      {
+        "candidate": 1,
+        "center_ccf_mm": [
+          5.25,
+          4.25,
+          8.05
+        ],
+        "initial_fraction_max": 0.9054985386437391,
+        "status": "screened",
+        "relative_rms": 0.8554246221265734,
+        "original_area_rms": 0.8185606466585923
+      },
+      {
+        "candidate": 2,
+        "center_ccf_mm": [
+          7.3500000000000005,
+          4.3500000000000005,
+          9.35
+        ],
+        "initial_fraction_max": 1.0472626255103787,
+        "status": "Rejected: initial probability exceeds one; burden unchanged"
+      },
+      {
+        "candidate": 3,
+        "center_ccf_mm": [
+          6.45,
+          3.0500000000000003,
+          8.450000000000001
+        ],
+        "initial_fraction_max": 0.702994905649753,
+        "status": "screened",
+        "relative_rms": 0.9190386016109139,
+        "original_area_rms": 0.859610371559003
+      },
+      {
+        "candidate": 4,
+        "center_ccf_mm": [
+          4.15,
+          4.65,
+          6.8500000000000005
+        ],
+        "initial_fraction_max": 0.5911463181390898,
+        "status": "screened",
+        "relative_rms": 0.8600921564195851,
+        "original_area_rms": 0.8439690485523104
+      },
+      {
+        "candidate": 5,
+        "center_ccf_mm": [
+          6.050000000000001,
+          5.45,
+          8.75
+        ],
+        "initial_fraction_max": 0.7737221303205551,
+        "status": "screened",
+        "relative_rms": 0.8745313081529911,
+        "original_area_rms": 0.8567744986463389
+      },
+      {
+        "candidate": 6,
+        "center_ccf_mm": [
+          4.8500000000000005,
+          3.25,
+          6.95
+        ],
+        "initial_fraction_max": 0.46220026395425345,
+        "status": "screened",
+        "relative_rms": 0.8869489569817465,
+        "original_area_rms": 0.8306675062177272
+      },
+      {
+        "candidate": 7,
+        "center_ccf_mm": [
+          4.65,
+          5.65,
+          7.95
+        ],
+        "initial_fraction_max": 0.584717955347425,
+        "status": "screened",
+        "relative_rms": 0.8622220385737626,
+        "original_area_rms": 0.8341078222297061
+      },
+      {
+        "candidate": 8,
+        "center_ccf_mm": [
+          6.050000000000001,
+          4.15,
+          9.15
+        ],
+        "initial_fraction_max": 0.6188155466526541,
+        "status": "screened",
+        "relative_rms": 0.8746534896261636,
+        "original_area_rms": 0.8355666061165316
+      },
+      {
+        "candidate": 9,
+        "center_ccf_mm": [
+          5.65,
+          2.85,
+          7.65
+        ],
+        "initial_fraction_max": 0.7862694048546992,
+        "status": "screened",
+        "relative_rms": 0.8919824705972191,
+        "original_area_rms": 0.8375911356411888
+      },
+      {
+        "candidate": 10,
+        "center_ccf_mm": [
+          4.25,
+          3.75,
+          7.75
+        ],
+        "initial_fraction_max": 0.7669158326894514,
+        "status": "screened",
+        "relative_rms": 0.8607711269877875,
+        "original_area_rms": 0.8276410956221292
+      },
+      {
+        "candidate": 11,
+        "center_ccf_mm": [
+          5.25,
+          5.050000000000001,
+          7.3500000000000005
+        ],
+        "initial_fraction_max": 1.055648876681331,
+        "status": "Rejected: initial probability exceeds one; burden unchanged"
+      },
+      {
+        "candidate": 12,
+        "center_ccf_mm": [
+          5.15,
+          5.050000000000001,
+          8.65
+        ],
+        "initial_fraction_max": 0.6746033523448478,
+        "status": "screened",
+        "relative_rms": 0.8731859592614687,
+        "original_area_rms": 0.8408766131168849
+      },
+      {
+        "candidate": 13,
+        "center_ccf_mm": [
+          4.3500000000000005,
+          4.75,
+          7.8500000000000005
+        ],
+        "initial_fraction_max": 0.5867544763954883,
+        "status": "screened",
+        "relative_rms": 0.8489041470033263,
+        "original_area_rms": 0.8172798954216651
+      },
+      {
+        "candidate": 14,
+        "center_ccf_mm": [
+          5.550000000000001,
+          3.35,
+          8.450000000000001
+        ],
+        "initial_fraction_max": 0.924664496030319,
+        "status": "screened",
+        "relative_rms": 0.8730725701234836,
+        "original_area_rms": 0.8340225757781361
+      },
+      {
+        "candidate": 15,
+        "center_ccf_mm": [
+          5.050000000000001,
+          4.15,
+          7.050000000000001
+        ],
+        "initial_fraction_max": 0.6948775806141414,
+        "status": "screened",
+        "relative_rms": 0.8424042810386375,
+        "original_area_rms": 0.8170993741284981
+      },
+      {
+        "candidate": 16,
+        "center_ccf_mm": [
+          6.65,
+          4.8500000000000005,
+          9.05
+        ],
+        "initial_fraction_max": 1.2296524681586163,
+        "status": "Rejected: initial probability exceeds one; burden unchanged"
+      },
+      {
+        "candidate": 17,
+        "center_ccf_mm": [
+          5.050000000000001,
+          3.45,
+          7.75
+        ],
+        "initial_fraction_max": 0.6430708569919419,
+        "status": "screened",
+        "relative_rms": 0.8564490269380264,
+        "original_area_rms": 0.8195714876711098
+      },
+      {
+        "candidate": 18,
+        "center_ccf_mm": [
+          5.8500000000000005,
+          4.65,
+          8.450000000000001
+        ],
+        "initial_fraction_max": 0.8804890954976516,
+        "status": "screened",
+        "relative_rms": 0.8718024713850573,
+        "original_area_rms": 0.8406937049507541
+      },
+      {
+        "candidate": 19,
+        "center_ccf_mm": [
+          4.15,
+          3.85,
+          6.95
+        ],
+        "initial_fraction_max": 0.7913738628688421,
+        "status": "screened",
+        "relative_rms": 0.8569799285197566,
+        "original_area_rms": 0.8166934962176522
+      },
+      {
+        "candidate": 20,
+        "center_ccf_mm": [
+          5.25,
+          4.25,
+          8.85
+        ],
+        "initial_fraction_max": 0.7000407650381258,
+        "status": "screened",
+        "relative_rms": 0.8854862422088317,
+        "original_area_rms": 0.8510990488434181
+      },
+      {
+        "candidate": 21,
+        "center_ccf_mm": [
+          6.75,
+          3.85,
+          9.15
+        ],
+        "initial_fraction_max": 1.2262054544076384,
+        "status": "Rejected: initial probability exceeds one; burden unchanged"
+      },
+      {
+        "candidate": 22,
+        "center_ccf_mm": [
+          5.3500000000000005,
+          5.45,
+          8.05
+        ],
+        "initial_fraction_max": 1.0737017520109824,
+        "status": "Rejected: initial probability exceeds one; burden unchanged"
+      },
+      {
+        "candidate": 23,
+        "center_ccf_mm": [
+          6.15,
+          3.75,
+          8.55
+        ],
+        "initial_fraction_max": 0.6753517303777512,
+        "status": "screened",
+        "relative_rms": 0.8740701532106161,
+        "original_area_rms": 0.8345540034311326
+      },
+      {
+        "candidate": 24,
+        "center_ccf_mm": [
+          5.550000000000001,
+          3.5500000000000003,
+          7.25
+        ],
+        "initial_fraction_max": 0.9654274237839641,
+        "status": "screened",
+        "relative_rms": 0.8683454601729547,
+        "original_area_rms": 0.8462446820396211
+      }
+    ]
+  },
+  "sir_seed_joint_initial_20261127": {
+    "configuration.json": {
+      "starts": [
+        [
+          0.33497351610345083,
+          0.23327692378594714,
+          0.04232436559708109,
+          0.3650035959063991,
+          0.010231416522960016,
+          0.05438789103444587,
+          7.811877859118966e-05,
+          18.331821104514056,
+          1.9353332526288456,
+          89.80559542335955,
+          1.2611140872051885,
+          3473.464092970897,
+          18037.62496541468
+        ]
+      ],
+      "bounds": [
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -6.907755278982137,
+          11.512925464970229
+        ],
+        [
+          -6.907755278982137,
+          11.512925464970229
+        ]
+      ],
+      "parameter_order": [
+        "beta_T",
+        "beta_L",
+        "gamma_O",
+        "q_G",
+        "q_D",
+        "gamma_G",
+        "gamma_D",
+        "chi_BLA",
+        "gamma_BLA",
+        "chi_SNc",
+        "gamma_SNc",
+        "initial_local_count",
+        "initial_projected_count"
+      ],
+      "objective": "Equal time, mouse and regional record weights across the whole cohort",
+      "bilateral_overrides": true,
+      "region_selection": "Outcome-selected diagnostic; exploratory",
+      "max_evaluations_per_start": 400,
+      "full_reference_validated": false,
+      "initial_state": "Jointly fitted local/projected expected counts; independent binomial initial law",
+      "readout_um": 6,
+      "initially_susceptible_fraction_fitted": false,
+      "continue_from": "outputs/sir_regional_joint_20261127",
+      "initial_basis_source": "outputs/sir_seed_positions_20261127",
+      "initial_total_upper_bound": 100000
+    },
+    "summary.json": {
+      "parameters": [
+        0.28069807228761146,
+        0.2004662983603801,
+        0.07516022913286576,
+        0.42556557133741807,
+        0.010084554035055676,
+        0.038722341293481,
+        9.66753893552237e-05,
+        19.57878354519638,
+        1.8423306654899525,
+        97.38949142598172,
+        1.259517670999561
+      ],
+      "initial_component_counts": [
+        4994.704547812321,
+        19877.891826449784
+      ],
+      "initial_total": 24872.596374262106,
+      "projection_fraction": 0.7991884533220348,
+      "relative_rms": 0.8347045483504244,
+      "original_area_rms": 0.807178027684118,
+      "completed_starts": 1,
+      "evaluations": 400,
+      "elapsed_seconds": 144.296878834,
+      "full_reference_validated": false
+    },
+    "starts.json": [
+      {
+        "start": 0,
+        "parameters": [
+          0.28069807228761146,
+          0.2004662983603801,
+          0.07516022913286576,
+          0.42556557133741807,
+          0.010084554035055676,
+          0.038722341293481,
+          9.66753893552237e-05,
+          19.57878354519638,
+          1.8423306654899525,
+          97.38949142598172,
+          1.259517670999561
+        ],
+        "initial_component_counts": [
+          4994.704547812321,
+          19877.891826449784
+        ],
+        "initial_total": 24872.596374262106,
+        "projection_fraction": 0.7991884533220348,
+        "relative_rms": 0.834697881005417,
+        "optimizer_success": false
+      }
+    ]
+  },
+  "sir_original_seed_joint_initial_20261127": {
+    "configuration.json": {
+      "starts": [
+        [
+          0.33497351610345083,
+          0.23327692378594714,
+          0.04232436559708109,
+          0.3650035959063991,
+          0.010231416522960016,
+          0.05438789103444587,
+          7.811877859118966e-05,
+          18.331821104514056,
+          1.9353332526288456,
+          89.80559542335955,
+          1.2611140872051885,
+          3473.464092970897,
+          18037.62496541468
+        ]
+      ],
+      "bounds": [
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -4.605170185988091,
+          5.298317366548036
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -11.512925464970229,
+          3.4011973816621555
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -4.605170185988091,
+          6.907755278982137
+        ],
+        [
+          -6.907755278982137,
+          2.302585092994046
+        ],
+        [
+          -6.907755278982137,
+          11.512925464970229
+        ],
+        [
+          -6.907755278982137,
+          11.512925464970229
+        ]
+      ],
+      "parameter_order": [
+        "beta_T",
+        "beta_L",
+        "gamma_O",
+        "q_G",
+        "q_D",
+        "gamma_G",
+        "gamma_D",
+        "chi_BLA",
+        "gamma_BLA",
+        "chi_SNc",
+        "gamma_SNc",
+        "initial_local_count",
+        "initial_projected_count"
+      ],
+      "objective": "Equal time, mouse and regional record weights across the whole cohort",
+      "bilateral_overrides": true,
+      "region_selection": "Outcome-selected diagnostic; exploratory",
+      "max_evaluations_per_start": 400,
+      "full_reference_validated": false,
+      "initial_state": "Jointly fitted local/projected expected counts; independent binomial initial law",
+      "readout_um": 6,
+      "initially_susceptible_fraction_fitted": false,
+      "continue_from": "outputs/sir_regional_joint_20261127",
+      "initial_basis_source": "outputs/sir_initial_screen_20261127",
+      "initial_total_upper_bound": 100000
+    },
+    "summary.json": {
+      "parameters": [
+        0.34923612006961435,
+        0.22449349297447815,
+        0.047564644464028055,
+        0.3756476909264203,
+        0.01011181615547327,
+        0.10392169392716813,
+        3.2280894317118715e-05,
+        17.621032240138252,
+        1.8276827461692786,
+        88.9306567515749,
+        1.2348824964292089
+      ],
+      "initial_component_counts": [
+        3199.685965306531,
+        24825.296833958946
+      ],
+      "initial_total": 28024.982799265475,
+      "projection_fraction": 0.8858273709488096,
+      "relative_rms": 0.8562566087450285,
+      "original_area_rms": 0.8180679503669873,
+      "completed_starts": 1,
+      "evaluations": 400,
+      "elapsed_seconds": 170.98288975,
+      "full_reference_validated": false
+    },
+    "starts.json": [
+      {
+        "start": 0,
+        "parameters": [
+          0.34923612006961435,
+          0.22449349297447815,
+          0.047564644464028055,
+          0.3756476909264203,
+          0.01011181615547327,
+          0.10392169392716813,
+          3.2280894317118715e-05,
+          17.621032240138252,
+          1.8276827461692786,
+          88.9306567515749,
+          1.2348824964292089
+        ],
+        "initial_component_counts": [
+          3199.685965306531,
+          24825.296833958946
+        ],
+        "initial_total": 28024.982799265475,
+        "projection_fraction": 0.8858273709488096,
+        "relative_rms": 0.8562514301034745,
+        "optimizer_success": false
+      }
+    ]
+  },
+  "sir_seed_joint_initial_reference_20261127": {
+    "configuration.json": {
+      "parameters": [
+        0.28069807228761146,
+        0.2004662983603801,
+        0.07516022913286576,
+        0.42556557133741807,
+        0.010084554035055676,
+        0.038722341293481,
+        9.66753893552237e-05,
+        19.57878354519638,
+        1.8423306654899525,
+        97.38949142598172,
+        1.259517670999561
+      ],
+      "source_screen": "outputs/sir_seed_joint_initial_20261127",
+      "initial_source": "outputs/sir_seed_joint_initial_20261127/surrogate.npz",
+      "expected_initial_infected": 24872.596374262106,
+      "selected_start": null,
+      "runs": 64,
+      "seed_base": 212706101,
+      "max_events": 20000000,
+      "voxel_um": 100,
+      "readout_um": 6,
+      "initial_law": "Independent binomial with screened mean",
+      "generator": "Target susceptibility multiplies infection hazards; clearance multiplies gamma_other. Exact count CTMC.",
+      "susceptibility_sampler": "prepared weighted contacts",
+      "clearance_sampler": "weighted event tree",
+      "regional_source": "outputs/sir_seed_joint_initial_20261127",
+      "initial_resistance": false
+    },
+    "summary.json": {
+      "relative_rms": 0.8076929996007034,
+      "mc_se_rms": 0.00022957414437965425,
+      "parameters": [
+        0.28069807228761146,
+        0.2004662983603801,
+        0.07516022913286576,
+        0.42556557133741807,
+        0.010084554035055676,
+        0.038722341293481,
+        9.66753893552237e-05,
+        19.57878354519638,
+        1.8423306654899525,
+        97.38949142598172,
+        1.259517670999561
+      ],
+      "runs": 64,
+      "final_infected": 320559.203125,
+      "final_removed": 191775.546875,
+      "median_seconds": 0.7782278339999991,
+      "maximum_attempts": 858043,
+      "scope": "Fresh full-reference CTMC at fixed candidate; the measurement approximation and composition-rate law remain assumptions."
+    }
+  },
+  "sir_seed_basis_200um_20261127": {
+    "basis_configuration.json": {
+      "compartments": 3117,
+      "cp_width_um": 200,
+      "seed_voxels_retained_separately": false,
+      "initial_source": "outputs/sir_initial_screen_20261127/surrogate.npz",
+      "aggregation": "Population-weighted source counts, with fine target susceptibility before aggregation",
+      "metadata_note": "Recorded after basis construction from its command and output; arrays unchanged"
+    }
   }
 }

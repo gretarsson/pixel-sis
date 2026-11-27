@@ -23,6 +23,8 @@ The completed run folders are recorded in `metrics.json`. Reproduction scripts:
 - `examples/diagnose_sir_regional_rates.py`: fit bilateral BLA/SNc rate overrides to the two right-sided trajectories only; report whole-brain error separately.
 - `examples/fit_sir_regional_extension.py`: jointly fit the seven composition parameters and four regional overrides against the whole cohort. `--at-risk` adds two initially eligible fractions, while preserving the earlier infected marginal.
 - `examples/build_sir_report.py`: assemble figures and scores from completed ensembles only.
+- `examples/decompose_sir_error.py`: exact weighted SSE decomposition into scatter among observations in the same window/time and mismatch with their weighted mean. This changes no data or objective.
+- `examples/screen_sir_seed_position.py`: cover the interior of right CP with 24 geometry-selected candidate locations plus the original source, at fixed rates and initial burden. Infeasible initial probabilities are rejected.
 
 For the runs documented here, use these output names and options:
 
@@ -80,6 +82,34 @@ python examples/check_sir_composition.py --data tracer_sis/data \
   --regional-source outputs/sir_regional_atrisk_20261127 \
   --prepare-susceptibility \
   --out outputs/sir_regional_atrisk_reference_20261127 --runs 64
+python examples/screen_sir_composition.py --data tracer_sis/data \
+  --initial-source outputs/sir_initial_screen_20261127/surrogate.npz \
+  --out outputs/sir_seed_basis_200um_20261127 --cp-width-um 200 --prepare-only
+python examples/screen_sir_seed_position.py --data tracer_sis/data \
+  --basis outputs/sir_seed_basis_200um_20261127 \
+  --rates-source outputs/sir_regional_joint_20261127 \
+  --initial-source outputs/sir_initial_screen_20261127 \
+  --out outputs/sir_seed_positions_20261127 --candidates 24
+python examples/fit_sir_regional_extension.py --data tracer_sis/data \
+  --basis outputs/sir_seed_basis_200um_20261127 \
+  --baseline outputs/sir_composition_regions_20261127 \
+  --diagnostic outputs/sir_regional_diagnostic_20261127 \
+  --continue-from outputs/sir_regional_joint_20261127 \
+  --fit-initial outputs/sir_seed_positions_20261127 \
+  --out outputs/sir_seed_joint_initial_20261127 --max-evaluations 400
+python examples/fit_sir_regional_extension.py --data tracer_sis/data \
+  --basis outputs/sir_seed_basis_200um_20261127 \
+  --baseline outputs/sir_composition_regions_20261127 \
+  --diagnostic outputs/sir_regional_diagnostic_20261127 \
+  --continue-from outputs/sir_regional_joint_20261127 \
+  --fit-initial outputs/sir_initial_screen_20261127 \
+  --out outputs/sir_original_seed_joint_initial_20261127 --max-evaluations 400
+python examples/check_sir_composition.py --data tracer_sis/data \
+  --screen outputs/sir_seed_joint_initial_20261127 \
+  --initial-source outputs/sir_seed_joint_initial_20261127/surrogate.npz \
+  --regional-source outputs/sir_seed_joint_initial_20261127 \
+  --prepare-susceptibility \
+  --out outputs/sir_seed_joint_initial_reference_20261127 --runs 64
 python examples/build_sir_report.py --data tracer_sis/data \
   --outputs outputs --report docs/sir_report
 tectonic -o docs/sir_report docs/sir_report/sir_fit_report.tex
@@ -103,6 +133,22 @@ Prepared susceptibility sampling retains the exact generator while avoiding a
 global maximum-rate envelope. Nonuniform removal now uses a weighted event tree.
 For heterogeneous rates this changes seeded event paths relative to the earlier
 sampler, while preserving their law. The default uniform SIS reference remains
-bitwise unchanged. Validation includes 60 tests with the local reference data,
+bitwise unchanged. Validation includes 62 tests with the local reference data,
 finite-state master equations, an independent ODE solver, initial-state moments
 and repeat loading of the compiled composition kernel cache.
+
+The source-location experiment keeps the seed Gaussian width at 150 µm and its
+cutoff at 300 µm. Positions are chosen by deterministic farthest-point coverage
+within right CP, at least 300 µm inside the boundary, plus the old provisional
+position. Its ODE grid treats every CP location equally at 200 µm; other regions
+remain anatomical compartments (3,117 total). The source choice is fitted to the
+same cohort, not identified from registered injection data. Both subsequent
+joint refinements use one local start and 400 evaluations, with no convergence
+claim. They optimize the existing eleven rate parameters and the two expected
+initial component counts. Their sum is at most 100,000 and each voxel's infection
+probability must not exceed one. The prior initial-resistance extension is not
+used here. The final comparison uses 64 full-reference paths.
+
+`regional_provenance.json` records the new search configurations, candidate
+locations, parameters and simulation summaries. The decomposition figure and
+its exact numerical contributions are in `figures/decomposition/`.

@@ -284,9 +284,59 @@
       "area_mc_se": 0.00026429851938242465,
       "regions_rms": 0.8585055554494674,
       "regions_mc_se": 0.00026057306978492247
+    },
+    {
+      "name": "Refitted source and initial burden",
+      "source": "sir_seed_joint_initial_reference_20261127/ensemble.npz",
+      "runs": 64,
+      "rates": [
+        0.28069807228761146,
+        0.2004662983603801,
+        0.07516022913286576
+      ],
+      "total_infected": [
+        25734.84375,
+        26628.6875,
+        27573.46875,
+        29606.40625,
+        35777.75,
+        74079.1875,
+        153858.5,
+        320559.203125
+      ],
+      "total_removed": [
+        217.796875,
+        487.453125,
+        799.625,
+        1600.46875,
+        4859.3125,
+        43151.0625,
+        124349.453125,
+        191775.546875
+      ],
+      "parameters_represent": "rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
+      "parameters": [
+        0.28069807228761146,
+        0.2004662983603801,
+        0.07516022913286576,
+        0.42556557133741807,
+        0.010084554035055676,
+        0.038722341293481,
+        9.66753893552237e-05,
+        19.57878354519638,
+        1.8423306654899525,
+        97.38949142598172,
+        1.259517670999561
+      ],
+      "initial_total": 24872.596374262106,
+      "projection_fraction": 0.7991884533220348,
+      "area_rms": 0.8076929996007034,
+      "area_mc_se": 0.00022957414437965425,
+      "regions_rms": 0.8359452189117855,
+      "regions_mc_se": 0.0002475646385116288
     }
   ],
-  "selected_for_figure": 5,
+  "selected_for_figure": 6,
   "figure_selection": "Lowest original area-weighted error among completed reference checks; not a global optimum",
   "interpretation": "Exploratory in-sample improvement. Important regional timing failures remain."
 }

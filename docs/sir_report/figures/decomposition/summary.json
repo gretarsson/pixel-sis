@@ -1,0 +1,2651 @@
+{
+  "cases": [
+    {
+      "name": "Uniform SIR",
+      "source": "sir_fit_20261127/mixed/ensemble.npz",
+      "within_window_time_scatter": 0.33656856267569146,
+      "mean_mismatch": 0.5060689847739874,
+      "relative_mean_rms": 0.8733872291612377,
+      "within_fraction_of_sse": 0.3994226980441918
+    },
+    {
+      "name": "Revised initial state",
+      "source": "sir_initial_reference_20261127/ensemble.npz",
+      "within_window_time_scatter": 0.33656856267569146,
+      "mean_mismatch": 0.46792954702880557,
+      "relative_mean_rms": 0.8398315988815002,
+      "within_fraction_of_sse": 0.4183584257262178
+    },
+    {
+      "name": "Composition rates, area fit",
+      "source": "sir_composition_reference_start2_20261127/ensemble.npz",
+      "within_window_time_scatter": 0.33656856267569146,
+      "mean_mismatch": 0.44290276248895466,
+      "relative_mean_rms": 0.8170641790348253,
+      "within_fraction_of_sse": 0.43179082002099145
+    },
+    {
+      "name": "Composition rates, regional fit",
+      "source": "sir_composition_regions_reference_20261127/ensemble.npz",
+      "within_window_time_scatter": 0.33656856267569146,
+      "mean_mismatch": 0.4193419694291063,
+      "relative_mean_rms": 0.7950348051781845,
+      "within_fraction_of_sse": 0.4452492039481603
+    },
+    {
+      "name": "Regional rates",
+      "source": "sir_regional_joint_reference_20261127/ensemble.npz",
+      "within_window_time_scatter": 0.33656856267569146,
+      "mean_mismatch": 0.3350265554489369,
+      "relative_mean_rms": 0.7106268170903852,
+      "within_fraction_of_sse": 0.501148018489965
+    },
+    {
+      "name": "Regional rates + initial resistance",
+      "source": "sir_regional_atrisk_reference_20261127/ensemble.npz",
+      "within_window_time_scatter": 0.33656856267569146,
+      "mean_mismatch": 0.3303231951765336,
+      "relative_mean_rms": 0.7056210234904471,
+      "within_fraction_of_sse": 0.504682444658839
+    },
+    {
+      "name": "Refitted source and initial burden",
+      "source": "sir_seed_joint_initial_reference_20261127/ensemble.npz",
+      "within_window_time_scatter": 0.33656856267569146,
+      "mean_mismatch": 0.31579941892829044,
+      "relative_mean_rms": 0.6899341464458983,
+      "within_fraction_of_sse": 0.5159182733771941
+    }
+  ],
+  "latest_regional_errors": [
+    {
+      "label": "iCOAp",
+      "scatter": 0.033886236476301644,
+      "mean_mismatch": 0.031052048986283932,
+      "records": 55
+    },
+    {
+      "label": "iBLA",
+      "scatter": 0.016764549787509294,
+      "mean_mismatch": 0.021889941344877064,
+      "records": 55
+    },
+    {
+      "label": "iPL",
+      "scatter": 0.009677592689620089,
+      "mean_mismatch": 0.017078877690123017,
+      "records": 52
+    },
+    {
+      "label": "iACAd",
+      "scatter": 0.0044241247570812456,
+      "mean_mismatch": 0.01651920835384331,
+      "records": 54
+    },
+    {
+      "label": "iMOs",
+      "scatter": 0.011394748023773923,
+      "mean_mismatch": 0.01639538721719879,
+      "records": 54
+    },
+    {
+      "label": "iBMA",
+      "scatter": 0.015183814921011795,
+      "mean_mismatch": 0.01586616059739631,
+      "records": 55
+    },
+    {
+      "label": "iCEA",
+      "scatter": 0.0056819124825584055,
+      "mean_mismatch": 0.014084889364734109,
+      "records": 55
+    },
+    {
+      "label": "iTR",
+      "scatter": 0.011653737489008767,
+      "mean_mismatch": 0.013531130141559048,
+      "records": 51
+    },
+    {
+      "label": "iCP",
+      "scatter": 0.06922854599250912,
+      "mean_mismatch": 0.011556500090125077,
+      "records": 55
+    },
+    {
+      "label": "iPA",
+      "scatter": 0.020862268240246964,
+      "mean_mismatch": 0.011479710264495879,
+      "records": 54
+    },
+    {
+      "label": "cBLA",
+      "scatter": 0.0011839047882941961,
+      "mean_mismatch": 0.010845397794796518,
+      "records": 55
+    },
+    {
+      "label": "iSNc",
+      "scatter": 0.03523429999008187,
+      "mean_mismatch": 0.010753353426884656,
+      "records": 53
+    },
+    {
+      "label": "cSNc",
+      "scatter": 0.0,
+      "mean_mismatch": 0.009638568395604829,
+      "records": 53
+    },
+    {
+      "label": "iACAv",
+      "scatter": 0.0015314489192487393,
+      "mean_mismatch": 0.006432855923762097,
+      "records": 50
+    },
+    {
+      "label": "iVTA",
+      "scatter": 0.005758267404881522,
+      "mean_mismatch": 0.005944617345475782,
+      "records": 53
+    },
+    {
+      "label": "iAId",
+      "scatter": 0.003714970006888585,
+      "mean_mismatch": 0.005039734917212787,
+      "records": 54
+    },
+    {
+      "label": "iMOp",
+      "scatter": 0.005304999428837725,
+      "mean_mismatch": 0.004093262369169427,
+      "records": 54
+    },
+    {
+      "label": "iPALd",
+      "scatter": 1.496290129869048e-05,
+      "mean_mismatch": 0.0038808132961735604,
+      "records": 55
+    },
+    {
+      "label": "cAId",
+      "scatter": 0.0019895147842340136,
+      "mean_mismatch": 0.0038777177522563867,
+      "records": 54
+    },
+    {
+      "label": "iFRP",
+      "scatter": 0.010649446497243293,
+      "mean_mismatch": 0.003480263771507137,
+      "records": 52
+    },
+    {
+      "label": "iACB",
+      "scatter": 0.0031292284243390786,
+      "mean_mismatch": 0.003374825119141192,
+      "records": 45
+    },
+    {
+      "label": "iORBvl",
+      "scatter": 0.0017707922407898568,
+      "mean_mismatch": 0.0029802027305000883,
+      "records": 52
+    },
+    {
+      "label": "cLA",
+      "scatter": 0.0003702055323605922,
+      "mean_mismatch": 0.0029700460165429416,
+      "records": 55
+    },
+    {
+      "label": "iTEa",
+      "scatter": 0.0007103613437700801,
+      "mean_mismatch": 0.002926690705907767,
+      "records": 55
+    },
+    {
+      "label": "iORBm",
+      "scatter": 0.0006867322281780822,
+      "mean_mismatch": 0.0028505974818184487,
+      "records": 52
+    },
+    {
+      "label": "iSSs",
+      "scatter": 0.0009701371082729409,
+      "mean_mismatch": 0.002210489249372926,
+      "records": 55
+    },
+    {
+      "label": "cACAv",
+      "scatter": 6.144398387191576e-05,
+      "mean_mismatch": 0.002086026703625327,
+      "records": 50
+    },
+    {
+      "label": "iECT",
+      "scatter": 0.0005789645165328167,
+      "mean_mismatch": 0.0020478880529535273,
+      "records": 55
+    },
+    {
+      "label": "iORBl",
+      "scatter": 0.0036726220060676515,
+      "mean_mismatch": 0.001867792516936011,
+      "records": 52
+    },
+    {
+      "label": "iOT",
+      "scatter": 3.1314144205493255e-05,
+      "mean_mismatch": 0.001679241478921201,
+      "records": 50
+    },
+    {
+      "label": "iLS",
+      "scatter": 6.230701337392456e-06,
+      "mean_mismatch": 0.0015814120649593898,
+      "records": 50
+    },
+    {
+      "label": "iRH",
+      "scatter": 0.0030696856169383385,
+      "mean_mismatch": 0.0015372781854781155,
+      "records": 55
+    },
+    {
+      "label": "iBST",
+      "scatter": 0.002150909089487668,
+      "mean_mismatch": 0.0015337317301035882,
+      "records": 13
+    },
+    {
+      "label": "iMD",
+      "scatter": 0.0004349763931469362,
+      "mean_mismatch": 0.0015158626223722496,
+      "records": 55
+    },
+    {
+      "label": "iPIR",
+      "scatter": 0.00036187222926282027,
+      "mean_mismatch": 0.001512310246202676,
+      "records": 55
+    },
+    {
+      "label": "iAON",
+      "scatter": 0.00014305300918496106,
+      "mean_mismatch": 0.0015097935609222474,
+      "records": 52
+    },
+    {
+      "label": "cORBvl",
+      "scatter": 0.00013328310139405203,
+      "mean_mismatch": 0.0014811425557713209,
+      "records": 52
+    },
+    {
+      "label": "cORBm",
+      "scatter": 9.511339323491995e-05,
+      "mean_mismatch": 0.00136956656932677,
+      "records": 52
+    },
+    {
+      "label": "cFRP",
+      "scatter": 0.0018369258846556659,
+      "mean_mismatch": 0.001349753786806963,
+      "records": 52
+    },
+    {
+      "label": "iRT",
+      "scatter": 2.3643798389694624e-05,
+      "mean_mismatch": 0.0012723521214826152,
+      "records": 55
+    },
+    {
+      "label": "cPL",
+      "scatter": 0.0011253385713906525,
+      "mean_mismatch": 0.0012610862960321277,
+      "records": 52
+    },
+    {
+      "label": "iPF",
+      "scatter": 0.0005792654684263211,
+      "mean_mismatch": 0.001232421119114855,
+      "records": 48
+    },
+    {
+      "label": "cPIR",
+      "scatter": 2.6292327160859715e-05,
+      "mean_mismatch": 0.0012072577359646096,
+      "records": 55
+    },
+    {
+      "label": "cECT",
+      "scatter": 0.0003067106981771219,
+      "mean_mismatch": 0.0011687936535664792,
+      "records": 55
+    },
+    {
+      "label": "iCM",
+      "scatter": 0.0026424861630966823,
+      "mean_mismatch": 0.001109153261504106,
+      "records": 55
+    },
+    {
+      "label": "iGU",
+      "scatter": 0.0021187058259086147,
+      "mean_mismatch": 0.0011058140146167055,
+      "records": 50
+    },
+    {
+      "label": "cACAd",
+      "scatter": 0.0004967070913001931,
+      "mean_mismatch": 0.0009641182273175058,
+      "records": 54
+    },
+    {
+      "label": "iVISam",
+      "scatter": 0.00016636102357719045,
+      "mean_mismatch": 0.0009387280434792744,
+      "records": 54
+    },
+    {
+      "label": "iVISC",
+      "scatter": 0.0012711725292456517,
+      "mean_mismatch": 0.0009333564499815934,
+      "records": 55
+    },
+    {
+      "label": "cMOs",
+      "scatter": 0.0015051875263809892,
+      "mean_mismatch": 0.0009048588240707171,
+      "records": 54
+    },
+    {
+      "label": "iVAL",
+      "scatter": 0.0,
+      "mean_mismatch": 0.0008544087523773304,
+      "records": 55
+    },
+    {
+      "label": "iVM",
+      "scatter": 5.287875578508237e-06,
+      "mean_mismatch": 0.0008463303250332652,
+      "records": 55
+    },
+    {
+      "label": "iSSp-ul",
+      "scatter": 0.0009077494542238008,
+      "mean_mismatch": 0.0008436670915108335,
+      "records": 55
+    },
+    {
+      "label": "iVISpor",
+      "scatter": 0.00021630791121712153,
+      "mean_mismatch": 0.0008166861251393876,
+      "records": 51
+    },
+    {
+      "label": "iAUDv",
+      "scatter": 0.0004679691337552755,
+      "mean_mismatch": 0.0007980848873317061,
+      "records": 55
+    },
+    {
+      "label": "iCA1",
+      "scatter": 2.8440692919701068e-05,
+      "mean_mismatch": 0.000762152070042318,
+      "records": 55
+    },
+    {
+      "label": "cCEA",
+      "scatter": 2.4258272237111167e-05,
+      "mean_mismatch": 0.000741956928219336,
+      "records": 55
+    },
+    {
+      "label": "iRSPv",
+      "scatter": 1.5846144167537714e-05,
+      "mean_mismatch": 0.0006072222555757079,
+      "records": 55
+    },
+    {
+      "label": "cBMA",
+      "scatter": 0.0004993497978025221,
+      "mean_mismatch": 0.0006055095920909241,
+      "records": 55
+    },
+    {
+      "label": "iPMv",
+      "scatter": 9.62440006307722e-36,
+      "mean_mismatch": 0.0005892092224508686,
+      "records": 34
+    },
+    {
+      "label": "iAIp",
+      "scatter": 0.0006160343128980053,
+      "mean_mismatch": 0.0005809027531777074,
+      "records": 55
+    },
+    {
+      "label": "iENTl",
+      "scatter": 0.0001340508052176524,
+      "mean_mismatch": 0.0005682438930679282,
+      "records": 55
+    },
+    {
+      "label": "cORBl",
+      "scatter": 0.0006628089589100555,
+      "mean_mismatch": 0.000542273913932609,
+      "records": 52
+    },
+    {
+      "label": "iSMT",
+      "scatter": 0.00016530507839235189,
+      "mean_mismatch": 0.00047112141384935823,
+      "records": 55
+    },
+    {
+      "label": "iLA",
+      "scatter": 0.007311185082014572,
+      "mean_mismatch": 0.00046029541680447965,
+      "records": 55
+    },
+    {
+      "label": "iSSp-tr",
+      "scatter": 0.0003834026851422366,
+      "mean_mismatch": 0.000441867923716694,
+      "records": 55
+    },
+    {
+      "label": "iSI",
+      "scatter": 1.807376069199104e-05,
+      "mean_mismatch": 0.00044122509872009444,
+      "records": 55
+    },
+    {
+      "label": "cCA1",
+      "scatter": 9.08236715394677e-07,
+      "mean_mismatch": 0.0004375674634123561,
+      "records": 55
+    },
+    {
+      "label": "cRH",
+      "scatter": 0.0022917230462675894,
+      "mean_mismatch": 0.0004290020805687303,
+      "records": 55
+    },
+    {
+      "label": "iAUDd",
+      "scatter": 0.0002751633406331365,
+      "mean_mismatch": 0.00042369194962793127,
+      "records": 54
+    },
+    {
+      "label": "cENTl",
+      "scatter": 7.682282339911367e-05,
+      "mean_mismatch": 0.00042364350391767313,
+      "records": 55
+    },
+    {
+      "label": "cAIp",
+      "scatter": 0.0003415477912026737,
+      "mean_mismatch": 0.0004231983344842373,
+      "records": 55
+    },
+    {
+      "label": "iILA",
+      "scatter": 0.0005222091521386142,
+      "mean_mismatch": 0.00042273759660349465,
+      "records": 46
+    },
+    {
+      "label": "iIMD",
+      "scatter": 0.0011162493977410347,
+      "mean_mismatch": 0.00041636505302558227,
+      "records": 55
+    },
+    {
+      "label": "iSNr",
+      "scatter": 0.00037733935195116133,
+      "mean_mismatch": 0.00040451297961638757,
+      "records": 46
+    },
+    {
+      "label": "cPERI",
+      "scatter": 0.0002027471375319923,
+      "mean_mismatch": 0.0003956835379549101,
+      "records": 55
+    },
+    {
+      "label": "iPPN",
+      "scatter": 0.0005428712052166607,
+      "mean_mismatch": 0.0003702568345150792,
+      "records": 50
+    },
+    {
+      "label": "iSUB",
+      "scatter": 0.0006657301480484457,
+      "mean_mismatch": 0.00036666880208196287,
+      "records": 55
+    },
+    {
+      "label": "iCA3",
+      "scatter": 9.374029547423343e-06,
+      "mean_mismatch": 0.0003639789697386243,
+      "records": 55
+    },
+    {
+      "label": "cMOp",
+      "scatter": 0.0002164115875355039,
+      "mean_mismatch": 0.0003522317576660619,
+      "records": 54
+    },
+    {
+      "label": "iSSp-m",
+      "scatter": 0.0005079055781288907,
+      "mean_mismatch": 0.0003403303978791574,
+      "records": 50
+    },
+    {
+      "label": "cVISC",
+      "scatter": 0.00048270708252523694,
+      "mean_mismatch": 0.0003362002247160696,
+      "records": 55
+    },
+    {
+      "label": "iPVT",
+      "scatter": 0.0018491757643194595,
+      "mean_mismatch": 0.0003270881999611856,
+      "records": 55
+    },
+    {
+      "label": "iENTm",
+      "scatter": 0.0018626169818102526,
+      "mean_mismatch": 0.00032242669277946054,
+      "records": 51
+    },
+    {
+      "label": "iVISrl",
+      "scatter": 0.0001990849932726415,
+      "mean_mismatch": 0.0003208708451169262,
+      "records": 54
+    },
+    {
+      "label": "iSH",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00030129587251133015,
+      "records": 31
+    },
+    {
+      "label": "iAIv",
+      "scatter": 0.0001812344992192327,
+      "mean_mismatch": 0.00030058274460307725,
+      "records": 54
+    },
+    {
+      "label": "cOT",
+      "scatter": 2.9368668981887983e-05,
+      "mean_mismatch": 0.0002963832935225499,
+      "records": 50
+    },
+    {
+      "label": "iRE",
+      "scatter": 0.00015535947257274777,
+      "mean_mismatch": 0.0002931532784378039,
+      "records": 55
+    },
+    {
+      "label": "iVISa",
+      "scatter": 0.00040564754056229667,
+      "mean_mismatch": 0.00029223866529351717,
+      "records": 55
+    },
+    {
+      "label": "iSSp-bfd",
+      "scatter": 0.000175015682687947,
+      "mean_mismatch": 0.00029156566770694917,
+      "records": 55
+    },
+    {
+      "label": "cEP",
+      "scatter": 7.07345837599337e-05,
+      "mean_mismatch": 0.00029117149883459864,
+      "records": 55
+    },
+    {
+      "label": "cPA",
+      "scatter": 2.7132918904197217e-05,
+      "mean_mismatch": 0.0002725082214007431,
+      "records": 54
+    },
+    {
+      "label": "cTEa",
+      "scatter": 0.00012248517234777335,
+      "mean_mismatch": 0.0002605042358721883,
+      "records": 55
+    },
+    {
+      "label": "iVPL",
+      "scatter": 0.0,
+      "mean_mismatch": 0.0002544595230817594,
+      "records": 55
+    },
+    {
+      "label": "iTT",
+      "scatter": 0.00012720858952085473,
+      "mean_mismatch": 0.0002418059208074311,
+      "records": 52
+    },
+    {
+      "label": "cAIv",
+      "scatter": 0.0005096879713310278,
+      "mean_mismatch": 0.000241352084964486,
+      "records": 54
+    },
+    {
+      "label": "cIA",
+      "scatter": 2.5752352827686748e-05,
+      "mean_mismatch": 0.00023776376432232073,
+      "records": 54
+    },
+    {
+      "label": "cCA3",
+      "scatter": 1.968298462912951e-06,
+      "mean_mismatch": 0.00023281516950899605,
+      "records": 55
+    },
+    {
+      "label": "iIA",
+      "scatter": 0.0002215699339018642,
+      "mean_mismatch": 0.0002302274622840623,
+      "records": 53
+    },
+    {
+      "label": "iMT",
+      "scatter": 0.0006492641140229533,
+      "mean_mismatch": 0.00022964128047303574,
+      "records": 35
+    },
+    {
+      "label": "iPR",
+      "scatter": 6.650304949852951e-05,
+      "mean_mismatch": 0.00022823980997404875,
+      "records": 55
+    },
+    {
+      "label": "iPERI",
+      "scatter": 0.00023558039179584413,
+      "mean_mismatch": 0.00021631496943706692,
+      "records": 55
+    },
+    {
+      "label": "iMS",
+      "scatter": 0.0,
+      "mean_mismatch": 0.0001908331906846653,
+      "records": 48
+    },
+    {
+      "label": "iMH",
+      "scatter": 2.6446754824592432e-05,
+      "mean_mismatch": 0.00019056777938559024,
+      "records": 55
+    },
+    {
+      "label": "iProS",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00018874259142635723,
+      "records": 53
+    },
+    {
+      "label": "cFS",
+      "scatter": 0.0,
+      "mean_mismatch": 0.0001807440535277764,
+      "records": 3
+    },
+    {
+      "label": "cMD",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00017948792430534004,
+      "records": 55
+    },
+    {
+      "label": "cCLA",
+      "scatter": 0.0005535280140443296,
+      "mean_mismatch": 0.00017602320040746182,
+      "records": 51
+    },
+    {
+      "label": "iPCN",
+      "scatter": 0.00013392485624337438,
+      "mean_mismatch": 0.0001757057006913856,
+      "records": 55
+    },
+    {
+      "label": "cAON",
+      "scatter": 0.0001558315454588354,
+      "mean_mismatch": 0.00016908562904019203,
+      "records": 52
+    },
+    {
+      "label": "cPALd",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00016828418668856407,
+      "records": 55
+    },
+    {
+      "label": "iZI",
+      "scatter": 7.236325828314829e-06,
+      "mean_mismatch": 0.00016728250342312582,
+      "records": 34
+    },
+    {
+      "label": "iSSp-un",
+      "scatter": 0.0003027062880133212,
+      "mean_mismatch": 0.0001667428669809802,
+      "records": 55
+    },
+    {
+      "label": "cSSp-m",
+      "scatter": 5.8712732543140144e-05,
+      "mean_mismatch": 0.00016419708327127875,
+      "records": 50
+    },
+    {
+      "label": "iLD",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00015356678840572368,
+      "records": 55
+    },
+    {
+      "label": "cMS",
+      "scatter": 0.0,
+      "mean_mismatch": 0.0001505129400345879,
+      "records": 48
+    },
+    {
+      "label": "iRSPd",
+      "scatter": 2.1774944624815708e-05,
+      "mean_mismatch": 0.00014062356420778204,
+      "records": 55
+    },
+    {
+      "label": "cRSPv",
+      "scatter": 3.989711780718104e-07,
+      "mean_mismatch": 0.00013233733772017778,
+      "records": 55
+    },
+    {
+      "label": "iCL",
+      "scatter": 0.0002199904471725924,
+      "mean_mismatch": 0.00013209193179892776,
+      "records": 55
+    },
+    {
+      "label": "iVPM",
+      "scatter": 7.82256587381933e-06,
+      "mean_mismatch": 0.00012919672112860154,
+      "records": 55
+    },
+    {
+      "label": "iVISal",
+      "scatter": 0.0001373537996062408,
+      "mean_mismatch": 0.00012731415828317626,
+      "records": 51
+    },
+    {
+      "label": "iSTN",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00012372312306295323,
+      "records": 54
+    },
+    {
+      "label": "iVISli",
+      "scatter": 3.1513746714283954e-05,
+      "mean_mismatch": 0.0001220127767338407,
+      "records": 42
+    },
+    {
+      "label": "cSSp-bfd",
+      "scatter": 6.9610171093364144e-06,
+      "mean_mismatch": 0.00012126380833747175,
+      "records": 55
+    },
+    {
+      "label": "iVISpm",
+      "scatter": 5.1805762501462316e-05,
+      "mean_mismatch": 0.00012107771225428372,
+      "records": 54
+    },
+    {
+      "label": "iCLA",
+      "scatter": 0.0005416298960921925,
+      "mean_mismatch": 0.00012044685914628534,
+      "records": 52
+    },
+    {
+      "label": "cVISa",
+      "scatter": 8.998220925999731e-06,
+      "mean_mismatch": 0.00011683686281239056,
+      "records": 55
+    },
+    {
+      "label": "iEP",
+      "scatter": 0.001143597868607436,
+      "mean_mismatch": 0.00011631696733833564,
+      "records": 55
+    },
+    {
+      "label": "cSNr",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00011555358174545904,
+      "records": 52
+    },
+    {
+      "label": "cPR",
+      "scatter": 0.0,
+      "mean_mismatch": 0.00011508290614490716,
+      "records": 55
+    },
+    {
+      "label": "cMEA",
+      "scatter": 8.506851830601654e-06,
+      "mean_mismatch": 0.00011505387453701203,
+      "records": 55
+    },
+    {
+      "label": "cGU",
+      "scatter": 0.00013024891613534168,
+      "mean_mismatch": 0.00011461956849430443,
+      "records": 50
+    },
+    {
+      "label": "cTR",
+      "scatter": 0.00019212570622458374,
+      "mean_mismatch": 0.00011295298540354443,
+      "records": 47
+    },
+    {
+      "label": "cSI",
+      "scatter": 3.1854814250252557e-06,
+      "mean_mismatch": 0.000112460545708504,
+      "records": 55
+    },
+    {
+      "label": "iCOA",
+      "scatter": 0.0008677340366791466,
+      "mean_mismatch": 0.00010833869517122548,
+      "records": 55
+    },
+    {
+      "label": "cENTm",
+      "scatter": 2.318924604843323e-06,
+      "mean_mismatch": 0.00010511049233730045,
+      "records": 51
+    },
+    {
+      "label": "iNDB",
+      "scatter": 6.288060844841673e-05,
+      "mean_mismatch": 0.0001014454076220584,
+      "records": 50
+    },
+    {
+      "label": "iVISl",
+      "scatter": 6.423229899439868e-05,
+      "mean_mismatch": 0.0001012415843755675,
+      "records": 53
+    },
+    {
+      "label": "cSUB",
+      "scatter": 0.0,
+      "mean_mismatch": 9.698840967974256e-05,
+      "records": 55
+    },
+    {
+      "label": "iMEA",
+      "scatter": 0.001091474776123339,
+      "mean_mismatch": 9.54527614716395e-05,
+      "records": 55
+    },
+    {
+      "label": "iPO",
+      "scatter": 7.23811066756201e-06,
+      "mean_mismatch": 9.275791098483242e-05,
+      "records": 55
+    },
+    {
+      "label": "cVISam",
+      "scatter": 3.064097388173613e-05,
+      "mean_mismatch": 9.218347290735106e-05,
+      "records": 54
+    },
+    {
+      "label": "iAUDp",
+      "scatter": 6.996627776075042e-05,
+      "mean_mismatch": 9.156999600876425e-05,
+      "records": 55
+    },
+    {
+      "label": "cVISpor",
+      "scatter": 3.962167258516833e-05,
+      "mean_mismatch": 9.066539767293785e-05,
+      "records": 51
+    },
+    {
+      "label": "iSSp-ll",
+      "scatter": 4.538050314473699e-05,
+      "mean_mismatch": 8.91897287110323e-05,
+      "records": 51
+    },
+    {
+      "label": "cRE",
+      "scatter": 7.372390669679085e-05,
+      "mean_mismatch": 8.681181981090985e-05,
+      "records": 55
+    },
+    {
+      "label": "cCP",
+      "scatter": 0.0006540859350283512,
+      "mean_mismatch": 8.449886030859543e-05,
+      "records": 55
+    },
+    {
+      "label": "cTT",
+      "scatter": 1.2777883046090122e-05,
+      "mean_mismatch": 7.973637164922117e-05,
+      "records": 52
+    },
+    {
+      "label": "iXi",
+      "scatter": 0.00018192997434822954,
+      "mean_mismatch": 7.943818316853606e-05,
+      "records": 55
+    },
+    {
+      "label": "iLH",
+      "scatter": 5.3096348608522564e-05,
+      "mean_mismatch": 7.699367000388325e-05,
+      "records": 55
+    },
+    {
+      "label": "iDMH",
+      "scatter": 0.0001520838313244378,
+      "mean_mismatch": 7.562030155244759e-05,
+      "records": 55
+    },
+    {
+      "label": "iDR",
+      "scatter": 0.0006563048134052627,
+      "mean_mismatch": 7.268852337974168e-05,
+      "records": 46
+    },
+    {
+      "label": "cXi",
+      "scatter": 0.0006591015065333804,
+      "mean_mismatch": 6.710998111223336e-05,
+      "records": 54
+    },
+    {
+      "label": "iIG",
+      "scatter": 0.0,
+      "mean_mismatch": 6.391666304491914e-05,
+      "records": 48
+    },
+    {
+      "label": "cVISl",
+      "scatter": 0.0,
+      "mean_mismatch": 6.378555288571602e-05,
+      "records": 52
+    },
+    {
+      "label": "cSSs",
+      "scatter": 2.845723786838433e-05,
+      "mean_mismatch": 6.32855250302196e-05,
+      "records": 55
+    },
+    {
+      "label": "iDP",
+      "scatter": 4.1869093107099947e-05,
+      "mean_mismatch": 6.235751940062651e-05,
+      "records": 29
+    },
+    {
+      "label": "cPAA",
+      "scatter": 1.5550138697823373e-05,
+      "mean_mismatch": 5.9708794665046364e-05,
+      "records": 55
+    },
+    {
+      "label": "iPAA",
+      "scatter": 0.0011679619865955558,
+      "mean_mismatch": 5.893150276158808e-05,
+      "records": 55
+    },
+    {
+      "label": "cProS",
+      "scatter": 0.0,
+      "mean_mismatch": 5.8129986004854735e-05,
+      "records": 53
+    },
+    {
+      "label": "iCLI",
+      "scatter": 7.788728346205736e-05,
+      "mean_mismatch": 5.707558993527641e-05,
+      "records": 28
+    },
+    {
+      "label": "cRT",
+      "scatter": 0.0,
+      "mean_mismatch": 5.554251288968454e-05,
+      "records": 55
+    },
+    {
+      "label": "iAUDpo",
+      "scatter": 6.518518436797161e-05,
+      "mean_mismatch": 5.549272577461928e-05,
+      "records": 53
+    },
+    {
+      "label": "iLHA",
+      "scatter": 1.6602349027724685e-05,
+      "mean_mismatch": 5.3276251200967264e-05,
+      "records": 55
+    },
+    {
+      "label": "iHATA",
+      "scatter": 6.95485199182451e-05,
+      "mean_mismatch": 5.163990646543898e-05,
+      "records": 53
+    },
+    {
+      "label": "cVM",
+      "scatter": 0.0,
+      "mean_mismatch": 4.9334664023047755e-05,
+      "records": 55
+    },
+    {
+      "label": "iDG",
+      "scatter": 2.0150029882670136e-06,
+      "mean_mismatch": 4.916348343982764e-05,
+      "records": 55
+    },
+    {
+      "label": "iVP",
+      "scatter": 6.843825029689775e-05,
+      "mean_mismatch": 4.773762353112322e-05,
+      "records": 54
+    },
+    {
+      "label": "cSMT",
+      "scatter": 1.093343779909951e-05,
+      "mean_mismatch": 4.722137430317384e-05,
+      "records": 55
+    },
+    {
+      "label": "iLM",
+      "scatter": 0.0008117479776295038,
+      "mean_mismatch": 4.65704290113048e-05,
+      "records": 51
+    },
+    {
+      "label": "iVISpl",
+      "scatter": 0.00011729799723132959,
+      "mean_mismatch": 4.5362484189542834e-05,
+      "records": 51
+    },
+    {
+      "label": "cILA",
+      "scatter": 0.00016014101819414463,
+      "mean_mismatch": 4.336050496596309e-05,
+      "records": 46
+    },
+    {
+      "label": "cDR",
+      "scatter": 0.00013657221473242559,
+      "mean_mismatch": 4.327583793465714e-05,
+      "records": 51
+    },
+    {
+      "label": "iMEZ",
+      "scatter": 0.0,
+      "mean_mismatch": 4.323567645316099e-05,
+      "records": 40
+    },
+    {
+      "label": "iPSTN",
+      "scatter": 6.037917462281932e-05,
+      "mean_mismatch": 4.251633905438328e-05,
+      "records": 52
+    },
+    {
+      "label": "cVMH",
+      "scatter": 0.0,
+      "mean_mismatch": 4.179456827631941e-05,
+      "records": 55
+    },
+    {
+      "label": "iMRN",
+      "scatter": 4.5897965751926615e-05,
+      "mean_mismatch": 4.0894757327520464e-05,
+      "records": 55
+    },
+    {
+      "label": "cIMD",
+      "scatter": 0.00038931355849723806,
+      "mean_mismatch": 4.073965594574939e-05,
+      "records": 55
+    },
+    {
+      "label": "iSPA",
+      "scatter": 1.0432427614244647e-05,
+      "mean_mismatch": 4.0351504337696694e-05,
+      "records": 30
+    },
+    {
+      "label": "iRSPagl",
+      "scatter": 0.00018321747949197735,
+      "mean_mismatch": 4.0070393851865944e-05,
+      "records": 55
+    },
+    {
+      "label": "cACB",
+      "scatter": 0.0011022717091792994,
+      "mean_mismatch": 3.996368301084282e-05,
+      "records": 47
+    },
+    {
+      "label": "iMG",
+      "scatter": 2.5257443817080884e-06,
+      "mean_mismatch": 3.921935467663131e-05,
+      "records": 53
+    },
+    {
+      "label": "cZI",
+      "scatter": 0.0,
+      "mean_mismatch": 3.466616881963154e-05,
+      "records": 34
+    },
+    {
+      "label": "iPOST",
+      "scatter": 3.4855844026876155e-06,
+      "mean_mismatch": 3.4121382446818254e-05,
+      "records": 53
+    },
+    {
+      "label": "iMA",
+      "scatter": 0.00010080448661327071,
+      "mean_mismatch": 3.341758544241019e-05,
+      "records": 11
+    },
+    {
+      "label": "cIG",
+      "scatter": 0.0,
+      "mean_mismatch": 3.3372439931769445e-05,
+      "records": 48
+    },
+    {
+      "label": "cTM",
+      "scatter": 0.00011191361087046745,
+      "mean_mismatch": 3.28820200507358e-05,
+      "records": 26
+    },
+    {
+      "label": "iPRE",
+      "scatter": 2.4175103637413265e-05,
+      "mean_mismatch": 3.272949545504533e-05,
+      "records": 46
+    },
+    {
+      "label": "cSSp-un",
+      "scatter": 1.646355619363577e-05,
+      "mean_mismatch": 3.241172954679963e-05,
+      "records": 55
+    },
+    {
+      "label": "cLS",
+      "scatter": 2.4004206106652215e-05,
+      "mean_mismatch": 3.183376216865931e-05,
+      "records": 50
+    },
+    {
+      "label": "iPAR",
+      "scatter": 2.55702056848723e-05,
+      "mean_mismatch": 3.1058962377208096e-05,
+      "records": 50
+    },
+    {
+      "label": "iARH",
+      "scatter": 0.0,
+      "mean_mismatch": 3.074167847424971e-05,
+      "records": 55
+    },
+    {
+      "label": "iCA2",
+      "scatter": 0.0,
+      "mean_mismatch": 3.058257604904614e-05,
+      "records": 55
+    },
+    {
+      "label": "iPH",
+      "scatter": 6.819651842526129e-05,
+      "mean_mismatch": 2.8359196448596076e-05,
+      "records": 53
+    },
+    {
+      "label": "cCM",
+      "scatter": 0.00039108480722358386,
+      "mean_mismatch": 2.7703678129358824e-05,
+      "records": 55
+    },
+    {
+      "label": "cMH",
+      "scatter": 5.871282006753077e-05,
+      "mean_mismatch": 2.6917845026777864e-05,
+      "records": 55
+    },
+    {
+      "label": "iRN",
+      "scatter": 0.0001499261168989733,
+      "mean_mismatch": 2.6355455224309878e-05,
+      "records": 27
+    },
+    {
+      "label": "cCA2",
+      "scatter": 0.0,
+      "mean_mismatch": 2.6183254294915488e-05,
+      "records": 55
+    },
+    {
+      "label": "cVAL",
+      "scatter": 0.0,
+      "mean_mismatch": 2.581206744807089e-05,
+      "records": 55
+    },
+    {
+      "label": "iVISp",
+      "scatter": 1.7668211385704447e-05,
+      "mean_mismatch": 2.5734384836956506e-05,
+      "records": 55
+    },
+    {
+      "label": "cVISpm",
+      "scatter": 6.645848154411443e-06,
+      "mean_mismatch": 2.418995564830253e-05,
+      "records": 53
+    },
+    {
+      "label": "iLGv",
+      "scatter": 0.0,
+      "mean_mismatch": 2.334097008292879e-05,
+      "records": 55
+    },
+    {
+      "label": "cSTN",
+      "scatter": 7.35728508102496e-05,
+      "mean_mismatch": 2.2993346528294888e-05,
+      "records": 54
+    },
+    {
+      "label": "cLH",
+      "scatter": 0.0,
+      "mean_mismatch": 2.2769091412739684e-05,
+      "records": 55
+    },
+    {
+      "label": "cDG",
+      "scatter": 3.8727691885407656e-07,
+      "mean_mismatch": 2.2163883868746986e-05,
+      "records": 55
+    },
+    {
+      "label": "cCOA",
+      "scatter": 1.859366473764734e-05,
+      "mean_mismatch": 2.2135774526632863e-05,
+      "records": 55
+    },
+    {
+      "label": "iPP",
+      "scatter": 0.0,
+      "mean_mismatch": 2.204287162849127e-05,
+      "records": 28
+    },
+    {
+      "label": "iLT",
+      "scatter": 0.0,
+      "mean_mismatch": 2.1913184561915947e-05,
+      "records": 45
+    },
+    {
+      "label": "cRSPd",
+      "scatter": 1.494764389635969e-06,
+      "mean_mismatch": 2.180046486739669e-05,
+      "records": 55
+    },
+    {
+      "label": "cAHN",
+      "scatter": 5.771705364574281e-05,
+      "mean_mismatch": 2.0272097646961668e-05,
+      "records": 33
+    },
+    {
+      "label": "cDMH",
+      "scatter": 0.0,
+      "mean_mismatch": 1.9773976496096205e-05,
+      "records": 55
+    },
+    {
+      "label": "cNDB",
+      "scatter": 0.0,
+      "mean_mismatch": 1.9209155605402687e-05,
+      "records": 50
+    },
+    {
+      "label": "iPVZ",
+      "scatter": 0.00012933807288902335,
+      "mean_mismatch": 1.9140028497024788e-05,
+      "records": 55
+    },
+    {
+      "label": "cRSPagl",
+      "scatter": 3.451164698277324e-06,
+      "mean_mismatch": 1.9062216754263414e-05,
+      "records": 55
+    },
+    {
+      "label": "cSSp-ul",
+      "scatter": 1.1238396056439833e-05,
+      "mean_mismatch": 1.841213570586007e-05,
+      "records": 55
+    },
+    {
+      "label": "cARH",
+      "scatter": 0.0,
+      "mean_mismatch": 1.801854268601698e-05,
+      "records": 55
+    },
+    {
+      "label": "iSSp-n",
+      "scatter": 0.0,
+      "mean_mismatch": 1.785309945309753e-05,
+      "records": 9
+    },
+    {
+      "label": "cMEZ",
+      "scatter": 3.0154437906124244e-05,
+      "mean_mismatch": 1.7784965660668986e-05,
+      "records": 40
+    },
+    {
+      "label": "iVMH",
+      "scatter": 0.00016787855682706766,
+      "mean_mismatch": 1.765469393435658e-05,
+      "records": 55
+    },
+    {
+      "label": "iLP",
+      "scatter": 5.577990372580082e-05,
+      "mean_mismatch": 1.76407024790214e-05,
+      "records": 55
+    },
+    {
+      "label": "cSPA",
+      "scatter": 8.904614222900272e-06,
+      "mean_mismatch": 1.7081793873991154e-05,
+      "records": 30
+    },
+    {
+      "label": "cAUDp",
+      "scatter": 1.4126942699035048e-05,
+      "mean_mismatch": 1.67577714410982e-05,
+      "records": 55
+    },
+    {
+      "label": "cPCN",
+      "scatter": 0.0,
+      "mean_mismatch": 1.6682644141534386e-05,
+      "records": 55
+    },
+    {
+      "label": "cVPM",
+      "scatter": 0.0,
+      "mean_mismatch": 1.602707605084652e-05,
+      "records": 55
+    },
+    {
+      "label": "cVTA",
+      "scatter": 1.6604682027336902e-05,
+      "mean_mismatch": 1.5298125576633976e-05,
+      "records": 53
+    },
+    {
+      "label": "cVISal",
+      "scatter": 3.071725409233861e-06,
+      "mean_mismatch": 1.4688929641696538e-05,
+      "records": 52
+    },
+    {
+      "label": "iEth",
+      "scatter": 2.730230975718762e-05,
+      "mean_mismatch": 1.4683649402264504e-05,
+      "records": 55
+    },
+    {
+      "label": "iPRNr",
+      "scatter": 1.3204474296447751e-05,
+      "mean_mismatch": 1.3920279988968026e-05,
+      "records": 51
+    },
+    {
+      "label": "iSGN",
+      "scatter": 0.0,
+      "mean_mismatch": 1.37152618880766e-05,
+      "records": 53
+    },
+    {
+      "label": "cBST",
+      "scatter": 0.0,
+      "mean_mismatch": 1.2895887743665357e-05,
+      "records": 13
+    },
+    {
+      "label": "iMM",
+      "scatter": 1.3580289912874757e-05,
+      "mean_mismatch": 1.23277757369849e-05,
+      "records": 53
+    },
+    {
+      "label": "cLHA",
+      "scatter": 9.750176684213043e-06,
+      "mean_mismatch": 1.192419497065485e-05,
+      "records": 55
+    },
+    {
+      "label": "iSPF",
+      "scatter": 9.382368901654086e-06,
+      "mean_mismatch": 1.1627908726114657e-05,
+      "records": 50
+    },
+    {
+      "label": "cVPL",
+      "scatter": 3.343246416960834e-06,
+      "mean_mismatch": 1.13087351713425e-05,
+      "records": 55
+    },
+    {
+      "label": "cPVT",
+      "scatter": 0.000195894252678521,
+      "mean_mismatch": 1.0785168368685492e-05,
+      "records": 55
+    },
+    {
+      "label": "cPAR",
+      "scatter": 0.0,
+      "mean_mismatch": 1.0686746569598787e-05,
+      "records": 51
+    },
+    {
+      "label": "cCS",
+      "scatter": 0.0,
+      "mean_mismatch": 1.0635611753164379e-05,
+      "records": 51
+    },
+    {
+      "label": "cPO",
+      "scatter": 1.3029513758845023e-06,
+      "mean_mismatch": 1.0598830144027795e-05,
+      "records": 55
+    },
+    {
+      "label": "cHATA",
+      "scatter": 0.0,
+      "mean_mismatch": 9.36433950001011e-06,
+      "records": 50
+    },
+    {
+      "label": "iAPN",
+      "scatter": 8.437445933124662e-06,
+      "mean_mismatch": 9.212042358956675e-06,
+      "records": 53
+    },
+    {
+      "label": "cLD",
+      "scatter": 5.778373946173375e-06,
+      "mean_mismatch": 9.106604445638988e-06,
+      "records": 55
+    },
+    {
+      "label": "cPH",
+      "scatter": 2.547866211489388e-05,
+      "mean_mismatch": 9.036677752381972e-06,
+      "records": 53
+    },
+    {
+      "label": "iSCs",
+      "scatter": 1.4082954111857572e-06,
+      "mean_mismatch": 8.4080240298885e-06,
+      "records": 55
+    },
+    {
+      "label": "cMRN",
+      "scatter": 2.167980423072585e-06,
+      "mean_mismatch": 8.314566939888355e-06,
+      "records": 55
+    },
+    {
+      "label": "cMM",
+      "scatter": 3.097776330889218e-05,
+      "mean_mismatch": 8.183341072778256e-06,
+      "records": 53
+    },
+    {
+      "label": "cCL",
+      "scatter": 0.0,
+      "mean_mismatch": 8.167753882867452e-06,
+      "records": 55
+    },
+    {
+      "label": "iLGd",
+      "scatter": 0.0,
+      "mean_mismatch": 7.94843739460559e-06,
+      "records": 55
+    },
+    {
+      "label": "cSUM",
+      "scatter": 8.823226016259907e-05,
+      "mean_mismatch": 7.94237188965332e-06,
+      "records": 53
+    },
+    {
+      "label": "iAHN",
+      "scatter": 0.0,
+      "mean_mismatch": 7.93630848802598e-06,
+      "records": 34
+    },
+    {
+      "label": "iMPO",
+      "scatter": 0.0,
+      "mean_mismatch": 7.6279915670833015e-06,
+      "records": 13
+    },
+    {
+      "label": "cCOAp",
+      "scatter": 6.613206694739395e-05,
+      "mean_mismatch": 7.464518610506936e-06,
+      "records": 55
+    },
+    {
+      "label": "cPOST",
+      "scatter": 0.0,
+      "mean_mismatch": 7.362082332114934e-06,
+      "records": 51
+    },
+    {
+      "label": "cAUDv",
+      "scatter": 3.409233194082189e-05,
+      "mean_mismatch": 7.068744390668839e-06,
+      "records": 55
+    },
+    {
+      "label": "cVISpl",
+      "scatter": 2.3019801573239343e-06,
+      "mean_mismatch": 6.998711584073369e-06,
+      "records": 51
+    },
+    {
+      "label": "iLPO",
+      "scatter": 0.0,
+      "mean_mismatch": 6.7393930927347114e-06,
+      "records": 24
+    },
+    {
+      "label": "cPF",
+      "scatter": 0.0,
+      "mean_mismatch": 6.683932792610241e-06,
+      "records": 46
+    },
+    {
+      "label": "cAUDpo",
+      "scatter": 3.0144856507127594e-05,
+      "mean_mismatch": 6.5170020662365485e-06,
+      "records": 53
+    },
+    {
+      "label": "cLP",
+      "scatter": 0.0,
+      "mean_mismatch": 6.378165946282354e-06,
+      "records": 55
+    },
+    {
+      "label": "cAUDd",
+      "scatter": 1.1189906186382355e-05,
+      "mean_mismatch": 6.353427074243554e-06,
+      "records": 54
+    },
+    {
+      "label": "iSF",
+      "scatter": 0.0,
+      "mean_mismatch": 6.328667299321457e-06,
+      "records": 6
+    },
+    {
+      "label": "cPIL",
+      "scatter": 0.0,
+      "mean_mismatch": 6.161181763993405e-06,
+      "records": 50
+    },
+    {
+      "label": "iPST",
+      "scatter": 0.0,
+      "mean_mismatch": 6.049803388019121e-06,
+      "records": 3
+    },
+    {
+      "label": "cPPN",
+      "scatter": 5.731026760998176e-05,
+      "mean_mismatch": 6.025322690404598e-06,
+      "records": 51
+    },
+    {
+      "label": "iPIL",
+      "scatter": 0.0001361561462223549,
+      "mean_mismatch": 5.929406783270215e-06,
+      "records": 50
+    },
+    {
+      "label": "cMG",
+      "scatter": 0.0,
+      "mean_mismatch": 5.83934863619026e-06,
+      "records": 53
+    },
+    {
+      "label": "cVISp",
+      "scatter": 0.0,
+      "mean_mismatch": 5.7849236259045735e-06,
+      "records": 55
+    },
+    {
+      "label": "cSSp-ll",
+      "scatter": 0.0,
+      "mean_mismatch": 5.635222459880048e-06,
+      "records": 47
+    },
+    {
+      "label": "cLGv",
+      "scatter": 1.388163869805394e-05,
+      "mean_mismatch": 5.5289258612872655e-06,
+      "records": 54
+    },
+    {
+      "label": "cPRNr",
+      "scatter": 0.0,
+      "mean_mismatch": 5.136215351389219e-06,
+      "records": 51
+    },
+    {
+      "label": "cVP",
+      "scatter": 0.0,
+      "mean_mismatch": 5.058999183269804e-06,
+      "records": 54
+    },
+    {
+      "label": "cPVZ",
+      "scatter": 0.0,
+      "mean_mismatch": 5.0220871848567466e-06,
+      "records": 55
+    },
+    {
+      "label": "cSSp-tr",
+      "scatter": 4.190946916150721e-05,
+      "mean_mismatch": 4.969637437179588e-06,
+      "records": 55
+    },
+    {
+      "label": "iAVPV",
+      "scatter": 0.0,
+      "mean_mismatch": 4.875092444501879e-06,
+      "records": 15
+    },
+    {
+      "label": "cPSTN",
+      "scatter": 0.0,
+      "mean_mismatch": 4.5754283494735055e-06,
+      "records": 50
+    },
+    {
+      "label": "cMT",
+      "scatter": 0.0,
+      "mean_mismatch": 4.352446566505456e-06,
+      "records": 40
+    },
+    {
+      "label": "iPRC",
+      "scatter": 0.0,
+      "mean_mismatch": 4.23872640489859e-06,
+      "records": 48
+    },
+    {
+      "label": "iAPr",
+      "scatter": 6.5548474587732076e-06,
+      "mean_mismatch": 3.999750373627715e-06,
+      "records": 51
+    },
+    {
+      "label": "iPeF",
+      "scatter": 0.0,
+      "mean_mismatch": 3.982069097439436e-06,
+      "records": 55
+    },
+    {
+      "label": "iSUM",
+      "scatter": 0.0,
+      "mean_mismatch": 3.861290591839278e-06,
+      "records": 53
+    },
+    {
+      "label": "cPoT",
+      "scatter": 0.0,
+      "mean_mismatch": 3.734736098184258e-06,
+      "records": 53
+    },
+    {
+      "label": "iPOL",
+      "scatter": 0.0001031945641325216,
+      "mean_mismatch": 3.642820464575433e-06,
+      "records": 53
+    },
+    {
+      "label": "iIGL",
+      "scatter": 0.0,
+      "mean_mismatch": 3.4262210260382954e-06,
+      "records": 39
+    },
+    {
+      "label": "cAPN",
+      "scatter": 0.0,
+      "mean_mismatch": 3.314547756667649e-06,
+      "records": 53
+    },
+    {
+      "label": "cPeF",
+      "scatter": 0.0,
+      "mean_mismatch": 3.2642203251346494e-06,
+      "records": 54
+    },
+    {
+      "label": "iPoT",
+      "scatter": 9.77739898893393e-05,
+      "mean_mismatch": 3.0155112447558336e-06,
+      "records": 53
+    },
+    {
+      "label": "iNLL",
+      "scatter": 0.0,
+      "mean_mismatch": 2.990076241532076e-06,
+      "records": 51
+    },
+    {
+      "label": "cSPF",
+      "scatter": 0.0,
+      "mean_mismatch": 2.791827589183676e-06,
+      "records": 53
+    },
+    {
+      "label": "iIC",
+      "scatter": 0.0,
+      "mean_mismatch": 2.7907398948403154e-06,
+      "records": 51
+    },
+    {
+      "label": "cVISli",
+      "scatter": 0.0,
+      "mean_mismatch": 2.744080699917732e-06,
+      "records": 37
+    },
+    {
+      "label": "cNLL",
+      "scatter": 0.0,
+      "mean_mismatch": 2.6999486790839993e-06,
+      "records": 51
+    },
+    {
+      "label": "cMPO",
+      "scatter": 0.0,
+      "mean_mismatch": 2.6587607660677233e-06,
+      "records": 13
+    },
+    {
+      "label": "iFF",
+      "scatter": 0.0,
+      "mean_mismatch": 2.6553607690580924e-06,
+      "records": 21
+    },
+    {
+      "label": "cVISrl",
+      "scatter": 1.4065525972741416e-05,
+      "mean_mismatch": 2.6016718627191786e-06,
+      "records": 54
+    },
+    {
+      "label": "cMA",
+      "scatter": 0.0,
+      "mean_mismatch": 2.5363917967514388e-06,
+      "records": 8
+    },
+    {
+      "label": "iBA",
+      "scatter": 0.0,
+      "mean_mismatch": 2.4262894415581516e-06,
+      "records": 16
+    },
+    {
+      "label": "cSGN",
+      "scatter": 0.0,
+      "mean_mismatch": 2.33461620467092e-06,
+      "records": 53
+    },
+    {
+      "label": "cPOL",
+      "scatter": 0.0,
+      "mean_mismatch": 2.313000618418457e-06,
+      "records": 53
+    },
+    {
+      "label": "iMOB",
+      "scatter": 0.0,
+      "mean_mismatch": 2.2928927802563932e-06,
+      "records": 2
+    },
+    {
+      "label": "iPPT",
+      "scatter": 0.0,
+      "mean_mismatch": 2.2297373599458996e-06,
+      "records": 43
+    },
+    {
+      "label": "iNOT",
+      "scatter": 0.0,
+      "mean_mismatch": 2.143654931784452e-06,
+      "records": 43
+    },
+    {
+      "label": "cNOT",
+      "scatter": 1.2100245215799302e-05,
+      "mean_mismatch": 2.12223426041798e-06,
+      "records": 44
+    },
+    {
+      "label": "iPS",
+      "scatter": 0.0,
+      "mean_mismatch": 2.0523320489938356e-06,
+      "records": 10
+    },
+    {
+      "label": "cSCs",
+      "scatter": 0.0,
+      "mean_mismatch": 1.936521956922074e-06,
+      "records": 55
+    },
+    {
+      "label": "cPRE",
+      "scatter": 0.0,
+      "mean_mismatch": 1.8531343863906358e-06,
+      "records": 39
+    },
+    {
+      "label": "iSAG",
+      "scatter": 0.0,
+      "mean_mismatch": 1.8080984695668264e-06,
+      "records": 49
+    },
+    {
+      "label": "cIC",
+      "scatter": 0.0,
+      "mean_mismatch": 1.8068076134078597e-06,
+      "records": 51
+    },
+    {
+      "label": "cLPO",
+      "scatter": 0.0,
+      "mean_mismatch": 1.7965114092680062e-06,
+      "records": 27
+    },
+    {
+      "label": "cPST",
+      "scatter": 0.0,
+      "mean_mismatch": 1.712510818566146e-06,
+      "records": 8
+    },
+    {
+      "label": "iCS",
+      "scatter": 3.018608672438813e-05,
+      "mean_mismatch": 1.6325860142338011e-06,
+      "records": 50
+    },
+    {
+      "label": "cDP",
+      "scatter": 6.43029966395287e-05,
+      "mean_mismatch": 1.5184840641405092e-06,
+      "records": 32
+    },
+    {
+      "label": "cAVPV",
+      "scatter": 0.0,
+      "mean_mismatch": 1.4370879232774705e-06,
+      "records": 15
+    },
+    {
+      "label": "iSubG",
+      "scatter": 0.0,
+      "mean_mismatch": 1.3927177428457669e-06,
+      "records": 19
+    },
+    {
+      "label": "iNPC",
+      "scatter": 0.0,
+      "mean_mismatch": 1.3347430423403715e-06,
+      "records": 37
+    },
+    {
+      "label": "cEth",
+      "scatter": 0.0,
+      "mean_mismatch": 1.3310961963799866e-06,
+      "records": 55
+    },
+    {
+      "label": "iTU",
+      "scatter": 1.8619519766458554e-05,
+      "mean_mismatch": 1.3090434670008524e-06,
+      "records": 55
+    },
+    {
+      "label": "cPPT",
+      "scatter": 0.0,
+      "mean_mismatch": 1.3027860659159046e-06,
+      "records": 45
+    },
+    {
+      "label": "cPRC",
+      "scatter": 0.0,
+      "mean_mismatch": 1.301081292178641e-06,
+      "records": 50
+    },
+    {
+      "label": "iTRN",
+      "scatter": 0.0,
+      "mean_mismatch": 1.2226975110447936e-06,
+      "records": 51
+    },
+    {
+      "label": "iADP",
+      "scatter": 0.0,
+      "mean_mismatch": 1.1793747621930602e-06,
+      "records": 9
+    },
+    {
+      "label": "iAVP",
+      "scatter": 0.0,
+      "mean_mismatch": 1.1656282517054817e-06,
+      "records": 9
+    },
+    {
+      "label": "cLT",
+      "scatter": 0.0,
+      "mean_mismatch": 1.1360536538385816e-06,
+      "records": 46
+    },
+    {
+      "label": "cCUN",
+      "scatter": 0.0,
+      "mean_mismatch": 1.10708364970958e-06,
+      "records": 16
+    },
+    {
+      "label": "cLGd",
+      "scatter": 2.558026311473022e-06,
+      "mean_mismatch": 1.0014653337081977e-06,
+      "records": 54
+    },
+    {
+      "label": "cTU",
+      "scatter": 8.495104757942145e-05,
+      "mean_mismatch": 9.144953712565823e-07,
+      "records": 55
+    },
+    {
+      "label": "iME",
+      "scatter": 0.0,
+      "mean_mismatch": 9.044961371672055e-07,
+      "records": 55
+    },
+    {
+      "label": "cTRN",
+      "scatter": 0.0,
+      "mean_mismatch": 8.368273459251335e-07,
+      "records": 51
+    },
+    {
+      "label": "cSAG",
+      "scatter": 0.0,
+      "mean_mismatch": 8.2254145951826e-07,
+      "records": 49
+    },
+    {
+      "label": "cPP",
+      "scatter": 0.0,
+      "mean_mismatch": 7.211233513436016e-07,
+      "records": 26
+    },
+    {
+      "label": "iSCm",
+      "scatter": 2.1907772609430675e-05,
+      "mean_mismatch": 6.680947540864021e-07,
+      "records": 55
+    },
+    {
+      "label": "cSCm",
+      "scatter": 1.936337623496006e-06,
+      "mean_mismatch": 6.460116774833302e-07,
+      "records": 55
+    },
+    {
+      "label": "iPG",
+      "scatter": 0.0,
+      "mean_mismatch": 6.311613247604455e-07,
+      "records": 44
+    },
+    {
+      "label": "cNPC",
+      "scatter": 0.0,
+      "mean_mismatch": 5.771621481974383e-07,
+      "records": 33
+    },
+    {
+      "label": "cAPr",
+      "scatter": 0.0,
+      "mean_mismatch": 5.712881845588537e-07,
+      "records": 51
+    },
+    {
+      "label": "cSH",
+      "scatter": 0.0,
+      "mean_mismatch": 5.487188547772497e-07,
+      "records": 31
+    },
+    {
+      "label": "iCUN",
+      "scatter": 0.0,
+      "mean_mismatch": 5.37610030699031e-07,
+      "records": 7
+    },
+    {
+      "label": "cSSp-n",
+      "scatter": 0.0,
+      "mean_mismatch": 4.76770784843789e-07,
+      "records": 4
+    },
+    {
+      "label": "cRN",
+      "scatter": 0.0,
+      "mean_mismatch": 4.5748442863059195e-07,
+      "records": 28
+    },
+    {
+      "label": "cMOB",
+      "scatter": 0.0,
+      "mean_mismatch": 4.530814834036136e-07,
+      "records": 4
+    },
+    {
+      "label": "iIF",
+      "scatter": 0.0,
+      "mean_mismatch": 4.499702675403575e-07,
+      "records": 42
+    },
+    {
+      "label": "cME",
+      "scatter": 0.0,
+      "mean_mismatch": 4.3367688506032514e-07,
+      "records": 55
+    },
+    {
+      "label": "iAT",
+      "scatter": 0.0,
+      "mean_mismatch": 4.236660012392267e-07,
+      "records": 41
+    },
+    {
+      "label": "cIPN",
+      "scatter": 0.0,
+      "mean_mismatch": 4.075211582246891e-07,
+      "records": 14
+    },
+    {
+      "label": "cIF",
+      "scatter": 0.0,
+      "mean_mismatch": 4.049124003857173e-07,
+      "records": 48
+    },
+    {
+      "label": "iND",
+      "scatter": 0.0,
+      "mean_mismatch": 3.689096566275864e-07,
+      "records": 48
+    },
+    {
+      "label": "cPG",
+      "scatter": 0.0,
+      "mean_mismatch": 3.274184314226366e-07,
+      "records": 40
+    },
+    {
+      "label": "cAT",
+      "scatter": 0.0,
+      "mean_mismatch": 3.250631485404134e-07,
+      "records": 50
+    },
+    {
+      "label": "iPBG",
+      "scatter": 0.0,
+      "mean_mismatch": 3.2456920297028213e-07,
+      "records": 49
+    },
+    {
+      "label": "cND",
+      "scatter": 0.0,
+      "mean_mismatch": 3.2299839279921006e-07,
+      "records": 52
+    },
+    {
+      "label": "cPMv",
+      "scatter": 0.0,
+      "mean_mismatch": 3.070822619661754e-07,
+      "records": 31
+    },
+    {
+      "label": "cAVP",
+      "scatter": 0.0,
+      "mean_mismatch": 2.934483263737177e-07,
+      "records": 9
+    },
+    {
+      "label": "cIGL",
+      "scatter": 0.0,
+      "mean_mismatch": 2.910553810059243e-07,
+      "records": 38
+    },
+    {
+      "label": "iIPN",
+      "scatter": 0.0,
+      "mean_mismatch": 2.899299924028217e-07,
+      "records": 19
+    },
+    {
+      "label": "iIntG",
+      "scatter": 0.0,
+      "mean_mismatch": 2.88883621314122e-07,
+      "records": 17
+    },
+    {
+      "label": "cPS",
+      "scatter": 0.0,
+      "mean_mismatch": 2.830118865897276e-07,
+      "records": 9
+    },
+    {
+      "label": "iFC",
+      "scatter": 0.0,
+      "mean_mismatch": 2.8263738336361624e-07,
+      "records": 55
+    },
+    {
+      "label": "cADP",
+      "scatter": 0.0,
+      "mean_mismatch": 2.75857186462013e-07,
+      "records": 9
+    },
+    {
+      "label": "iFS",
+      "scatter": 2.070976780452671e-05,
+      "mean_mismatch": 2.585777436930555e-07,
+      "records": 6
+    },
+    {
+      "label": "iPMd",
+      "scatter": 0.0,
+      "mean_mismatch": 2.5368112581857945e-07,
+      "records": 11
+    },
+    {
+      "label": "iTM",
+      "scatter": 0.0,
+      "mean_mismatch": 2.488976925379617e-07,
+      "records": 28
+    },
+    {
+      "label": "cSF",
+      "scatter": 0.0,
+      "mean_mismatch": 2.0191116063203572e-07,
+      "records": 6
+    },
+    {
+      "label": "iPVR",
+      "scatter": 0.0,
+      "mean_mismatch": 2.0060575484188028e-07,
+      "records": 17
+    },
+    {
+      "label": "cINC",
+      "scatter": 0.0,
+      "mean_mismatch": 1.982978244838875e-07,
+      "records": 52
+    },
+    {
+      "label": "iSu3",
+      "scatter": 0.0,
+      "mean_mismatch": 1.9235129790480085e-07,
+      "records": 30
+    },
+    {
+      "label": "cLM",
+      "scatter": 0.0,
+      "mean_mismatch": 1.845251153779335e-07,
+      "records": 49
+    },
+    {
+      "label": "cFF",
+      "scatter": 0.0,
+      "mean_mismatch": 1.7930174754825444e-07,
+      "records": 21
+    },
+    {
+      "label": "cFC",
+      "scatter": 0.0,
+      "mean_mismatch": 1.6699147812838614e-07,
+      "records": 55
+    },
+    {
+      "label": "iINC",
+      "scatter": 0.0,
+      "mean_mismatch": 1.5475644235112255e-07,
+      "records": 48
+    },
+    {
+      "label": "iPVH",
+      "scatter": 0.0,
+      "mean_mismatch": 1.422770476996198e-07,
+      "records": 1
+    },
+    {
+      "label": "cIntG",
+      "scatter": 0.0,
+      "mean_mismatch": 1.3385344562541104e-07,
+      "records": 17
+    },
+    {
+      "label": "iMPT",
+      "scatter": 0.0,
+      "mean_mismatch": 1.2777953493805905e-07,
+      "records": 28
+    },
+    {
+      "label": "iSOC",
+      "scatter": 0.0,
+      "mean_mismatch": 1.2401981517823335e-07,
+      "records": 17
+    },
+    {
+      "label": "cPBG",
+      "scatter": 0.0,
+      "mean_mismatch": 1.1403104539048579e-07,
+      "records": 47
+    },
+    {
+      "label": "iRCH",
+      "scatter": 0.0,
+      "mean_mismatch": 1.0061378275073464e-07,
+      "records": 1
+    },
+    {
+      "label": "iIV",
+      "scatter": 0.0,
+      "mean_mismatch": 8.315280693336768e-08,
+      "records": 22
+    },
+    {
+      "label": "cSCO",
+      "scatter": 0.0,
+      "mean_mismatch": 8.101189867643445e-08,
+      "records": 46
+    },
+    {
+      "label": "iMEPO",
+      "scatter": 0.0,
+      "mean_mismatch": 8.021019274434747e-08,
+      "records": 9
+    },
+    {
+      "label": "cPa4",
+      "scatter": 0.0,
+      "mean_mismatch": 7.595228975526664e-08,
+      "records": 50
+    },
+    {
+      "label": "iSCO",
+      "scatter": 0.0,
+      "mean_mismatch": 7.452761755420837e-08,
+      "records": 46
+    },
+    {
+      "label": "cPN",
+      "scatter": 0.0,
+      "mean_mismatch": 6.933774298132526e-08,
+      "records": 3
+    },
+    {
+      "label": "iOV",
+      "scatter": 0.0,
+      "mean_mismatch": 6.834904946261732e-08,
+      "records": 8
+    },
+    {
+      "label": "iPa4",
+      "scatter": 0.0,
+      "mean_mismatch": 6.394905664415993e-08,
+      "records": 43
+    },
+    {
+      "label": "iMA3",
+      "scatter": 0.0,
+      "mean_mismatch": 6.097076529836274e-08,
+      "records": 39
+    },
+    {
+      "label": "cSOC",
+      "scatter": 0.0,
+      "mean_mismatch": 5.350164794716717e-08,
+      "records": 21
+    },
+    {
+      "label": "cRCH",
+      "scatter": 0.0,
+      "mean_mismatch": 5.322822935000078e-08,
+      "records": 1
+    },
+    {
+      "label": "iEW",
+      "scatter": 0.0,
+      "mean_mismatch": 4.416789789327635e-08,
+      "records": 27
+    },
+    {
+      "label": "cPVH",
+      "scatter": 0.0,
+      "mean_mismatch": 4.085740844071447e-08,
+      "records": 1
+    },
+    {
+      "label": "cRL",
+      "scatter": 0.0,
+      "mean_mismatch": 3.980233153286455e-08,
+      "records": 30
+    },
+    {
+      "label": "iVLPO",
+      "scatter": 0.0,
+      "mean_mismatch": 3.957589839736791e-08,
+      "records": 5
+    },
+    {
+      "label": "cPSV",
+      "scatter": 0.0,
+      "mean_mismatch": 3.86531116300822e-08,
+      "records": 11
+    },
+    {
+      "label": "cIV",
+      "scatter": 0.0,
+      "mean_mismatch": 3.6954122788344516e-08,
+      "records": 24
+    },
+    {
+      "label": "cSubG",
+      "scatter": 0.0,
+      "mean_mismatch": 3.670785558277744e-08,
+      "records": 21
+    },
+    {
+      "label": "cCB",
+      "scatter": 0.0,
+      "mean_mismatch": 3.6395219844435444e-08,
+      "records": 51
+    },
+    {
+      "label": "iIII",
+      "scatter": 0.0,
+      "mean_mismatch": 3.1809974876579015e-08,
+      "records": 13
+    },
+    {
+      "label": "cMA3",
+      "scatter": 0.0,
+      "mean_mismatch": 3.1799127079002435e-08,
+      "records": 45
+    },
+    {
+      "label": "iOP",
+      "scatter": 0.0,
+      "mean_mismatch": 2.8577314021726732e-08,
+      "records": 22
+    },
+    {
+      "label": "iMBmot",
+      "scatter": 0.0,
+      "mean_mismatch": 2.7877770186971412e-08,
+      "records": 2
+    },
+    {
+      "label": "iRL",
+      "scatter": 0.0,
+      "mean_mismatch": 2.5411092619500612e-08,
+      "records": 22
+    },
+    {
+      "label": "iNLOT",
+      "scatter": 0.0,
+      "mean_mismatch": 2.4715266450879528e-08,
+      "records": 1
+    },
+    {
+      "label": "cMPT",
+      "scatter": 0.0,
+      "mean_mismatch": 2.3567524155611424e-08,
+      "records": 21
+    },
+    {
+      "label": "cVLPO",
+      "scatter": 0.0,
+      "mean_mismatch": 2.182926528609831e-08,
+      "records": 5
+    },
+    {
+      "label": "iCB",
+      "scatter": 0.0,
+      "mean_mismatch": 2.156402616428974e-08,
+      "records": 51
+    },
+    {
+      "label": "iRPF",
+      "scatter": 0.0,
+      "mean_mismatch": 1.7367465609466446e-08,
+      "records": 20
+    },
+    {
+      "label": "cMEPO",
+      "scatter": 0.0,
+      "mean_mismatch": 1.4170967894105456e-08,
+      "records": 9
+    },
+    {
+      "label": "cPMd",
+      "scatter": 0.0,
+      "mean_mismatch": 1.3767588348700602e-08,
+      "records": 8
+    },
+    {
+      "label": "cPVR",
+      "scatter": 0.0,
+      "mean_mismatch": 9.902675541867088e-09,
+      "records": 15
+    },
+    {
+      "label": "cPC5",
+      "scatter": 0.0,
+      "mean_mismatch": 9.00697467268909e-09,
+      "records": 13
+    },
+    {
+      "label": "cOP",
+      "scatter": 0.0,
+      "mean_mismatch": 7.417107199869412e-09,
+      "records": 16
+    },
+    {
+      "label": "cSu3",
+      "scatter": 0.0,
+      "mean_mismatch": 7.098832093383676e-09,
+      "records": 22
+    },
+    {
+      "label": "iPSV",
+      "scatter": 0.0,
+      "mean_mismatch": 7.036988975587693e-09,
+      "records": 10
+    },
+    {
+      "label": "cVTN",
+      "scatter": 0.0,
+      "mean_mismatch": 3.860813187569282e-09,
+      "records": 7
+    },
+    {
+      "label": "cCLI",
+      "scatter": 0.0,
+      "mean_mismatch": 3.860016650165713e-09,
+      "records": 21
+    },
+    {
+      "label": "iPC5",
+      "scatter": 0.0,
+      "mean_mismatch": 3.808186199109635e-09,
+      "records": 12
+    },
+    {
+      "label": "iMPN",
+      "scatter": 0.0,
+      "mean_mismatch": 3.060745246436507e-09,
+      "records": 4
+    },
+    {
+      "label": "cP-mot",
+      "scatter": 0.0,
+      "mean_mismatch": 2.7027801174345607e-09,
+      "records": 5
+    },
+    {
+      "label": "cBA",
+      "scatter": 0.0,
+      "mean_mismatch": 2.700764212721696e-09,
+      "records": 15
+    },
+    {
+      "label": "cRPF",
+      "scatter": 0.0,
+      "mean_mismatch": 1.797608829693391e-09,
+      "records": 15
+    },
+    {
+      "label": "cMPN",
+      "scatter": 0.0,
+      "mean_mismatch": 1.0043227372023545e-09,
+      "records": 3
+    },
+    {
+      "label": "cSUT",
+      "scatter": 0.0,
+      "mean_mismatch": 9.772313820778685e-10,
+      "records": 3
+    },
+    {
+      "label": "iVTN",
+      "scatter": 0.0,
+      "mean_mismatch": 9.232298836538871e-10,
+      "records": 2
+    },
+    {
+      "label": "cNTB",
+      "scatter": 0.0,
+      "mean_mismatch": 5.634822289076201e-10,
+      "records": 7
+    },
+    {
+      "label": "iSUT",
+      "scatter": 0.0,
+      "mean_mismatch": 4.1765142825356376e-10,
+      "records": 2
+    },
+    {
+      "label": "iP-mot",
+      "scatter": 0.0,
+      "mean_mismatch": 3.470545793360244e-10,
+      "records": 5
+    },
+    {
+      "label": "cP5",
+      "scatter": 0.0,
+      "mean_mismatch": 1.848977014793938e-10,
+      "records": 2
+    },
+    {
+      "label": "iP5",
+      "scatter": 0.0,
+      "mean_mismatch": 1.5671836859614477e-10,
+      "records": 2
+    },
+    {
+      "label": "iPB",
+      "scatter": 0.0,
+      "mean_mismatch": 1.4176147419910728e-10,
+      "records": 1
+    },
+    {
+      "label": "cIII",
+      "scatter": 0.0,
+      "mean_mismatch": 7.890829509576364e-11,
+      "records": 6
+    },
+    {
+      "label": "cDT",
+      "scatter": 0.0,
+      "mean_mismatch": 6.824436468020785e-11,
+      "records": 1
+    },
+    {
+      "label": "cMY",
+      "scatter": 0.0,
+      "mean_mismatch": 2.063519899506154e-11,
+      "records": 4
+    },
+    {
+      "label": "iNTB",
+      "scatter": 0.0,
+      "mean_mismatch": 3.0956212435306487e-12,
+      "records": 6
+    },
+    {
+      "label": "iMY",
+      "scatter": 0.0,
+      "mean_mismatch": 1.4984799702993885e-15,
+      "records": 2
+    }
+  ],
+  "observed_window_time_cells": 3553,
+  "interpretation": "Exact within/between weighted SSE identity, with original area weights. Scatter combines animal variability, sampling and measurement differences. It is not a calibrated biological noise model or held-out error.",
+  "formula": "sum_r w_r(y_r-p_g)^2 = sum_r w_r(y_r-ybar_g)^2 + sum_g W_g(ybar_g-p_g)^2; g is window/time, ybar_g is weighted"
+}

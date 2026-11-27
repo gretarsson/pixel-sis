@@ -46,6 +46,10 @@ def main():
             "Regional rates + initial resistance",
             "sir_regional_atrisk_reference_20261127/ensemble.npz",
         ),
+        (
+            "Refitted source and initial burden",
+            "sir_seed_joint_initial_reference_20261127/ensemble.npz",
+        ),
     ]
     metrics = []
     for name, relative in cases:
@@ -75,6 +79,12 @@ def main():
         else:
             bt, bl, gamma = row["rates"]
             row["parameters"] = [bt, bl, gamma, 1.0, 1.0, gamma, gamma]
+        if name == "Refitted source and initial burden":
+            state = json.loads(
+                (a.outputs / "sir_seed_joint_initial_20261127/summary.json").read_text()
+            )
+            row["initial_total"] = state["initial_total"]
+            row["projection_fraction"] = state["projection_fraction"]
         for kind, w in weights.items():
             norm = float(w @ (obs.values**2))
             rms = float(np.sqrt(w @ ((prediction - obs.values) ** 2) / norm))
@@ -98,9 +108,20 @@ def main():
         "sir_regional_atrisk_20261127",
         "sir_regional_joint_reference_20261127",
         "sir_regional_atrisk_reference_20261127",
+        "sir_seed_positions_20261127",
+        "sir_seed_joint_initial_20261127",
+        "sir_original_seed_joint_initial_20261127",
+        "sir_seed_joint_initial_reference_20261127",
+        "sir_seed_basis_200um_20261127",
     ]:
         provenance[folder] = {}
-        for filename in ["configuration.json", "summary.json", "starts.json"]:
+        for filename in [
+            "configuration.json",
+            "summary.json",
+            "starts.json",
+            "candidates.json",
+            "basis_configuration.json",
+        ]:
             source = a.outputs / folder / filename
             if source.exists():
                 provenance[folder][filename] = json.loads(source.read_text())
@@ -124,6 +145,7 @@ def main():
         "Composition (regions)",
         "Regional rates",
         "Initial resistance",
+        "Source refit",
     ]
     for name, row in zip(short_names, metrics):
         parameter_table.append(
@@ -148,8 +170,36 @@ def main():
         f"The best completed reference check reduces the original relative RMS error from {metrics[0]['area_rms']:.4f} to {chosen['area_rms']:.4f}, a {100 * difference:.1f}\\% reduction in weighted squared error. "
         f"Its Monte Carlo standard error is {chosen['area_mc_se']:.5f}; this quantifies simulation noise only. "
         "Regional extensions now reproduce a rise and fall in amygdala and substantia nigra pathology, but timing, amplitudes and other regions remain imperfect. This is an improved fit, not an established explanation of the whole dataset.\n\n"
-        f"The revised initial state has expected burden $B={initial['initial_total']:.1f}$ and tracer-footprint fraction $f={initial['projection_fraction']:.4f}$. "
+        f"The earlier initial-state fit gave expected burden $B={initial['initial_total']:.1f}$ and tracer-footprint fraction $f={initial['projection_fraction']:.4f}$. "
         "These are fitted assumptions about an unobserved starting state, not measured counts of initially affected cells.\n"
+    )
+    decomposition = figures / "decomposition"
+    subprocess.run(
+        [
+            sys.executable,
+            str(Path(__file__).with_name("decompose_sir_error.py")),
+            "--data",
+            str(a.data),
+            "--outputs",
+            str(a.outputs),
+            "--report",
+            str(a.report),
+            "--out",
+            str(decomposition),
+        ],
+        check=True,
+    )
+    seed = json.loads((a.outputs / "sir_seed_positions_20261127/summary.json").read_text())
+    refit = json.loads((a.outputs / "sir_seed_joint_initial_20261127/summary.json").read_text())
+    original_refit = json.loads(
+        (a.outputs / "sir_original_seed_joint_initial_20261127/summary.json").read_text()
+    )
+    (a.report / "source_results.tex").write_text(
+        f"At fixed rates, the selected source location scores {seed['relative_rms']:.4f} under the equal-region objective in the ODE screen. "
+        f"Jointly refitting rates and initial burden lowers this to {refit['relative_rms']:.4f}; the same-budget refit at the original source gives {original_refit['relative_rms']:.4f}. "
+        f"The new candidate has $B={refit['initial_total']:.1f}$ and $f={refit['projection_fraction']:.4f}$. "
+        f"Its full-reference check gives area-weighted RMS {metrics[-1]['area_rms']:.4f} and equal-region RMS {metrics[-1]['regions_rms']:.4f}. "
+        "This candidate starts with $R(0)=0$.\n"
     )
     subprocess.run(
         [
@@ -190,9 +240,28 @@ def main():
         ],
         check=True,
     )
+    subprocess.run(
+        [
+            sys.executable,
+            str(Path(__file__).with_name("plot_sir_diagnostics.py")),
+            "--data",
+            str(a.data),
+            "--baseline",
+            str(a.outputs / cases[4][1]),
+            "--revised",
+            str(a.outputs / cases[6][1]),
+            "--out",
+            str(figures / "source_refit"),
+            "--baseline-label",
+            "Previous regional fit",
+            "--revised-label",
+            "Refitted source and burden",
+        ],
+        check=True,
+    )
     for ext in ["pdf", "png"]:
         shutil.copy2(a.outputs / "sir_diagnostics_20261127" / ("error_diagnosis." + ext), figures)
-    fig, ax = plt.subplots(figsize=(7.8, 3), layout="constrained")
+    fig, ax = plt.subplots(figsize=(8.5, 3), layout="constrained")
     names = [
         "Uniform",
         "New start",
@@ -200,6 +269,7 @@ def main():
         "Composition\nregional fit",
         "Regional\nrates",
         "Initial\nresistance",
+        "Source\nrefit",
     ]
     x = np.arange(len(metrics))
     ax.bar(

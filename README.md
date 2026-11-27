@@ -8,8 +8,9 @@ model, a MERFISH-derived population prior, and an optional local contact kernel.
 It simulates the count CTMC directly using event-based thinning. There is no
 mean-field closure or integration time step in the stochastic simulator.
 
-This public release packages **homogeneous SIS and SIR models with an immediate
-pathology readout**. The section-level measurement model discussed in
+The package includes **SIS and SIR models with an immediate pathology readout**,
+plus explicitly specified initial-state and voxel-rate fields. Research fits and
+their limitations are documented below. The section-level measurement model discussed in
 [the observation roadmap](docs/observations.md) is work to be done, not an
 implemented or validated result.
 

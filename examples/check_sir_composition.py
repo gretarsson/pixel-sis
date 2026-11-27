@@ -71,6 +71,8 @@ def main():
     metadata = dict(
         parameters=parameters,
         source_screen=str(a.screen),
+        initial_source=str(a.initial_source),
+        expected_initial_infected=float(initial_mean.sum()),
         selected_start=a.start,
         runs=a.runs,
         seed_base=212706101,

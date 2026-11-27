@@ -106,14 +106,37 @@ The changes produce measurable improvement and recover regional declines, but do
 
 The sampled tissue operator, initial exposure and correspondence between tracer signal and cell-to-cell transfer remain assumptions. Registered section masks and raw count/area checkpoints would allow a more faithful measurement comparison. The current positive-coordinate exports alone do not establish sampled tissue with zero pathology. No missing tissue masks or calibrated detection model were invented for this report.
 
+\newpage
+\section*{What remains wrong, and where did the process start?}
+Records with the same observation window and time share a model prediction. Their weighted squared error splits exactly into scatter around the observed weighted mean and mismatch with that mean:
+\[
+\sum_r w_r(y_r-p_{g(r)})^2
+=\sum_r w_r(y_r-\bar y_{g(r)})^2
++\sum_g W_g(\bar y_g-p_g)^2.
+\]
+Here $g$ denotes window and time, $W_g=\sum_{r\in g}w_r$, and $\bar y_g$ is the weighted sample mean. The first term combines differences between animals, tissue sampling and measurement. It is not an independently estimated biological noise floor. For the initial-resistance fit it accounts for 50.5\% of the residual SSE. The largest remaining mean mismatches are mainly cortical; the caudoputamen's large total residual is mostly scatter between mice. No observations or fitting weights were changed for this diagnostic.
+
+\begin{figure}[h]
+\centering\includegraphics[width=\linewidth]{decomposition/error_decomposition.pdf}
+\caption{Exact error decomposition under the original area weights. Right: regional mean mismatches for the latest checked candidate. The ipsilateral prefix ``i'' denotes the right side.}
+\end{figure}
+
+\textbf{Uncertain source position.} The original source was a provisional location in right caudoputamen, not a registered injection coordinate. We screened 24 locations chosen by geometric coverage of its interior, plus the original location. Rates, the 1,000-cell seed-shape template, Gaussian width and cutoff, fitted total burden $B$, and projected fraction $f$ stayed fixed. Five candidates violated initial probability bounds and were rejected. We then jointly refitted the existing 11 rates and two initial component burdens, $B(1-f)$ and $Bf$, at the selected and original positions. Both local searches used 400 evaluations from the same rate vector; neither established convergence or a global optimum.
+
+The source screen used 3,117 anatomical compartments, with a uniform 200-$\mu$m grid throughout right caudoputamen. It gave the original position no special fine compartments. Final checking used the unchanged 100-$\mu$m CTMC.
+
+\input{source_results.tex}
+This is sensitivity to an uncertain starting state, not evidence that the selected location is the actual injection site. The empirical source choice and all fitted parameters remain conditional on the tracer and observation assumptions.
+
+\newpage
 \section*{Reproduction and validation}
 The checked parameter sets are below. Rates are in month$^{-1}$; $q_G$ and $q_D$ are dimensionless. Uniform models repeat the same removal rate in the three columns. These are conditional fitted coefficients, not independently measured biological constants.
 \begin{center}\scriptsize\input{figures/parameters_table.tex}\end{center}
-The composition-only fit's small susceptibility and removal coefficients in dopamine/serotonin-rich voxels do not explain the substantia nigra peak. The later fits override those rates in SNc and BLA; their four additional coefficients and two optional susceptible fractions appear above. This is one reason the best global score must not be treated as biological validation.
+The composition-only fit's small susceptibility and removal coefficients in dopamine/serotonin-rich voxels do not explain the substantia nigra peak. The later fits override those rates in SNc and BLA; their four additional coefficients and two optional susceptible fractions appear above. The source-refit row uses no initial resistance. This is one reason the best global score must not be treated as biological validation.
 
 The adjacent README lists commands, budgets and output folders. \texttt{metrics.json} contains both scores and Monte Carlo standard errors. Each simulation saves rates, seeds, event counts, infected and removed means, and explicit initial/rate fields. Initial resistance and newly removed cells are stored separately. The full-reference input hashes are fixed by the existing model report and baseline configuration. The report and scripts are versioned together on the research branch.
 
-The stochastic transitions were checked against an independently assembled finite-state SIR generator, including nonuniform rates and initially resistant cells. Prepared target-weighted contact sampling and weighted removal event trees preserve that generator without a costly global rate envelope. The positive ODE integrator was checked against an independent high-accuracy solver, including initial resistance. Joint initial-state moments and count conservation were checked. The local composition aggregation was checked by explicit enumeration. All 60 tests, including the original reference SIS trajectory regression, pass. These validate implementation of the stated model, not its biological adequacy.
+The stochastic transitions were checked against an independently assembled finite-state SIR generator, including nonuniform rates and initially resistant cells. Prepared target-weighted contact sampling and weighted removal event trees preserve that generator without a costly global rate envelope. The positive ODE integrator was checked against an independent high-accuracy solver, including initial resistance. Joint initial-state moments and count conservation were checked. The local composition aggregation was checked by explicit enumeration. All 62 tests, including the original reference SIS trajectory regression, pass. These validate implementation of the stated model, not its biological adequacy.
 
 \small
 Sources: \href{https://doi.org/10.1101/2024.10.22.619411}{pathology study}; \href{https://doi.org/10.1162/netn_a_00066}{Knox et al. voxel connectivity model}; \href{https://github.com/AllenInstitute/mouse_connectivity_models/blob/7637e405d7d97bea4b82758c18e825651f4a7815/mcmodels/core/masks.py}{pinned Allen mask code}. Full data provenance and earlier assumptions are in the \href{https://github.com/gretarsson/pixel-sis/blob/main/docs/report/pixel_sis_report.pdf}{original model report}.
