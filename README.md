@@ -164,6 +164,13 @@ its complete raw-data preparation pipeline.
 
 ## Sources and license
 
+The [SIR fit and diagnostic report](docs/sir_report/sir_fit_report.pdf) compares
+permanent removal, an uncertain initial infection, and composition-dependent
+voxel rates against the same mouse observations. The extensions improve the
+numerical fit, but important regional timing discrepancies remain. See the
+[reproduction instructions](docs/sir_report/README.md) and
+[machine-readable comparison](docs/sir_report/metrics.json).
+
 - [Allen voxel connectivity model](https://download.alleninstitute.org/publications/A_high_resolution_data-driven_model_of_the_mouse_connectome/)
 - [Knox et al., A high-resolution data-driven model of the mouse connectome](https://doi.org/10.1162/netn_a_00066)
 - [Allen Brain Cell Atlas MERFISH data](https://alleninstitute.github.io/abc_atlas_access/descriptions/MERFISH-C57BL6J-638850.html)

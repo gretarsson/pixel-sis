@@ -86,3 +86,24 @@ uncertainty in ensemble means, not biological uncertainty between animals.
 Exact simulation of the specified count model does not imply that the inferred
 contacts, homogeneous rates, compartment mechanism, or observation mapping are biologically
 exact. Current fits capture only some broad propagation patterns.
+
+## Explicit diagnostic extensions
+
+The Python ensemble API accepts `initial_probabilities=p`, giving independent
+`Binomial(N_i,p_i)` initial counts on each realization. The expected initial
+total is `sum(N*p)`; the realized total varies. Initial draws use PCG64 with
+`SeedSequence([seed_base, replicate_index, 731901])`, independently of the event
+generator's stream. Omitting this option retains the original fixed counts.
+
+Optional `susceptibility=chi` and `clearance_multiplier=m` define fixed,
+nonnegative voxel fields. Infection hazards are multiplied by the target's
+`chi_i`; removal hazards become `gamma*m_i*I_i`. Rejection sampling with bounds
+`max(chi)` and `max(m)` gives the exact modified count CTMC, at a possible cost in
+rejected attempts. Contact normalization is unchanged. These fields are explicit
+model changes, not numerical corrections to a homogeneous process.
+
+The [SIR diagnostic report](sir_report/sir_fit_report.pdf) tests a tracer-defined
+initial distribution and fields built from independent MERFISH composition.
+Every cell in a voxel still has the same rates in that experiment. It is not a
+simulation with individually labeled neuronal types. Both the original weighted
+error and an equal-region sensitivity score are reported.

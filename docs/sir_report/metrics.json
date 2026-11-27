@@ -1,0 +1,183 @@
+{
+  "cases": [
+    {
+      "name": "Uniform SIR",
+      "source": "sir_fit_20261127/mixed/ensemble.npz",
+      "runs": 512,
+      "rates": [
+        0.13384374064254917,
+        0.4652763918378955,
+        0.0037238148823040313
+      ],
+      "total_infected": [
+        1068.716796875,
+        1142.189453125,
+        1220.861328125,
+        1392.470703125,
+        1934.01171875,
+        6959.90234375,
+        44606.833984375,
+        268832.169921875
+      ],
+      "total_removed": [
+        0.359375,
+        0.76953125,
+        1.173828125,
+        2.08203125,
+        5.23046875,
+        34.857421875,
+        261.990234375,
+        1666.267578125
+      ],
+      "parameters_represent": "rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
+      "parameters": [
+        0.13384374064254917,
+        0.4652763918378955,
+        0.0037238148823040313,
+        1.0,
+        1.0,
+        0.0037238148823040313,
+        0.0037238148823040313
+      ],
+      "area_rms": 0.9179529113465891,
+      "area_mc_se": 7.150322521264601e-05,
+      "regions_rms": 0.9640961546434516,
+      "regions_mc_se": 0.00010166581897465759
+    },
+    {
+      "name": "Revised initial state",
+      "source": "sir_initial_reference_20261127/ensemble.npz",
+      "runs": 64,
+      "rates": [
+        0.00041350404392745594,
+        0.29535431842079324,
+        0.010235546367607805
+      ],
+      "total_infected": [
+        22103.40625,
+        22726.03125,
+        23368.421875,
+        24710.4375,
+        28414.71875,
+        49637.671875,
+        114066.84375,
+        258455.125
+      ],
+      "total_removed": [
+        23.03125,
+        46.78125,
+        70.671875,
+        120.65625,
+        258.734375,
+        1043.28125,
+        3422.84375,
+        8872.21875
+      ],
+      "parameters_represent": "rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
+      "parameters": [
+        0.00041350404392745594,
+        0.29535431842079324,
+        0.010235546367607805,
+        1.0,
+        1.0,
+        0.010235546367607805,
+        0.010235546367607805
+      ],
+      "area_rms": 0.8969381861112263,
+      "area_mc_se": 0.00020267311526090719,
+      "regions_rms": 0.9438291024810436,
+      "regions_mc_se": 0.00028614799481185805
+    },
+    {
+      "name": "Composition rates, area fit",
+      "source": "sir_composition_reference_start2_20261127/ensemble.npz",
+      "runs": 64,
+      "rates": [
+        0.02767160887085496,
+        0.4082343761578849,
+        0.06773693140330378
+      ],
+      "total_infected": [
+        22188.84375,
+        22920.671875,
+        23661.859375,
+        25200.671875,
+        29528.1875,
+        55084.203125,
+        134677.890625,
+        304219.953125
+      ],
+      "total_removed": [
+        1324.78125,
+        2686.21875,
+        4097.6875,
+        7066.15625,
+        15361.640625,
+        65287.8125,
+        228762.953125,
+        610864.578125
+      ],
+      "parameters_represent": "rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
+      "parameters": [
+        0.02767160887085496,
+        0.4082343761578849,
+        0.06773693140330378,
+        2.595630977325933,
+        10.838685512781474,
+        0.8400190823668265,
+        2.4789170776576173
+      ],
+      "area_rms": 0.8828767327122433,
+      "area_mc_se": 0.00031550577872067014,
+      "regions_rms": 0.9340821766705317,
+      "regions_mc_se": 0.0005308334182646432
+    },
+    {
+      "name": "Composition rates, regional fit",
+      "source": "sir_composition_regions_reference_20261127/ensemble.npz",
+      "runs": 128,
+      "rates": [
+        0.6177532425358532,
+        0.5697369051662196,
+        0.3428276589753537
+      ],
+      "total_infected": [
+        22116.9296875,
+        22751.21875,
+        23397.890625,
+        24757.3046875,
+        28559.40625,
+        51285.4140625,
+        129572.78125,
+        341257.515625
+      ],
+      "total_removed": [
+        282.5625,
+        571.03125,
+        871.75,
+        1496.875,
+        3225.2578125,
+        13550.4375,
+        49483.359375,
+        150355.0625
+      ],
+      "parameters_represent": "rates are beta_T, beta_L, gamma_other; see corresponding configuration for rate fields",
+      "parameters": [
+        0.6177532425358532,
+        0.5697369051662196,
+        0.3428276589753537,
+        0.12957070803375922,
+        0.026813791769194465,
+        0.03594538825616534,
+        3.658584273651025e-05
+      ],
+      "area_rms": 0.8694311543214894,
+      "area_mc_se": 9.375362240525096e-05,
+      "regions_rms": 0.910629581242297,
+      "regions_mc_se": 0.0001195839941302408
+    }
+  ],
+  "selected_for_figure": 3,
+  "figure_selection": "Lowest original area-weighted error among completed reference checks; not a global optimum",
+  "interpretation": "Exploratory in-sample improvement. Important regional timing failures remain."
+}
